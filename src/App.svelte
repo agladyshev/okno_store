@@ -178,7 +178,7 @@
   main ul li a figure picture img {
     width: calc(40vw - 0.5rem);
     height: calc(40vw - 0.5rem);
-
+    object-fit:cover;
     /* Uncomment below to make round photos */
     border-radius: 50%;
     border: solid grey 2px;
