@@ -2,7 +2,6 @@
   import { onMount } from "svelte";
 
   let collections = {};
-  // let products = [];
 
   const BASE_URL = "http://localhost:3000";
 
@@ -18,42 +17,26 @@
         return res.json();
       })
       .then(array => {
-        console.log("got collections");
         return arrayToObject(array, "id");
       });
   };
 
   const getProducts = function() {
     return fetch(`${BASE_URL}/getProducts`).then(res => {
-      console.log("got products");
       return res.json();
     });
   };
 
   const populateCollections = function(collections, products) {
     return products.reduce((obj, product) => {
-      // product.collections_ids.forEach(id => {
-      //   if (typeof obj[id].products === "undefined") {
-      //       obj[id].products = [];
-      //     }
-      //     obj[id].products.push(product);
-      // });
-
-      console.log(product.collections_ids[0]);
-      console.log(collections[product.collections_ids[0]])
-      let id = product.collections_ids[0];
-      console.log(obj[id].products);
-      console.log(typeof obj[id].products === "undefined");
-      if (typeof obj[id].products === "undefined") {
-        obj[id].products = [];
+      let ids = product.collections_ids;
+      for (let id of ids) {
+        if (typeof obj[id].products === "undefined") {
+          obj[id].products = [];
+        }
+        obj[id].products.push(product);
       }
-      console.log(obj[id].products);
-      obj[id].products.push(product);
-      console.log(obj[id].products);
-
-      if (obj[id].products.length) {
-        return obj;
-      }
+      return obj;
     }, collections);
 
   };
@@ -162,6 +145,7 @@
     justify-content: center;
     align-content: center;
     padding-top: 0.25rem;
+    color: black;
   }
 
   main ul li a figure {
@@ -246,23 +230,13 @@
             </figure>
           </a>
         </li>
-        
       {/each}
-
-      <!-- {#each products as { id, title }}
-        <li>{title}</li>
-      {/each} -->
     </ul>
   </main>
   <footer>
-    <!-- <button> -->
     <a href="tel:+79774879349">&#128222;</a>
-    <!-- </button> -->
-
-    <!-- <button> -->
     <a href="https://www.instagram.com/winxdow/">
       <img src="/instagram.png" alt="instagram icon" />
     </a>
-    <!-- </button> -->
   </footer>
 </div>
