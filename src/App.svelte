@@ -1,8 +1,9 @@
 <script>
   import { onMount } from "svelte";
 
-  // let collections = {};
+  let collections = {};
   // let products = [];
+
   const BASE_URL = "http://localhost:3000";
 
   const arrayToObject = (array, keyField) =>
@@ -30,33 +31,41 @@
   };
 
   const populateCollections = function(collections, products) {
-    products.forEach(product => {
-      product.collection_ids.forEach(id => {
-        if (typeof collections.id.products === "undefined") {
-          collections.id.products = [];
-        }
-        collections.id.products.push(product);
-      });
-    });
+    return products.reduce((obj, product) => {
+      // product.collections_ids.forEach(id => {
+      //   if (typeof obj[id].products === "undefined") {
+      //       obj[id].products = [];
+      //     }
+      //     obj[id].products.push(product);
+      // });
+
+      console.log(product.collections_ids[0]);
+      console.log(collections[product.collections_ids[0]])
+      let id = product.collections_ids[0];
+      console.log(obj[id].products);
+      console.log(typeof obj[id].products === "undefined");
+      if (typeof obj[id].products === "undefined") {
+        obj[id].products = [];
+      }
+      console.log(obj[id].products);
+      obj[id].products.push(product);
+      console.log(obj[id].products);
+
+      if (obj[id].products.length) {
+        return obj;
+      }
+    }, collections);
+
   };
 
-  let collections = getCollections();
-  let products = getProducts();
-
-  console.log(collections);
-  console.log(products);
-
-  // Promise.all([collections, products]).then(res => console.log(res));
-
   onMount(async () => {
-    Promise.all([collections, products]).then(res => console.log(res));
-    // const res = await fetch(`${BASE_URL}/getCollections`);
-    // const collectionsArray = await res.json();
-    // collections = arrayToObject(collectionsArray, "id");
-  });
-  onMount(async () => {
-    // const res = await fetch(`${BASE_URL}/getProducts`);
-    // const products = await res.json();
+    Promise.all([getCollections(), getProducts()]).then(res => {
+      let [collections, products] = res;
+      return populateCollections(collections, products);
+    })
+    .then((res) => {
+      collections = res;
+    });
   });
 </script>
 
@@ -126,22 +135,24 @@
   }
   main {
     grid-area: main;
+    overflow-y: scroll;
   }
   main ul {
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
     padding: 0.5rem 0 0 0;
+    /* padding: 0; */
     margin: 0;
+    /* background-color: grey; */
   }
   main ul li {
     flex-basis: 40vw;
-    height: 40vw;
-    margin: 0.2rem 0;
+    /* padding: 0.5rem 0.4rem 0 0.4rem ; */
+    margin: 0 0 0.6rem 0;
     list-style: none;
-    border: solid black 2px;
-    border-radius: 50%;
-    background-size: 40vw;
+    /* background-color: ivory; */
+    /* border: solid black 1px; */
   }
 
   main ul li a {
@@ -153,13 +164,29 @@
     padding-top: 0.25rem;
   }
 
-  main ul li a picture img {
+  main ul li a figure {
+    margin: 0;
+    padding: 0;
+    
+  }
+
+  main ul li a figure figcaption {
+    text-align: center;
+    /* height: 2rem; */
+  }
+
+  main ul li a figure picture img {
     width: calc(40vw - 0.5rem);
     height: calc(40vw - 0.5rem);
+
+    /* Uncomment below to make round photos */
     border-radius: 50%;
-    border: solid grey 1px;
-  }
+    border: solid grey 2px;
+    padding: 0.1rem;
+  } 
+
   footer {
+    background-color: white;
     grid-area: footer;
     display: flex;
     justify-content: space-around;
@@ -167,6 +194,7 @@
   }
   footer a {
     text-align: center;
+    padding: 0.25rem 0;
     flex: 1;
     margin: 0;
     font-size: 1.2rem;
@@ -207,15 +235,18 @@
   </section>
   <main>
     <ul>
-      {#each collections as { id, title }}
+      {#each Object.values(collections) as { id, title, products }}
         <li>
           <a href="">
+            <figure>
             <picture>
-
-              <img src="collection.jpg" alt={title} />
+              <img src={products[0].images[0].large_url} alt={title} />
             </picture>
+            <figcaption>{title}</figcaption>
+            </figure>
           </a>
         </li>
+        
       {/each}
 
       <!-- {#each products as { id, title }}
