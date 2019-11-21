@@ -1,19 +1,63 @@
 <script>
   import { onMount } from "svelte";
 
-  let collections = [];
-  let products = [];
+  // let collections = {};
+  // let products = [];
+  const BASE_URL = "http://localhost:3000";
+
+  const arrayToObject = (array, keyField) =>
+    array.reduce((obj, item) => {
+      obj[item[keyField]] = item;
+      return obj;
+    }, {});
+
+  const getCollections = function() {
+    return fetch(`${BASE_URL}/getCollections`)
+      .then(res => {
+        return res.json();
+      })
+      .then(array => {
+        console.log("got collections");
+        return arrayToObject(array, "id");
+      });
+  };
+
+  const getProducts = function() {
+    return fetch(`${BASE_URL}/getProducts`).then(res => {
+      console.log("got products");
+      return res.json();
+    });
+  };
+
+  const populateCollections = function(collections, products) {
+    products.forEach(product => {
+      product.collection_ids.forEach(id => {
+        if (typeof collections.id.products === "undefined") {
+          collections.id.products = [];
+        }
+        collections.id.products.push(product);
+      });
+    });
+  };
+
+  let collections = getCollections();
+  let products = getProducts();
+
+  console.log(collections);
+  console.log(products);
+
+  // Promise.all([collections, products]).then(res => console.log(res));
 
   onMount(async () => {
-    const res = await fetch(`${BASE_URL}/getCollections`);
-    collections = await res.json();
+    Promise.all([collections, products]).then(res => console.log(res));
+    // const res = await fetch(`${BASE_URL}/getCollections`);
+    // const collectionsArray = await res.json();
+    // collections = arrayToObject(collectionsArray, "id");
   });
   onMount(async () => {
-    const res = await fetch(`${BASE_URL}/getProducts`);
-    products = await res.json();
+    // const res = await fetch(`${BASE_URL}/getProducts`);
+    // const products = await res.json();
   });
-
-  export let BASE_URL;
 </script>
 
 <style>
@@ -51,10 +95,6 @@
     /* text-align: left; */
   }
 
-  /* header a {
-    width: 2rem;
-  } */
-
   header img {
     max-width: 2rem;
     padding-top: 0.2em;
@@ -64,7 +104,6 @@
     grid-area: promo;
     background-color: yellow;
     text-align: center;
-    /* margin: 0.1em 0; */
     border: dotted black 1px;
   }
 
@@ -87,40 +126,38 @@
   }
   main {
     grid-area: main;
-    /* text-align: center; */
-    /* padding: 1em; */
-    /* max-width: 240px; */
-    /* margin: 0 auto; */
   }
   main ul {
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
-    padding: 0;
+    padding: 0.5rem 0 0 0;
     margin: 0;
   }
   main ul li {
-    flex-basis: 48vw;
-    height: 48vw;
+    flex-basis: 40vw;
+    height: 40vw;
     margin: 0.2rem 0;
     list-style: none;
-    border: solid black 1px;
+    border: solid black 2px;
     border-radius: 50%;
+    background-size: 40vw;
   }
 
   main ul li a {
-    /* width: 100%; */
     height: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-content: center;
+    padding-top: 0.25rem;
   }
 
-  main ul li a img {
-    max-width: 5rem;
-    max-height: 5rem;
-    /* padding: auto; */
+  main ul li a picture img {
+    width: calc(40vw - 0.5rem);
+    height: calc(40vw - 0.5rem);
+    border-radius: 50%;
+    border: solid grey 1px;
   }
   footer {
     grid-area: footer;
@@ -133,7 +170,6 @@
     flex: 1;
     margin: 0;
     font-size: 1.2rem;
-    /* width: 2rem; */
   }
   footer img {
     width: 1.5rem;
@@ -171,10 +207,13 @@
   </section>
   <main>
     <ul>
-      {#each collections as { id, title, image }}
+      {#each collections as { id, title }}
         <li>
           <a href="">
-            <img src={image.original_url} alt={title} />
+            <picture>
+
+              <img src="collection.jpg" alt={title} />
+            </picture>
           </a>
         </li>
       {/each}
