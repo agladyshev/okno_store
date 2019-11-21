@@ -28,12 +28,19 @@ var getCollections = function (req, res, next) {
 var getProducts = function (req, res, next) {
     fetch(new URL('/admin/products.json', baseURL))
         .then(res => res.json())
-        .then(json => console.log(json))
+        .then((json) => {
+            res.products = json;
+            next();
+        })
         .catch(error => console.log(error));
 }
 
 app.get('/getCollections', getCollections, function (req, res, next) {
     res.send(res.collections);
+});
+
+app.get('/getProducts', getProducts, function (req, res, next) {
+    res.send(res.products);
 });
 
 app.listen(port, () => console.log(`Listening`)); 
