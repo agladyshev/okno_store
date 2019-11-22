@@ -1,17 +1,20 @@
 <script>
   // import "dragscroll.js";
   import CollectionIcon from "./CollectionIcon.svelte";
+  import Collection from "./Collection.svelte";
   import { collections } from "./stores.js";
-  let collectionsArray;
+  const MAIN_URL = "12088934";
+  let collectionsArray, collectionMain, collectionsRest;
   collections.subscribe(object => {
-    collectionsArray = Object.values(object);
+    ({ [MAIN_URL]: collectionMain, ...collectionsRest } = object);
+    collectionsArray = Object.values(collectionsRest);
+    console.log(collectionMain);
   });
-  // let collections = getContext("collections");
-  // console.log(collections);
 </script>
 
 <style>
   ul {
+    flex-shrink: 0;
     display: flex;
     /* justify-content: space-evenly; */
     /* flex-wrap: wrap; */
@@ -28,3 +31,5 @@
     <CollectionIcon {title} images={products[0].images[0]} />
   {/each}
 </ul>
+
+<Collection collection={collectionMain} />

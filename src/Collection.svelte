@@ -1,46 +1,57 @@
 <script>
-
-
-  let {title, products } = {
-    id: 12088935,
-    parent_id: 12088933,
-    created_at: "2019-11-17T13:52:02.000+03:00",
-    updated_at: "2019-11-20T12:59:10.000+03:00",
-    is_hidden: false,
-    position: 3,
-    sort_type: 7,
-    recursive: false,
-    title: "Штаны",
-    html_title: null,
-    meta_description: null,
-    meta_keywords: null,
-    permalink: "kategoriya-1",
-    url: "/collection/kategoriya-1",
-    image: {
-      id: 2721841,
-      created_at: "2019-11-20T12:58:01.000+03:00",
-      original_url:
-        "https://static-eu.insales.ru/images/collections/1/2097/2721841/chinos-pants.png"
-    },
-    products: [{"id":161210271,"category_id":16665413,"created_at":"2019-11-21T14:49:25.000+03:00","updated_at":"2019-11-21T14:49:26.000+03:00","is_hidden":false,"available":true,"archived":false,"canonical_url_collection_id":12113462,"unit":"pce","sort_weight":null,"ignore_discounts":null,"vat":-1,"dimensions":null,"fiscal_product_type":1,"title":"Куртка","short_description":null,"permalink":"kurtka","html_title":null,"meta_keywords":null,"meta_description":null,"currency_code":"RUR","collections_ids":[12113462],"images":[{"id":263721643,"product_id":161210271,"position":1,"created_at":"2019-11-21T14:49:14.000+03:00","image_processing":false,"external_id":null,"title":null,"url":"https://static-eu.insales.ru/images/products/1/4779/263721643/thumb_photo_2019-11-21_14-47-49.jpg","original_url":"https://static-eu.insales.ru/images/products/1/4779/263721643/photo_2019-11-21_14-47-49.jpg","medium_url":"https://static-eu.insales.ru/images/products/1/4779/263721643/medium_photo_2019-11-21_14-47-49.jpg","small_url":"https://static-eu.insales.ru/images/products/1/4779/263721643/micro_photo_2019-11-21_14-47-49.jpg","thumb_url":"https://static-eu.insales.ru/images/products/1/4779/263721643/thumb_photo_2019-11-21_14-47-49.jpg","compact_url":"https://static-eu.insales.ru/images/products/1/4779/263721643/compact_photo_2019-11-21_14-47-49.jpg","large_url":"https://static-eu.insales.ru/images/products/1/4779/263721643/large_photo_2019-11-21_14-47-49.jpg","filename":"photo_2019-11-21_14-47-49.jpg"}],"option_names":[],"properties":[],"characteristics":[],"product_field_values":[],"variants":[{"variant_field_values":[],"id":277527836,"title":"","product_id":161210271,"sku":null,"barcode":null,"available":true,"image_id":null,"weight":null,"created_at":"2019-11-21T14:49:25.000+03:00","updated_at":"2019-11-21T14:49:25.000+03:00","quantity":null,"cost_price":null,"cost_price_in_site_currency":null,"price_in_site_currency":"1500.0","base_price":"1500.0","old_price":null,"price":"1500.0","base_price_in_site_currency":"1500.0","old_price_in_site_currency":null,"prices":[],"prices_in_site_currency":[],"option_values":[]}],"product_bundle_components":[],"description":null},{"id":161210336,"category_id":16665413,"created_at":"2019-11-21T14:49:59.000+03:00","updated_at":"2019-11-21T14:50:00.000+03:00","is_hidden":false,"available":true,"archived":false,"canonical_url_collection_id":12113457,"unit":"pce","sort_weight":null,"ignore_discounts":null,"vat":-1,"dimensions":null,"fiscal_product_type":1,"title":"Платье","short_description":null,"permalink":"platie","html_title":null,"meta_keywords":null,"meta_description":null,"currency_code":"RUR","collections_ids":[12113457],"images":[{"id":263721919,"product_id":161210336,"position":1,"created_at":"2019-11-21T14:49:55.000+03:00","image_processing":false,"external_id":null,"title":null,"url":"https://static-eu.insales.ru/images/products/1/5055/263721919/thumb_photo_2019-11-21_14-45-52.jpg","original_url":"https://static-eu.insales.ru/images/products/1/5055/263721919/photo_2019-11-21_14-45-52.jpg","medium_url":"https://static-eu.insales.ru/images/products/1/5055/263721919/medium_photo_2019-11-21_14-45-52.jpg","small_url":"https://static-eu.insales.ru/images/products/1/5055/263721919/micro_photo_2019-11-21_14-45-52.jpg","thumb_url":"https://static-eu.insales.ru/images/products/1/5055/263721919/thumb_photo_2019-11-21_14-45-52.jpg","compact_url":"https://static-eu.insales.ru/images/products/1/5055/263721919/compact_photo_2019-11-21_14-45-52.jpg","large_url":"https://static-eu.insales.ru/images/products/1/5055/263721919/large_photo_2019-11-21_14-45-52.jpg","filename":"photo_2019-11-21_14-45-52.jpg"}],"option_names":[],"properties":[],"characteristics":[],"product_field_values":[],"variants":[{"variant_field_values":[],"id":277527913,"title":"","product_id":161210336,"sku":null,"barcode":null,"available":true,"image_id":null,"weight":null,"created_at":"2019-11-21T14:50:00.000+03:00","updated_at":"2019-11-21T14:50:00.000+03:00","quantity":null,"cost_price":null,"cost_price_in_site_currency":null,"price_in_site_currency":"2000.0","base_price":"2000.0","old_price":null,"price":"2000.0","base_price_in_site_currency":"2000.0","old_price_in_site_currency":null,"prices":[],"prices_in_site_currency":[],"option_values":[]}],"product_bundle_components":[],"description":null},{"id":161210375,"category_id":16665413,"created_at":"2019-11-21T14:50:29.000+03:00","updated_at":"2019-11-21T14:50:29.000+03:00","is_hidden":false,"available":true,"archived":false,"canonical_url_collection_id":12088936,"unit":"pce","sort_weight":null,"ignore_discounts":null,"vat":-1,"dimensions":null,"fiscal_product_type":1,"title":"Пальто","short_description":null,"permalink":"palto","html_title":null,"meta_keywords":null,"meta_description":null,"currency_code":"RUR","collections_ids":[12088936],"images":[{"id":263722054,"product_id":161210375,"position":1,"created_at":"2019-11-21T14:50:23.000+03:00","image_processing":false,"external_id":null,"title":null,"url":"https://static-eu.insales.ru/images/products/1/5190/263722054/thumb_photo_2019-11-21_14-50-20.jpg","original_url":"https://static-eu.insales.ru/images/products/1/5190/263722054/photo_2019-11-21_14-50-20.jpg","medium_url":"https://static-eu.insales.ru/images/products/1/5190/263722054/medium_photo_2019-11-21_14-50-20.jpg","small_url":"https://static-eu.insales.ru/images/products/1/5190/263722054/micro_photo_2019-11-21_14-50-20.jpg","thumb_url":"https://static-eu.insales.ru/images/products/1/5190/263722054/thumb_photo_2019-11-21_14-50-20.jpg","compact_url":"https://static-eu.insales.ru/images/products/1/5190/263722054/compact_photo_2019-11-21_14-50-20.jpg","large_url":"https://static-eu.insales.ru/images/products/1/5190/263722054/large_photo_2019-11-21_14-50-20.jpg","filename":"photo_2019-11-21_14-50-20.jpg"}],"option_names":[],"properties":[],"characteristics":[],"product_field_values":[],"variants":[{"variant_field_values":[],"id":277527965,"title":"","product_id":161210375,"sku":null,"barcode":null,"available":true,"image_id":null,"weight":null,"created_at":"2019-11-21T14:50:29.000+03:00","updated_at":"2019-11-21T14:50:29.000+03:00","quantity":null,"cost_price":null,"cost_price_in_site_currency":null,"price_in_site_currency":"3000.0","base_price":"3000.0","old_price":null,"price":"3000.0","base_price_in_site_currency":"3000.0","old_price_in_site_currency":null,"prices":[],"prices_in_site_currency":[],"option_values":[]}],"product_bundle_components":[],"description":null},{"id":161210479,"category_id":16665413,"created_at":"2019-11-21T14:51:14.000+03:00","updated_at":"2019-11-21T14:51:15.000+03:00","is_hidden":false,"available":true,"archived":false,"canonical_url_collection_id":12113458,"unit":"pce","sort_weight":null,"ignore_discounts":null,"vat":-1,"dimensions":null,"fiscal_product_type":1,"title":"Кофта","short_description":null,"permalink":"kofta","html_title":null,"meta_keywords":null,"meta_description":null,"currency_code":"RUR","collections_ids":[12113458],"images":[{"id":263722272,"product_id":161210479,"position":1,"created_at":"2019-11-21T14:51:07.000+03:00","image_processing":false,"external_id":null,"title":null,"url":"https://static-eu.insales.ru/images/products/1/5408/263722272/thumb_photo_2019-11-21_14-45-46.jpg","original_url":"https://static-eu.insales.ru/images/products/1/5408/263722272/photo_2019-11-21_14-45-46.jpg","medium_url":"https://static-eu.insales.ru/images/products/1/5408/263722272/medium_photo_2019-11-21_14-45-46.jpg","small_url":"https://static-eu.insales.ru/images/products/1/5408/263722272/micro_photo_2019-11-21_14-45-46.jpg","thumb_url":"https://static-eu.insales.ru/images/products/1/5408/263722272/thumb_photo_2019-11-21_14-45-46.jpg","compact_url":"https://static-eu.insales.ru/images/products/1/5408/263722272/compact_photo_2019-11-21_14-45-4e6.jpg","large_url":"https://static-eu.insales.ru/images/products/1/5408/263722272/large_photo_2019-11-21_14-45-46.jpg","filename":"photo_2019-11-21_14-45-46.jpg"}],"option_names":[],"properties":[],"characteristics":[],"product_field_values":[],"variants":[{"variant_field_values":[],"id":277528092,"title":"","product_id":161210479,"sku":null,"barcode":null,"available":true,"image_id":null,"weight":null,"created_at":"2019-11-21T14:51:14.000+03:00","updated_at":"2019-11-21T14:51:14.000+03:00","quantity":null,"cost_price":null,"cost_price_in_site_currency":null,"price_in_site_currency":"2000.0","base_price":"2000.0","old_price":null,"price":"2000.0","base_price_in_site_currency":"2000.0","old_price_in_site_currency":null,"prices":[],"prices_in_site_currency":[],"option_values":[]}],"product_bundle_components":[],"description":null},{"id":161210533,"category_id":16665413,"created_at":"2019-11-21T14:51:44.000+03:00","updated_at":"2019-11-21T14:51:44.000+03:00","is_hidden":false,"available":true,"archived":false,"canonical_url_collection_id":12113459,"unit":"pce","sort_weight":null,"ignore_discounts":null,"vat":-1,"dimensions":null,"fiscal_product_type":1,"title":"Жилетка","short_description":null,"permalink":"zhiletka","html_title":null,"meta_keywords":null,"meta_description":null,"currency_code":"RUR","collections_ids":[12113459],"images":[{"id":263722439,"product_id":161210533,"position":1,"created_at":"2019-11-21T14:51:38.000+03:00","image_processing":false,"external_id":null,"title":null,"url":"https://static-eu.insales.ru/images/products/1/5575/263722439/thumb_photo_2019-11-21_14-51-33.jpg","original_url":"https://static-eu.insales.ru/images/products/1/5575/263722439/photo_2019-11-21_14-51-33.jpg","medium_url":"https://static-eu.insales.ru/images/products/1/5575/263722439/medium_photo_2019-11-21_14-51-33.jpg","small_url":"https://static-eu.insales.ru/images/products/1/5575/263722439/micro_photo_2019-11-21_14-51-33.jpg","thumb_url":"https://static-eu.insales.ru/images/products/1/5575/263722439/thumb_photo_2019-11-21_14-51-33.jpg","compact_url":"https://static-eu.insales.ru/images/products/1/5575/263722439/compact_photo_2019-11-21_14-51-33.jpg","large_url":"https://static-eu.insales.ru/images/products/1/5575/263722439/large_photo_2019-11-21_14-51-33.jpg","filename":"photo_2019-11-21_14-51-33.jpg"}],"option_names":[],"properties":[],"characteristics":[],"product_field_values":[],"variants":[{"variant_field_values":[],"id":277528164,"title":"","product_id":161210533,"sku":null,"barcode":null,"available":true,"image_id":null,"weight":null,"created_at":"2019-11-21T14:51:44.000+03:00","updated_at":"2019-11-21T14:51:44.000+03:00","quantity":null,"cost_price":null,"cost_price_in_site_currency":null,"price_in_site_currency":"1000.0","base_price":"1000.0","old_price":null,"price":"1000.0","base_price_in_site_currency":"1000.0","old_price_in_site_currency":null,"prices":[],"prices_in_site_currency":[],"option_values":[]}],"product_bundle_components":[],"description":null},{"id":161210608,"category_id":16665413,"created_at":"2019-11-21T14:52:32.000+03:00","updated_at":"2019-11-21T14:52:32.000+03:00","is_hidden":false,"available":true,"archived":false,"canonical_url_collection_id":12113485,"unit":"pce","sort_weight":null,"ignore_discounts":null,"vat":-1,"dimensions":null,"fiscal_product_type":1,"title":"Юбка","short_description":null,"permalink":"yubka","html_title":null,"meta_keywords":null,"meta_description":null,"currency_code":"RUR","collections_ids":[12113485],"images":[{"id":263722699,"product_id":161210608,"position":1,"created_at":"2019-11-21T14:52:27.000+03:00","image_processing":false,"external_id":null,"title":null,"url":"https://static-eu.insales.ru/images/products/1/5835/263722699/thumb_photo_2019-11-21_14-52-06.jpg","original_url":"https://static-eu.insales.ru/images/products/1/5835/263722699/photo_2019-11-21_14-52-06.jpg","medium_url":"https://static-eu.insales.ru/images/products/1/5835/263722699/medium_photo_2019-11-21_14-52-06.jpg","small_url":"https://static-eu.insales.ru/images/products/1/5835/263722699/micro_photo_2019-11-21_14-52-06.jpg","thumb_url":"https://static-eu.insales.ru/images/products/1/5835/263722699/thumb_photo_2019-11-21_14-52-06.jpg","compact_url":"https://static-eu.insales.ru/images/products/1/5835/263722699/compact_photo_2019-11-21_14-52-06.jpg","large_url":"https://static-eu.insales.ru/images/products/1/5835/263722699/large_photo_2019-11-21_14-52-06.jpg","filename":"photo_2019-11-21_14-52-06.jpg"}],"option_names":[],"properties":[],"characteristics":[],"product_field_values":[],"variants":[{"variant_field_values":[],"id":277528256,"title":"","product_id":161210608,"sku":null,"barcode":null,"available":true,"image_id":null,"weight":null,"created_at":"2019-11-21T14:52:32.000+03:00","updated_at":"2019-11-21T14:52:32.000+03:00","quantity":null,"cost_price":null,"cost_price_in_site_currency":null,"price_in_site_currency":"2000.0","base_price":"2000.0","old_price":null,"price":"2000.0","base_price_in_site_currency":"2000.0","old_price_in_site_currency":null,"prices":[],"prices_in_site_currency":[],"option_values":[]}],"product_bundle_components":[],"description":null},{"id":161220114,"category_id":16665413,"created_at":"2019-11-21T15:59:29.000+03:00","updated_at":"2019-11-21T16:45:54.000+03:00","is_hidden":false,"available":true,"archived":false,"canonical_url_collection_id":12088935,"unit":"pce","sort_weight":null,"ignore_discounts":null,"vat":-1,"dimensions":null,"fiscal_product_type":1,"title":"Штаны","short_description":null,"permalink":"shtany","html_title":null,"meta_keywords":null,"meta_description":null,"currency_code":"RUR","collections_ids":[12088935],"images":[{"id":263746990,"product_id":161220114,"position":1,"created_at":"2019-11-21T15:59:27.000+03:00","image_processing":false,"external_id":null,"title":null,"url":"https://static-eu.insales.ru/images/products/1/5550/263746990/thumb_photo_2019-11-21_14-45-46.jpg","original_url":"https://static-eu.insales.ru/images/products/1/5550/263746990/photo_2019-11-21_14-45-46.jpg","medium_url":"https://static-eu.insales.ru/images/products/1/5550/263746990/medium_photo_2019-11-21_14-45-46.jpg","small_url":"https://static-eu.insales.ru/images/products/1/5550/263746990/micro_photo_2019-11-21_14-45-46.jpg","thumb_url":"https://static-eu.insales.ru/images/products/1/5550/263746990/thumb_photo_2019-11-21_14-45-46.jpg","compact_url":"https://static-eu.insales.ru/images/products/1/5550/263746990/compact_photo_2019-11-21_14-45-46.jpg","large_url":"https://static-eu.insales.ru/images/products/1/5550/263746990/large_photo_2019-11-21_14-45-46.jpg","filename":"photo_2019-11-21_14-45-46.jpg"}],"option_names":[],"properties":[],"characteristics":[],"product_field_values":[],"variants":[{"variant_field_values":[],"id":277542664,"title":"","product_id":161220114,"sku":null,"barcode":null,"available":true,"image_id":null,"weight":null,"created_at":"2019-11-21T15:59:29.000+03:00","updated_at":"2019-11-21T15:59:29.000+03:00","quantity":null,"cost_price":null,"cost_price_in_site_currency":null,"price_in_site_currency":"1500.0","base_price":"1500.0","old_price":null,"price":"1500.0","base_price_in_site_currency":"1500.0","old_price_in_site_currency":null,"prices":[],"prices_in_site_currency":[],"option_values":[]}],"product_bundle_components":[],"description":null}]
-  };
-
-
-
-
-
-    $: length = products.length;
-    console.log(products[0])
-    let {original_url} = products[0].images;
-
-
-
-
+  export let collection = {};
+  let products = [];
+  let productCounter = 0;
+  $: {
+    ({ products } = collection);
+  }
+  // $: {
+  //   ({ images } = products);
+  // }
+  // console.log();
+  // $: length = products.length;
+  // console.log(products[0]);
+  // let { original_url } = products[0].images;
 </script>
 
+<style>
+  .wrapper {
+    display: flex;
+    align-items: stretch;
+    height: calc(100vh - 15vw - 7.5rem);
+  }
+  button.controls {
+    width: 15vw;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+  }
+  picture {
+    width: 70vw;
+  }
+  picture img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+</style>
 
-<h2>{title}</h2>
+<!-- <h2>{title}</h2>
 <picture>
-    <img src={original_url} alt="">
+  <img src={original_url} alt="" />
 </picture>
-{length}
+{length} -->
+{#if products.length}
+  <div class="wrapper">
+    <button class="controls" />
+    <picture>
+      <source
+        srcset={products[productCounter].images[0].original_url}
+        media="(min-width: 600px)" />
+      <!-- <source srcset={products[productCounter].images[0].large_url} /> -->
+      <img src={products[productCounter].images[0].original_url} alt="logo" />
+    </picture>
+    <button class="controls" />
+
+  </div>
+{/if}

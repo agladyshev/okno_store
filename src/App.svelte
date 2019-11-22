@@ -7,6 +7,7 @@
   import Promo from "./Promo.svelte";
   import Collections from "./Collections.svelte";
   import Footer from "./Footer.svelte";
+  import Legal from "./Legal.svelte";
 
   import Collection from "./Collection.svelte";
 
@@ -82,6 +83,8 @@
   main {
     grid-area: main;
     overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
   }
 
   @media (min-width: 640px) {
@@ -96,6 +99,7 @@
   <Promo />
   <main>
     <Router {routes} />
+    <Legal />
   </main>
   <Footer />
 </div>
