@@ -1,22 +1,31 @@
 <script>
-  import Collection from "./Collection.svelte";
-  export let collections;
+  // import "dragscroll.js";
+  import CollectionIcon from "./CollectionIcon.svelte";
+  import { getContext } from "svelte";
+  import { collections } from "./stores.js";
+  let collectionsArray;
+  collections.subscribe(object => {
+    collectionsArray = Object.values(object);
+  });
+  // let collections = getContext("collections");
+  // console.log(collections);
 </script>
 
 <style>
   ul {
     display: flex;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
+    /* justify-content: space-evenly; */
+    /* flex-wrap: wrap; */
+    overflow-x: scroll;
+    /* overflow: hidden; */
+    /* cursor: grab; */
     padding: 0.5rem 0 0 0;
-    /* padding: 0; */
-    margin: 0;
-    /* background-color: grey; */
+    margin: 0 0 0 0;
   }
 </style>
 
-<ul>
-  {#each Object.values(collections) as { id, title, products }}
-    <Collection {title} images={products[0].images[0]} />
+<ul class="draggable">
+  {#each collectionsArray as { id, title, products }}
+    <CollectionIcon {title} images={products[0].images[0]} />
   {/each}
 </ul>

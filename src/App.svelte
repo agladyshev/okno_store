@@ -1,12 +1,20 @@
 <script>
-  import { onMount } from "svelte";
+  // import Router from "svelte-spa-router";
+  // import routes from "./routes";
 
+  import { onMount } from "svelte";
   import Header from "./Header.svelte";
   import Promo from "./Promo.svelte";
   import Collections from "./Collections.svelte";
   import Footer from "./Footer.svelte";
 
-  let collections = {};
+  import Collection from "./Collection.svelte";
+
+  // export let collections;
+  import { collections } from "./stores.js";
+  // console.log(collections);
+  // let collections = {};
+  // setContext("collections", collections);
 
   const BASE_URL = "http://localhost:3000";
 
@@ -52,7 +60,9 @@
         return populateCollections(collections, products);
       })
       .then(res => {
-        collections = res;
+        collections.set(res);
+        // console.log(res);
+        // setContext("collections", res);
       });
   });
 </script>
@@ -61,7 +71,7 @@
   .wrapper {
     display: grid;
     grid-template-columns: auto;
-    grid-template-rows: 4rem 1.5rem calc(100vh - 7.5rem) 2rem;
+    grid-template-rows: 4rem 1.5rem calc(100vh - 8rem) 2rem;
     grid-template-areas:
       "header"
       "promo"
@@ -85,7 +95,10 @@
   <Header />
   <Promo />
   <main>
-    <Collections {collections} />
+    <!-- <Router {routes} {collections} /> -->
+    <Collections />
+    <!-- <Collections /> -->
+    <!-- <Collection /> -->
   </main>
   <Footer />
 </div>
