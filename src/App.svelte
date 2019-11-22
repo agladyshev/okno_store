@@ -1,6 +1,6 @@
 <script>
-  // import Router from "svelte-spa-router";
-  // import routes from "./routes";
+  import Router from "svelte-spa-router";
+  import routes from "./routes";
 
   import { onMount } from "svelte";
   import Header from "./Header.svelte";
@@ -71,7 +71,7 @@
   .wrapper {
     display: grid;
     grid-template-columns: auto;
-    grid-template-rows: 4rem 1.5rem calc(100vh - 8rem) 2rem;
+    grid-template-rows: 4rem 1.3rem calc(100vh - 7.5rem) 2rem;
     grid-template-areas:
       "header"
       "promo"
@@ -95,10 +95,7 @@
   <Header />
   <Promo />
   <main>
-    <!-- <Router {routes} {collections} /> -->
-    <Collections />
-    <!-- <Collections /> -->
-    <!-- <Collection /> -->
+    <Router {routes} />
   </main>
   <Footer />
 </div>

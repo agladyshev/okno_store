@@ -1,7 +1,6 @@
 <script>
   // import "dragscroll.js";
   import CollectionIcon from "./CollectionIcon.svelte";
-  import { getContext } from "svelte";
   import { collections } from "./stores.js";
   let collectionsArray;
   collections.subscribe(object => {

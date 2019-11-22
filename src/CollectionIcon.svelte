@@ -1,10 +1,11 @@
 <script>
+  import { link } from "svelte-spa-router";
   export let title, images;
 </script>
 
 <style>
   li {
-    flex-basis: 20vw;
+    flex-basis: 15vw;
     /* padding: 0.5rem 0.4rem 0 0.4rem ; */
     margin: 0 0 0.6rem 0;
     list-style: none;
@@ -29,12 +30,13 @@
 
   li a figure figcaption {
     text-align: center;
+    font-size: 0.6rem;
     /* height: 2rem; */
   }
 
   li a figure picture img {
-    width: calc(20vw - 0.5rem);
-    height: calc(20vw - 0.5rem);
+    width: calc(15vw - 0.5rem);
+    height: calc(15vw - 0.5rem);
     object-fit: cover;
     /* Uncomment below to make round photos */
     border-radius: 50%;
@@ -44,7 +46,7 @@
 </style>
 
 <li>
-  <a href={title}>
+  <a href="/collection/{title}" use:link>
     <figure>
       <picture>
         <img src={images.large_url} alt={title} />
