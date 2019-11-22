@@ -18,7 +18,7 @@
   .wrapper {
     display: flex;
     align-items: stretch;
-    height: calc(100vh - 15vw - 7.5rem);
+    height: calc(100vh - 7.5rem - 5rem);
   }
   button.controls {
     width: 15vw;
@@ -31,7 +31,7 @@
   }
   picture img {
     width: 100%;
-    height: 100%;
+    height: calc(100vh - 7.5rem - 5rem);
     object-fit: cover;
   }
 </style>

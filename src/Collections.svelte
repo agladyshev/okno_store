@@ -21,8 +21,8 @@
     overflow-x: scroll;
     /* overflow: hidden; */
     /* cursor: grab; */
-    padding: 0.5rem 0 0 0;
-    margin: 0 0 0 0;
+    padding: 0;
+    margin: 0;
   }
 </style>
 

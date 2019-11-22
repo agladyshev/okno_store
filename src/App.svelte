@@ -72,7 +72,7 @@
   .wrapper {
     display: grid;
     grid-template-columns: auto;
-    grid-template-rows: 4rem 1.3rem calc(100vh - 7.5rem) 2rem;
+    grid-template-rows: 4rem 1.5rem calc(100vh - 7.5rem) 2rem;
     grid-template-areas:
       "header"
       "promo"
