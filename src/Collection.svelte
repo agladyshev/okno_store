@@ -13,6 +13,16 @@
   // $: length = products.length;
   // console.log(products[0]);
   // let { original_url } = products[0].images;
+  function getNext() {
+    productCounter == products.length - 1
+      ? (productCounter = 0)
+      : productCounter++;
+  }
+  function getPrevious() {
+    productCounter == 0
+      ? (productCounter = products.length - 1)
+      : productCounter--;
+  }
 </script>
 
 <style>
@@ -41,7 +51,10 @@
     margin: 0;
     padding: 0;
     background-color: white;
+    color: #999;
+    opacity: 20%;
   }
+
   picture {
     width: 70vw;
   }
@@ -54,7 +67,7 @@
 
 {#if products.length}
   <div class="wrapper">
-    <button class="controls" />
+    <button class="controls" on:click={getPrevious}>◀</button>
     <picture>
       <source
         srcset={products[productCounter].images[0].original_url}
@@ -62,7 +75,7 @@
       <!-- <source srcset={products[productCounter].images[0].large_url} /> -->
       <img src={products[productCounter].images[0].original_url} alt="logo" />
     </picture>
-    <button class="controls" />
+    <button class="controls" on:click={getNext}>▶</button>
   </div>
   <div class="panel">
     <div class="info">
