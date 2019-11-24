@@ -3,7 +3,9 @@
     grid-area: promo;
     background-color: yellow;
     text-align: center;
-    border: dotted black 1px;
+    display: flex;
+    align-items: center;
+    /* border: dotted black 1px; */
   }
 
   .marquee {
@@ -20,6 +22,7 @@
   }
 
   .marquee span {
+    font-size: 0.7rem;
     float: left;
     width: 50%;
   }
