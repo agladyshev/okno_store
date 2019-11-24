@@ -1,6 +1,6 @@
 <script>
   import { link } from "svelte-spa-router";
-  export let title, images;
+  export let title, images, permalink;
 </script>
 
 <style>
@@ -48,7 +48,7 @@
 </style>
 
 <li>
-  <a href="/collection/{title}" use:link>
+  <a href="/collection/{permalink}" use:link>
     <figure>
       <picture>
         <img src={images.large_url} alt={title} />

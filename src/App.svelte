@@ -12,7 +12,7 @@
   import Collection from "./Collection.svelte";
 
   // export let collections;
-  import { collections } from "./stores.js";
+  import { collections, collectionsArray } from "./stores.js";
   // console.log(collections);
   // let collections = {};
   // setContext("collections", collections);
@@ -62,6 +62,7 @@
       })
       .then(res => {
         collections.set(res);
+        collectionsArray.set(Object.values(res));
         // console.log(res);
         // setContext("collections", res);
       });

@@ -3,6 +3,9 @@
   import CollectionIcon from "./CollectionIcon.svelte";
   import Collection from "./Collection.svelte";
   import { collections } from "./stores.js";
+
+  // Rewrite for collectionsArrays
+
   const MAIN_URL = "12088934";
   let collectionsArray, collectionMain, collectionsRest;
   collections.subscribe(object => {
@@ -27,8 +30,8 @@
 </style>
 
 <ul class="draggable">
-  {#each collectionsArray as { id, title, products }}
-    <CollectionIcon {title} images={products[0].images[0]} />
+  {#each collectionsArray as { id, title, products, permalink }}
+    <CollectionIcon {title} {permalink} images={products[0].images[0]} />
   {/each}
 </ul>
 
