@@ -19,7 +19,9 @@ var getCollections = function (req, res, next) {
     fetch(new URL('/admin/collections.json', baseURL))
         .then(res => res.json())
         .then((json) => {
-            res.collections = json;
+            // Check if collection is not hidden
+            // Remove parent collection
+            res.collections = json.filter(collection => !(collection.is_hidden || collection.position == 0));
             next();
         })
         .catch(error => console.log(error));
