@@ -12,13 +12,13 @@
     images = currentProduct.images;
   }
   function getNext() {
-    let pictureCounter = 0;
+    pictureCounter = 0;
     productCounter == products.length - 1
       ? (productCounter = 0)
       : productCounter++;
   }
   function getPrevious() {
-    let pictureCounter = 0;
+    pictureCounter = 0;
     productCounter == 0
       ? (productCounter = products.length - 1)
       : productCounter--;
