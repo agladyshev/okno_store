@@ -5,7 +5,7 @@
   import { onMount } from "svelte";
   import Header from "./Header.svelte";
   import Promo from "./Promo.svelte";
-  import Collections from "./Collections.svelte";
+  // import Collections from "./Collections.svelte";
   import Footer from "./Footer.svelte";
   import Legal from "./Legal.svelte";
 

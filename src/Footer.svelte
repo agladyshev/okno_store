@@ -13,14 +13,23 @@
     margin: 0;
     font-size: 1.2rem;
   }
-  footer img {
-    width: 1.5rem;
+  footer a img {
+    /* width: 1.5rem; */
+    height: 1.5rem;
+    /* object-fit: cover; */
   }
 </style>
 
 <footer>
   <a href="tel:+79774879349">&#128222;</a>
   <a href="https://www.instagram.com/winxdow/">
+    <img src="/google-maps.png" alt="google maps icon" />
+  </a>
+  <a href="https://www.instagram.com/winxdow/">
     <img src="/instagram.png" alt="instagram icon" />
   </a>
+  <a href="https://www.facebook.com/winxdowru/">
+    <img src="/facebook-alt.png" alt="facebook icon" />
+  </a>
+
 </footer>

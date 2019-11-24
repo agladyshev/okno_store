@@ -1,6 +1,6 @@
 <script>
   import { link } from "svelte-spa-router";
-  export let title, images, permalink;
+  export let title, images, permalink, highlight;
 </script>
 
 <style>
@@ -36,14 +36,16 @@
     height: 1rem;
   }
 
-  li a figure picture img {
+  img {
     width: calc(3rem);
     height: calc(3rem);
     object-fit: cover;
-    /* Uncomment below to make round photos */
     border-radius: 50%;
     border: solid grey 2px;
     padding: 0.1rem;
+  }
+  .highlight {
+    border: dotted black 2px;
   }
 </style>
 
@@ -51,7 +53,13 @@
   <a href="/collection/{permalink}" use:link>
     <figure>
       <picture>
-        <img src={images.large_url} alt={title} />
+
+        {#if highlight}
+          <img src={images.large_url} alt={title} class="highlight" />
+        {:else}
+          <img src={images.large_url} alt={title} />
+        {/if}
+
       </picture>
       <figcaption>{title}</figcaption>
     </figure>

@@ -7,9 +7,7 @@
   let basketValues;
   basket.subscribe(values => {
     basketValues = values;
-    console.log(values);
   });
-  console.log(id);
 </script>
 
 <style>
