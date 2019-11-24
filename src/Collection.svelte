@@ -3,25 +3,30 @@
   export let collection = {};
   let products = [];
   let productCounter = 0;
+  let pictureCounter = 0;
+  let currentProduct = {};
+  let images = [];
   $: {
-    ({ products } = collection);
+    ({ products = [] } = collection);
+    currentProduct = products[productCounter] || {};
+    images = currentProduct.images;
   }
-  // $: {
-  //   ({ images } = products);
-  // }
-  // console.log();
-  // $: length = products.length;
-  // console.log(products[0]);
-  // let { original_url } = products[0].images;
   function getNext() {
+    let pictureCounter = 0;
     productCounter == products.length - 1
       ? (productCounter = 0)
       : productCounter++;
   }
   function getPrevious() {
+    let pictureCounter = 0;
     productCounter == 0
       ? (productCounter = products.length - 1)
       : productCounter--;
+  }
+  function getNextPicture() {
+    pictureCounter < images.length - 1
+      ? pictureCounter++
+      : (pictureCounter = 0);
   }
 </script>
 
@@ -68,20 +73,22 @@
 {#if products.length}
   <div class="wrapper">
     <button class="controls" on:click={getPrevious}>◀</button>
-    <picture>
+    <picture on:click={getNextPicture}>
       <source
-        srcset={products[productCounter].images[0].original_url}
+        srcset={currentProduct.images[pictureCounter].original_url}
         media="(min-width: 600px)" />
       <!-- <source srcset={products[productCounter].images[0].large_url} /> -->
-      <img src={products[productCounter].images[0].original_url} alt="logo" />
+      <img
+        src={currentProduct.images[pictureCounter].original_url}
+        alt="logo" />
     </picture>
     <button class="controls" on:click={getNext}>▶</button>
   </div>
   <div class="panel">
     <div class="info">
-      <div class="title">{products[productCounter].title}</div>
-      <div class="price">{products[productCounter].variants[0].price}</div>
+      <div class="title">{currentProduct.title}</div>
+      <div class="price">{currentProduct.variants[0].price}</div>
     </div>
-    <BuyButton id={products[productCounter].id} />
+    <BuyButton id={currentProduct.id} />
   </div>
 {/if}
