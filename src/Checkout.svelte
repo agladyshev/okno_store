@@ -1,49 +1,26 @@
 <script>
   let BASE_URL = "http://localhost:3000";
-  import { basket } from "./stores.js";
   import { onMount } from "svelte";
+  import { basket, deliveryVariants, paymentGateways } from "./stores.js";
 
-  const getDelivery = function() {
-    return fetch(`${BASE_URL}/getDelivery`).then(res => {
-      return res.json();
+  let products, deliveryOptions, paymentOptions;
+
+  $: {
+    deliveryVariants.subscribe(values => {
+      deliveryOptions = values;
+      console.log(values);
     });
-    // .then(array => {
-    // return arrayToObject(array, "id");
-    // });
-  };
 
-  const getPayment = function() {
-    return fetch(`${BASE_URL}/getPayment`).then(res => {
-      return res.json();
+    paymentGateways.subscribe(values => {
+      paymentOptions = values;
+
+      console.log(values);
     });
-  };
-  let deliveryVariant = [],
-    paymentGateways = [];
-  // $: {
-  //   deliveryVariant = await getDelivery();
-  //   paymentGateways = await getPayment();
-  // }
 
-  // console.log(deliveryVariant);
-  // onMount(async () => {
-  //   //   // Promise.all([getDelivery(), getPayment()]).then(res => {
-  //   //   // [deliveryVariant, paymentGateways] = res;
-  //   //   // });
-  //   deliveryVariant = await getDelivery();
-  //   paymentGateways = await getPayment();
-  //   //   getDelivery().then(variants => {
-  //   //     deliveryVariant = variants;
-  //   //   });
-  //   //   getPayment().then(gatweays => {
-  //   //     paymentGateways = gatweays;
-  //   //   });
-  // });
-
-  let products;
-  basket.subscribe(values => {
-    products = Array.from(values);
-  });
-
+    basket.subscribe(values => {
+      products = Array.from(values);
+    });
+  }
   const addOrder = function() {
     let orderLines = products.map(product => {
       // Rewrite for different variants and quantity
@@ -113,10 +90,24 @@
       </li>
     {/each}
   </ul>
-  <input type="button" value="Заказать" on:click={addOrder} />
 {:else}В пакете ничего нет{/if}
+<!-- {deliveryOptions} -->
 <form action="submit">
-  {#each deliveryVariant as variant}
-    <input type="radio" value={variant.title} />
-  {/each}
+  <p>Доставка:</p>
+  <div>
+    {#each deliveryOptions as option}
+      <label for={option.id}>{option.title}</label>
+      <input name="delivery" type="radio" value={option.title} id={option.id} />
+    {/each}
+  </div>
+  <p>Оплата:</p>
+  <div>
+    {#each paymentOptions as option}
+      <label for={option.id}>{option.title}</label>
+      <input name="payment" type="radio" value={option.title} />
+    {/each}
+
+  </div>
+
+  <input type="submit" value="Заказать" on:click={addOrder} />
 </form>

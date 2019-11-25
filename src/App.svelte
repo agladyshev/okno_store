@@ -12,7 +12,12 @@
   import Collection from "./Collection.svelte";
 
   // export let collections;
-  import { collections, collectionsArray } from "./stores.js";
+  import {
+    collections,
+    collectionsArray,
+    deliveryVariants,
+    paymentGateways
+  } from "./stores.js";
   // console.log(collections);
   // let collections = {};
   // setContext("collections", collections);
@@ -37,6 +42,17 @@
 
   const getProducts = function() {
     return fetch(`${BASE_URL}/getProducts`).then(res => {
+      return res.json();
+    });
+  };
+  const getDelivery = function() {
+    return fetch(`${BASE_URL}/getDelivery`).then(res => {
+      return res.json();
+    });
+  };
+
+  const getPayment = function() {
+    return fetch(`${BASE_URL}/getPayment`).then(res => {
       return res.json();
     });
   };
@@ -66,6 +82,12 @@
         // console.log(res);
         // setContext("collections", res);
       });
+    getDelivery().then(variants => {
+      deliveryVariants.set(variants);
+    });
+    getPayment().then(gatweays => {
+      paymentGateways.set(gatweays);
+    });
   });
 </script>
 
