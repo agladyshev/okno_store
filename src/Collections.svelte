@@ -6,8 +6,10 @@
   const MAIN_URL = "12088934";
   let collectionsArray, collectionMain, collectionsRest;
   collections.subscribe(object => {
+    console.log(object);
     ({ [MAIN_URL]: collectionMain, ...collectionsRest } = object);
     collectionsArray = Object.values(collectionsRest);
+    console.log(collectionsRest);
     console.log(collectionMain);
   });
 </script>

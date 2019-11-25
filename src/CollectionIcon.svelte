@@ -1,5 +1,6 @@
 <script>
   import { link } from "svelte-spa-router";
+  // console.log(title);
   export let title, images;
 </script>
 

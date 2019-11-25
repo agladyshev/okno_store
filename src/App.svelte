@@ -62,8 +62,7 @@
       })
       .then(res => {
         collections.set(res);
-        // console.log(res);
-        // setContext("collections", res);
+        console.log(res);
       });
   });
 </script>
