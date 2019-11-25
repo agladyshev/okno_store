@@ -5,6 +5,11 @@
 
   let products, deliveryOptions, paymentOptions;
 
+  let name = "",
+    phone = "",
+    deliveryOption,
+    paymentOption;
+
   $: {
     deliveryVariants.subscribe(values => {
       deliveryOptions = values;
@@ -21,27 +26,35 @@
       products = Array.from(values);
     });
   }
-  const addOrder = function() {
+
+  const addOrder = function(event) {
+    // event.preventDefault();
+
     let orderLines = products.map(product => {
       // Rewrite for different variants and quantity
       return {
-        variant_id: product.variants[0],
+        variant_id: product.variants[0].id,
         quantity: 1
       };
     });
-    console.log(orderLines);
-
-    // return fetch(`${BASE_URL}/addOrder`, {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" }
-    //   // body: JSON.stringify(Array.from(products))
-    // })
-    //   .then(res => {
-    //     return res.json();
-    //   })
-    //   .then(result => {
-    //     console.log(result);
-    //   });
+    const body = {
+      products: orderLines,
+      name,
+      phone,
+      deliveryOption,
+      paymentOption
+    };
+    return fetch(`${BASE_URL}/addOrder`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body)
+    })
+      .then(res => {
+        return res.json();
+      })
+      .then(result => {
+        console.log(result);
+      });
   };
   console.log(products);
 </script>
@@ -90,24 +103,36 @@
       </li>
     {/each}
   </ul>
+  <form action="submit" on:submit|preventDefault={addOrder}>
+    <label for="name">имя</label>
+    <input id="name" type="text" bind:value={name} required />
+    <label for="phone">телефон</label>
+    <input id="phone" type="tel" bind:value={phone} required />
+    <p>Доставка:</p>
+    <div>
+      {#each deliveryOptions as option}
+        <label for={option.id}>{option.title}</label>
+        <input
+          bind:group={deliveryOption}
+          name="delivery"
+          type="radio"
+          value={option.id}
+          id={option.id}
+          required />
+      {/each}
+    </div>
+    <p>Оплата:</p>
+    <div>
+      {#each paymentOptions as option}
+        <label for={option.id}>{option.title}</label>
+        <input
+          bind:group={paymentOption}
+          name="payment"
+          type="radio"
+          value={option.id}
+          required />
+      {/each}
+    </div>
+    <input type="submit" value="Заказать" />
+  </form>
 {:else}В пакете ничего нет{/if}
-<!-- {deliveryOptions} -->
-<form action="submit">
-  <p>Доставка:</p>
-  <div>
-    {#each deliveryOptions as option}
-      <label for={option.id}>{option.title}</label>
-      <input name="delivery" type="radio" value={option.title} id={option.id} />
-    {/each}
-  </div>
-  <p>Оплата:</p>
-  <div>
-    {#each paymentOptions as option}
-      <label for={option.id}>{option.title}</label>
-      <input name="payment" type="radio" value={option.title} />
-    {/each}
-
-  </div>
-
-  <input type="submit" value="Заказать" on:click={addOrder} />
-</form>
