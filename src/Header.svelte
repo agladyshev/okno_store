@@ -32,7 +32,7 @@
 
   header a img {
     max-width: 2rem;
-    margin: 0.2rem 0.5rem 0 0;
+    margin: 0.2rem 0.6rem 0 0;
   }
   header .logo img {
     max-width: 1.5rem;
@@ -40,18 +40,19 @@
   header .counter {
     color: #333;
     position: absolute;
-    right: 1.4rem;
-    top: 1.6rem;
+    right: 0.4rem;
+    padding: 1rem;
+    /* top: 0.5rem; */
     font-size: 0.7rem;
     font-weight: 800;
+    text-align: center;
   }
   header .counter.double {
-    right: 1.2rem;
-    top: 1.7rem;
+    right: 0.25rem;
+    /* top: 1.7rem; */
   }
   header .counter.emoji {
-    right: 1.25rem;
-    top: 1.6rem;
+    /* right: 0.25rem; */
   }
 </style>
 
@@ -67,9 +68,9 @@
       {:else if basketSize < 100}
         <span class="counter double">{basketSize}</span>
       {:else}
-        <span class="counter emoji">&#128521;</span>
+        <span class="counter double" />
       {/if}
     {/if}
-    <img src="/paper-bag-1.png" alt="paper bag icon" />
+    <img src="/bag.png" alt="paper bag icon" />
   </a>
 </header>

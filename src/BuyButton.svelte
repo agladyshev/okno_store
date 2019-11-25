@@ -13,8 +13,9 @@
 <style>
   input {
     margin: auto;
+    padding: 0.5rem;
     background-color: yellow;
   }
 </style>
 
-<input type="button" on:click={addToBasket} value="В пакет" />
+<input type="button" on:click={addToBasket} value="Хочу" />

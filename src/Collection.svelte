@@ -68,6 +68,10 @@
     height: calc(100vh - 7.5rem - 5rem - 15vh);
     object-fit: cover;
   }
+
+  .size {
+    font-size: 0.7rem;
+  }
 </style>
 
 {#if products.length}
@@ -87,6 +91,7 @@
   <div class="panel">
     <div class="info">
       <div class="title">{currentProduct.title}</div>
+      <div class="size">Хлопок, размер S</div>
       <div class="price">{currentProduct.variants[0].price}</div>
     </div>
     <BuyButton product={currentProduct} />
