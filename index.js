@@ -37,6 +37,49 @@ var getProducts = function (req, res, next) {
         .catch(error => console.log(error));
 }
 
+var addOrder = function (req, res, next) {
+    console.log(req);
+    let { variant_id, quantity = 1, name, email = "", phone, address = "", delivery = "2217458", payment = "968309" } = req.headers;
+    const body = {
+        "order": {
+            "order_lines_attributes": [
+                {
+                    "variant_id": variant_id,
+                    "quantity": quantity
+                }
+            ],
+            "client": {
+                "name": name,
+                "email": email,
+                "phone": phone
+            },
+            "shipping_address_attributes": {
+                "address": address
+            },
+            "delivery_variant_id": delivery,
+            "payment_gateway_id": payment
+        }
+    }
+
+    fetch('http://08dc48a4dbcd3a4e4b1ede809fe9e676:4172a97218461e722ed8fba3bb8f866d@myshop-yq315.myinsales.ru/admin/orders.json', {
+        method: 'post',
+        body: JSON.stringify(body),
+        headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+        },
+    })
+        .then(res => res.json())
+        .then((json) => {
+            console.log(json)
+            res.json = json;
+            next();
+        })
+        .catch(error => console.log(error));
+
+
+
+}
+
 app.get('/getCollections', getCollections, function (req, res, next) {
     res.send(res.collections);
 });
@@ -45,4 +88,8 @@ app.get('/getProducts', getProducts, function (req, res, next) {
     res.send(res.products);
 });
 
-app.listen(port, () => console.log(`Listening`)); 
+app.post('/addOrder', addOrder, function (req, res, next) {
+    res.send(res.json)
+})
+
+app.listen(port, () => console.log(`Listening`));
