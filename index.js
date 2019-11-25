@@ -37,6 +37,27 @@ var getProducts = function (req, res, next) {
         .catch(error => console.log(error));
 }
 
+var getDelivery = function (req, res, next) {
+    fetch(new URL('/admin/delivery_variants.json', baseURL))
+        .then(res => res.json())
+        .then((json) => {
+            res.delivery = json;
+            next();
+        })
+        .catch(error => console.log(error));
+}
+
+var getPayment = function (req, res, next) {
+    fetch(new URL('/admin/payment_gateways.json', baseURL))
+        .then(res => res.json())
+        .then((json) => {
+            res.payment = json;
+            next();
+        })
+        .catch(error => console.log(error));
+}
+
+
 var addOrder = function (req, res, next) {
     console.log(req);
     let { variant_id, quantity = 1, name, email = "", phone, address = "", delivery = "2217458", payment = "968309" } = req.headers;
@@ -75,9 +96,6 @@ var addOrder = function (req, res, next) {
             next();
         })
         .catch(error => console.log(error));
-
-
-
 }
 
 app.get('/getCollections', getCollections, function (req, res, next) {
@@ -86,6 +104,14 @@ app.get('/getCollections', getCollections, function (req, res, next) {
 
 app.get('/getProducts', getProducts, function (req, res, next) {
     res.send(res.products);
+});
+
+app.get('/getDelivery', getDelivery, function (req, res, next) {
+    res.send(res.delivery);
+});
+
+app.get('/getPayment', getPayment, function (req, res, next) {
+    res.send(res.payment);
 });
 
 app.post('/addOrder', addOrder, function (req, res, next) {
