@@ -57,7 +57,7 @@
 
 <header>
   <a href="/#" class="logo">
-    <img src="/search.png" alt="magnifying glass icon" />
+    <img src="/search-grey.png" alt="magnifying glass icon" />
     <h1>окно</h1>
   </a>
   <a href="#/checkout">

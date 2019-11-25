@@ -89,6 +89,6 @@
       <div class="title">{currentProduct.title}</div>
       <div class="price">{currentProduct.variants[0].price}</div>
     </div>
-    <BuyButton id={currentProduct.id} />
+    <BuyButton product={currentProduct} />
   </div>
 {/if}

@@ -1,8 +1,8 @@
 <script>
-  export let id;
+  export let product;
   import { basket } from "./stores.js";
   function addToBasket() {
-    basket.update(basket => basket.add(id));
+    basket.update(basket => basket.add(product));
   }
   let basketValues;
   basket.subscribe(values => {
