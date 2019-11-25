@@ -1,5 +1,6 @@
 const fetch = require("node-fetch");
 const express = require("express");
+// const bodyParser = require("body-parser");
 const app = express();
 const port = 3000;
 
@@ -60,29 +61,28 @@ var getPayment = function(req, res, next) {
 };
 
 var addOrder = function(req, res, next) {
-  console.log(req);
   let {
     products,
     name,
-    email = "",
+    // email = "",
     phone,
-    address = "",
-    delivery = "2217458",
-    payment = "968309"
+    // address = "",
+    deliveryOption = "2217458",
+    paymentOption = "968309"
   } = req.body;
   const body = {
     order: {
       order_lines_attributes: products,
       client: {
         name: name,
-        email: email,
+        // email: email,
         phone: phone
       },
       shipping_address_attributes: {
-        address: address
+        // address: address
       },
-      delivery_variant_id: delivery,
-      payment_gateway_id: payment
+      delivery_variant_id: deliveryOption,
+      payment_gateway_id: paymentOption
     }
   };
 
@@ -121,7 +121,7 @@ app.get("/getPayment", getPayment, function(req, res, next) {
   res.send(res.payment);
 });
 
-app.post("/addOrder", addOrder, function(req, res, next) {
+app.post("/addOrder", express.json(), addOrder, function(req, res, next) {
   res.send(res.json);
 });
 
