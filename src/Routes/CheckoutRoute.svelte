@@ -21,7 +21,6 @@
 
     basket.subscribe(map => {
       products = Array.from(map.values());
-      console.log(products);
       productsMap = map;
     });
   }
@@ -56,15 +55,6 @@
             p.is_hidden = true;
             productsMap.set(id, p);
           });
-
-          //   let arr = products.map(p => {
-          //     if (result.items.includes(p.id)) {
-          //       p.is_hidden = true;
-          //       console.log("true");
-          //     }
-          //     return p;
-          //   });
-
           basket.set(new Map(productsMap));
         }
         // push("/");

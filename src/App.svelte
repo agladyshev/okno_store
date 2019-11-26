@@ -34,16 +34,11 @@
   // let basketLocalStorage = JSON.parse(localStorage.getItem("basket") || "[]");
   // };
 
-  // let basketItems;
-
-  // $: {
-  //   basket.subscribe(basket => {
-  //     basketItems = Array.from(basket);
-  //     console.log(basket);
-  //     // console.log(basketItems);
-  //   });
-  //   localStorage.setItem("basket", JSON.stringify(basketItems));
-  // }
+  $: {
+    basket.subscribe(basket => {
+      localStorage.setItem("basket", JSON.stringify(Array.from(basket)));
+    });
+  }
 
   const arrayToObject = (array, keyField) =>
     array.reduce((obj, item) => {
