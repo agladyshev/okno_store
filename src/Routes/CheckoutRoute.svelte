@@ -1,7 +1,7 @@
 <script>
   let BASE_URL = "http://localhost:3000";
   import { basket, deliveryVariants, paymentGateways } from "../stores.js";
-
+  import { push } from "svelte-spa-router";
   let products, deliveryOptions, paymentOptions;
 
   let name = "",
@@ -31,7 +31,9 @@
         quantity: 1
       };
     });
+    let ids = products.map(product => product.id);
     const body = {
+      ids,
       products: orderLines,
       name,
       phone,
@@ -43,12 +45,14 @@
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body)
     })
-      .then(res => {
-        console.log(res.json());
-      })
+      .then(res => res.json())
       .then(result => {
         console.log(result);
+        push("/");
       });
+    //   .catch(err => {
+    // console.log(err.json());
+    //   });
   };
 </script>
 
