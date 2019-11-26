@@ -12,13 +12,10 @@
   $: {
     deliveryVariants.subscribe(values => {
       deliveryOptions = values;
-      console.log(values);
     });
 
     paymentGateways.subscribe(values => {
       paymentOptions = values;
-
-      console.log(values);
     });
 
     basket.subscribe(values => {
@@ -47,7 +44,7 @@
       body: JSON.stringify(body)
     })
       .then(res => {
-        return res.json();
+        console.log(res.json());
       })
       .then(result => {
         console.log(result);

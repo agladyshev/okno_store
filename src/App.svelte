@@ -31,13 +31,12 @@
     }, {});
 
   const getCollections = function() {
-    return fetch(`${BASE_URL}/getCollections`)
-      .then(res => {
-        return res.json();
-      })
-      .then(array => {
-        return arrayToObject(array, "id");
-      });
+    return fetch(`${BASE_URL}/getCollections`).then(res => {
+      return res.json();
+    });
+    // .then(array => {
+    // return arrayToObject(array, "id");
+    // });
   };
 
   const getProducts = function() {
@@ -58,30 +57,35 @@
   };
 
   const populateCollections = function(collections, products) {
+    console.log(collections);
     return products.reduce((obj, product) => {
       let ids = product.collections_ids;
       for (let id of ids) {
-        if (typeof obj[id].products === "undefined") {
-          obj[id].products = [];
-        }
+        // if (typeof obj[id].products === "undefined") {
+        //   obj[id].products = [];
+        // }
         obj[id].products.push(product);
       }
       return obj;
-    }, collections);
+    }, arrayToObject(collections, "id"));
+  };
+
+  const filterEmptyCollections = function(col) {
+    return col.products.length;
   };
 
   onMount(async () => {
     Promise.all([getCollections(), getProducts()])
       .then(res => {
         let [collections, products] = res;
+        console.log(collections);
+        // return collections.filter(filterEmptyCollections);
         return populateCollections(collections, products);
       })
-      .then(res => {
-        collections.set(res);
-        collectionsArray.set(Object.values(res));
-        // console.log(res);
-        // setContext("collections", res);
-      });
+      .then(col => Object.values(col))
+      .then(col => col.filter(filterEmptyCollections))
+      .then(res => collectionsArray.set(res));
+
     getDelivery().then(variants => {
       deliveryVariants.set(variants);
     });
