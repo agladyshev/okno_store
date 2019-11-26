@@ -2,7 +2,12 @@
   export let product;
   import { basket } from "./stores.js";
   function addToBasket() {
-    basket.update(basket => basket.add(product));
+    basket.update(basket => {
+      console.log(basket);
+      let map = basket.set(product.id, product);
+      console.log(map);
+      return map;
+    });
   }
 </script>
 

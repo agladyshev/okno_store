@@ -3,7 +3,7 @@
   import { basket, deliveryVariants, paymentGateways } from "../stores.js";
   import { push } from "svelte-spa-router";
   import DeleteButton from "../DeleteButton.svelte";
-  let products, deliveryOptions, paymentOptions;
+  let products, productsMap, deliveryOptions, paymentOptions;
 
   let name = "",
     phone = "",
@@ -19,8 +19,10 @@
       paymentOptions = values;
     });
 
-    basket.subscribe(values => {
-      products = Array.from(values);
+    basket.subscribe(map => {
+      products = Array.from(map.values());
+      console.log(products);
+      productsMap = map;
     });
   }
 
@@ -48,18 +50,22 @@
     })
       .then(res => res.json())
       .then(result => {
-        console.log(result);
         if (result.status == "missing_items") {
-          let arr = products.map(p => {
-            if (result.items.includes(p.id)) {
-              p.is_hidden = true;
-              console.log("true");
-            }
-            return p;
+          result.items.forEach(id => {
+            let p = productsMap.get(id);
+            p.is_hidden = true;
+            productsMap.set(id, p);
           });
-          console.log(arr);
-          basket.set(new Set(arr));
-          //   result.items.forEach(item => {});
+
+          //   let arr = products.map(p => {
+          //     if (result.items.includes(p.id)) {
+          //       p.is_hidden = true;
+          //       console.log("true");
+          //     }
+          //     return p;
+          //   });
+
+          basket.set(new Map(productsMap));
         }
         // push("/");
       });

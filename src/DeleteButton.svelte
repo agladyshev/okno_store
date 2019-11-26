@@ -3,7 +3,7 @@
   import { basket } from "./stores.js";
   function deleteProduct() {
     basket.update(basket => {
-      basket.delete(product);
+      basket.delete(product.id);
       return basket;
     });
   }

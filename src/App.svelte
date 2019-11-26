@@ -16,13 +16,34 @@
     collections,
     collectionsArray,
     deliveryVariants,
-    paymentGateways
+    paymentGateways,
+    basket
   } from "./stores.js";
+
   // console.log(collections);
   // let collections = {};
   // setContext("collections", collections);
 
   const BASE_URL = "http://localhost:3000";
+
+  // const getLocalStorage = function() {
+  // console.log(localStorage.getItem("basket"));
+  // if (basketLocalStorage.length) {
+  // basket.set(new Set(basketLocalStorage));
+  // }
+  // let basketLocalStorage = JSON.parse(localStorage.getItem("basket") || "[]");
+  // };
+
+  // let basketItems;
+
+  // $: {
+  //   basket.subscribe(basket => {
+  //     basketItems = Array.from(basket);
+  //     console.log(basket);
+  //     // console.log(basketItems);
+  //   });
+  //   localStorage.setItem("basket", JSON.stringify(basketItems));
+  // }
 
   const arrayToObject = (array, keyField) =>
     array.reduce((obj, item) => {
@@ -57,7 +78,6 @@
   };
 
   const populateCollections = function(collections, products) {
-    console.log(collections);
     return products.reduce((obj, product) => {
       let ids = product.collections_ids;
       for (let id of ids) {
@@ -78,13 +98,12 @@
     Promise.all([getCollections(), getProducts()])
       .then(res => {
         let [collections, products] = res;
-        console.log(collections);
-        // return collections.filter(filterEmptyCollections);
         return populateCollections(collections, products);
       })
       .then(col => Object.values(col))
       .then(col => col.filter(filterEmptyCollections))
       .then(res => collectionsArray.set(res));
+    // getLocalStorage();
 
     getDelivery().then(variants => {
       deliveryVariants.set(variants);
