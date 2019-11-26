@@ -16,15 +16,27 @@ app.use(function(req, res, next) {
   next();
 });
 
+var filterEmptyProducts = function(product) {
+  return product.variants[0].quantity == true;
+};
+
+var addProductsArray = function(collection) {
+  collection.products = [];
+  return collection;
+};
+
 var getCollections = function(req, res, next) {
   fetch(new URL("/admin/collections.json", baseURL))
     .then(res => res.json())
     .then(json => {
       // Check if collection is not hidden
       // Remove parent collection
-      res.collections = json.filter(
+      return json.filter(
         collection => !(collection.is_hidden || collection.position == 0)
       );
+    })
+    .then(collections => {
+      res.collections = collections.map(addProductsArray);
       next();
     })
     .catch(error => console.log(error));
@@ -33,8 +45,9 @@ var getCollections = function(req, res, next) {
 var getProducts = function(req, res, next) {
   fetch(new URL("/admin/products.json", baseURL))
     .then(res => res.json())
-    .then(json => {
-      res.products = json;
+    .then(json => json.filter(filterEmptyProducts))
+    .then(filtered => {
+      res.products = filtered;
       next();
     })
     .catch(error => console.log(error));
