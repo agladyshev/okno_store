@@ -4,10 +4,6 @@
   function addToBasket() {
     basket.update(basket => basket.add(product));
   }
-  let basketValues;
-  basket.subscribe(values => {
-    basketValues = values;
-  });
 </script>
 
 <style>

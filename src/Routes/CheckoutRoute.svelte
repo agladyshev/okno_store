@@ -2,6 +2,7 @@
   let BASE_URL = "http://localhost:3000";
   import { basket, deliveryVariants, paymentGateways } from "../stores.js";
   import { push } from "svelte-spa-router";
+  import DeleteButton from "../DeleteButton.svelte";
   let products, deliveryOptions, paymentOptions;
 
   let name = "",
@@ -114,6 +115,7 @@
           <img src={product.images[0].original_url} alt="logo" />
         </picture>
         <div>{product.title}</div>
+        <DeleteButton {product} />
       </li>
     {/each}
   </ul>
