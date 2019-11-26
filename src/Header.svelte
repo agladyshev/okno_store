@@ -55,7 +55,7 @@
     <img src="/search-grey.png" alt="magnifying glass icon" />
     <h1>окно</h1>
   </a>
-  <a href="#/basket">
+  <a href="#/checkout">
     {#if basketSize}
       {#if basketSize < 10}
         <span class="counter">{basketSize}</span>

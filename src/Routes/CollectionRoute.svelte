@@ -11,7 +11,6 @@
       collection = values.find(col => col.permalink == permalink);
     });
   }
-  console.log(permalink);
 </script>
 
 <CollectionsPanel {params} />
