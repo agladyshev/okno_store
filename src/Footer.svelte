@@ -14,9 +14,7 @@
     font-size: 1.2rem;
   }
   footer a img {
-    /* width: 1.5rem; */
     height: 1.5rem;
-    /* object-fit: cover; */
   }
 </style>
 

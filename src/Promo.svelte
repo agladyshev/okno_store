@@ -5,7 +5,6 @@
     text-align: center;
     display: flex;
     align-items: center;
-    /* border: dotted black 1px; */
   }
 
   .marquee {

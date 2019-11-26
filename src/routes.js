@@ -1,6 +1,6 @@
 import CollectionRoute from "./Routes/CollectionRoute.svelte";
 import HomeRoute from "./Routes/HomeRoute.svelte";
-import Checkout from "./Checkout.svelte";
+import Checkout from "./Routes/CheckoutRoute.svelte";
 
 const routes = new Map();
 

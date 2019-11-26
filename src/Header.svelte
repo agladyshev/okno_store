@@ -3,7 +3,6 @@
   let basketSize;
   basket.subscribe(basket => {
     basketSize = basket.size;
-    console.log(basketSize);
   });
 </script>
 
@@ -42,17 +41,12 @@
     position: absolute;
     right: 0.4rem;
     padding: 1rem;
-    /* top: 0.5rem; */
     font-size: 0.7rem;
     font-weight: 800;
     text-align: center;
   }
   header .counter.double {
     right: 0.25rem;
-    /* top: 1.7rem; */
-  }
-  header .counter.emoji {
-    /* right: 0.25rem; */
   }
 </style>
 

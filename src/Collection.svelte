@@ -48,6 +48,9 @@
   }
 
   .panel .info .price {
+    font-size: 0.8rem;
+  }
+  .panel .info .description {
     font-size: 0.7rem;
   }
 
@@ -68,10 +71,6 @@
     height: calc(100vh - 7.5rem - 5rem - 15vh);
     object-fit: cover;
   }
-
-  .size {
-    font-size: 0.7rem;
-  }
 </style>
 
 {#if products.length}
@@ -91,8 +90,17 @@
   <div class="panel">
     <div class="info">
       <div class="title">{currentProduct.title}</div>
-      <div class="size">Хлопок, размер S</div>
-      <div class="price">{currentProduct.variants[0].price}</div>
+      {#if currentProduct.short_description}
+        <div class="description">
+          {currentProduct.short_description.replace(/<[^>]*>?/gm, '')}
+        </div>
+      {/if}
+      <div class="price">
+        {#if currentProduct.variants[0].old_price}
+          <s class="old">{currentProduct.variants[0].old_price.slice(0, -2)}</s>
+        {/if}
+        {currentProduct.variants[0].price.slice(0, -2)}
+      </div>
     </div>
     <BuyButton product={currentProduct} />
   </div>

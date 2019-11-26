@@ -5,14 +5,9 @@
 
 <style>
   li {
-    /* height: calc(14vh); */
-    /* flex-basis: 15vw; */
-    /* padding: 0.5rem 0.4rem 0 0.4rem ; */
     padding: 0.5rem 0 0.5rem 0;
     margin: 0;
     list-style: none;
-    /* background-color: ivory; */
-    /* border: solid black 1px; */
   }
 
   li a {

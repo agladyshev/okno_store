@@ -1,7 +1,7 @@
 <script>
   let BASE_URL = "http://localhost:3000";
   import { onMount } from "svelte";
-  import { basket, deliveryVariants, paymentGateways } from "./stores.js";
+  import { basket, deliveryVariants, paymentGateways } from "../stores.js";
 
   let products, deliveryOptions, paymentOptions;
 
