@@ -70,7 +70,7 @@ var checkAvailability = function(req, res, next) {
     })
     .then(notAvailable => {
       if (notAvailable.length) {
-        res.send(notAvailable);
+        res.send({ status: "missing_items", items: notAvailable });
       } else {
         next();
       }
