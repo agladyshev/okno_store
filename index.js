@@ -42,6 +42,13 @@ var getCollections = function(req, res, next) {
     .catch(error => console.log(error));
 };
 
+var fetchProducts = function() {
+  return fetch(new URL("/admin/products.json", baseURL))
+    .then(res => res.json())
+    .then(json => json.filter(filterEmptyProducts))
+    .catch(error => console.log(error));
+};
+
 var getProducts = function(req, res, next) {
   fetch(new URL("/admin/products.json", baseURL))
     .then(res => res.json())
@@ -51,6 +58,23 @@ var getProducts = function(req, res, next) {
       next();
     })
     .catch(error => console.log(error));
+};
+
+var checkAvailability = function(req, res, next) {
+  let { ids } = req.body;
+  fetchProducts()
+    .then(available => {
+      return ids.filter(id => {
+        return !available.find(item => item.id == id);
+      });
+    })
+    .then(notAvailable => {
+      if (notAvailable.length) {
+        res.send(notAvailable);
+      } else {
+        next();
+      }
+    });
 };
 
 var getDelivery = function(req, res, next) {
@@ -83,6 +107,7 @@ var addOrder = function(req, res, next) {
     deliveryOption = "2217458",
     paymentOption = "968309"
   } = req.body;
+
   const body = {
     order: {
       order_lines_attributes: products,
@@ -98,7 +123,7 @@ var addOrder = function(req, res, next) {
       payment_gateway_id: paymentOption
     }
   };
-
+  console.log(body);
   fetch(
     "http://08dc48a4dbcd3a4e4b1ede809fe9e676:4172a97218461e722ed8fba3bb8f866d@myshop-yq315.myinsales.ru/admin/orders.json",
     {
@@ -109,13 +134,15 @@ var addOrder = function(req, res, next) {
       }
     }
   )
-    .then(res => res.json())
-    .then(json => {
-      console.log(json);
-      res.json = json;
+    .then(result => result.json())
+    .then(order => {
+      res.order = order;
       next();
-    })
-    .catch(error => console.log(error));
+    });
+  // .catch(error => {
+  // res.json = error;
+  // next();
+  // });
 };
 
 app.get("/getCollections", getCollections, function(req, res, next) {
@@ -134,8 +161,12 @@ app.get("/getPayment", getPayment, function(req, res, next) {
   res.send(res.payment);
 });
 
-app.post("/addOrder", express.json(), addOrder, function(req, res, next) {
-  res.send(res.json);
+app.post("/addOrder", express.json(), checkAvailability, addOrder, function(
+  req,
+  res,
+  next
+) {
+  res.send(res.order);
 });
 
 app.listen(port, () => console.log(`Listening`));
