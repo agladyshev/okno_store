@@ -4,7 +4,9 @@
     basket,
     deliveryVariants,
     paymentGateways,
-    collectionsArray
+    collectionsArray,
+    collections,
+    productsRaw
   } from "../stores.js";
   import { push } from "svelte-spa-router";
   import DeleteButton from "../DeleteButton.svelte";
@@ -38,7 +40,6 @@
         quantity: 1
       };
     });
-    console.log(orderLines);
     let ids = products.map(product => product.id);
     const body = {
       ids,
@@ -64,11 +65,14 @@
           basket.set(new Map(productsMap));
         }
         if (result.number) {
-          // collectionsArray.update()
-          // basket.update(new Map());
+          productsRaw.update(store => {
+            let here = store.filter(item => !productsMap.has(item.id));
+            return here;
+          });
+          basket.set(new Map());
           console.log(result.number);
 
-          push("/");
+          // push("/");
         }
       });
     //   .catch(err => {
