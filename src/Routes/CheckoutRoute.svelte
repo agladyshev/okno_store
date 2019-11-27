@@ -70,14 +70,15 @@
             return here;
           });
           basket.set(new Map());
-          console.log(result.number);
-
-          // push("/");
+          alert(
+            `Заказ №${result.number} оформлен. Мы позвоним вам в ближайшее время.`
+          );
+          push("/");
         }
+      })
+      .catch(err => {
+        console.log(err.json());
       });
-    //   .catch(err => {
-    // console.log(err.json());
-    //   });
   };
 </script>
 
