@@ -11,7 +11,7 @@
 
 <style>
   input {
-    margin: auto;
+    /* margin: auto; */
     padding: 0.5rem;
     background-color: yellow;
   }

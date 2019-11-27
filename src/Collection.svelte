@@ -32,76 +32,104 @@
 
 <style>
   .wrapper {
-    display: flex;
-    align-items: stretch;
+    /* overflow-y: scroll; */
+    /* display: flex; */
+    /* flex-wrap: wrap; */
+    /* flex-direction: column; */
+    /* align-items: stretch; */
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto 5rem;
+    grid-template-areas:
+      "gallery"
+      "panel";
     margin-top: 0.6rem;
-    height: calc(100vh - 7.5rem - 5rem - 15vh);
+    /* height: calc(100vh - 7.5rem - 5.7rem); */
+  }
+  .gallery {
+    grid-area: gallery;
+    display: flex;
+    height: calc(100vh - 7.5rem - 5.7rem - 5.4rem);
+  }
+  picture {
+    flex-basis: 70vw;
+  }
+  .cover {
+    /* object-fit: cover; */
+    width: 100%;
+    /* first 2 values are for main
+    3rd value is for collecion list
+    4th value is for info
+     */
+    height: calc(100vh - 7.5rem - 5.7rem - 5.4rem);
+  }
+  img {
+    /* max-width: 100%; */
+    /* max-height: 100%; */
+    object-fit: cover;
   }
   .panel {
+    grid-area: panel;
+    flex-grow: 0;
     padding: 0.5rem 15vw;
     display: flex;
     justify-content: space-between;
-    font-size: 0.9rem;
-  }
-  .panel .info {
     flex-basis: 100%;
   }
+  .info {
+    font-size: 0.9rem;
+  }
 
-  .panel .info .price {
+  .info .price {
     font-size: 0.8rem;
   }
-  .panel .info .description {
+  .info .description {
     font-size: 0.7rem;
   }
 
   button.controls {
-    width: 15vw;
+    flex-basis: 15vw;
     margin: 0;
     padding: 0;
-    background-color: white;
+    background-color: ivory;
     color: #999;
     opacity: 20%;
-  }
-
-  picture {
-    width: 70vw;
-  }
-  picture img {
-    width: 100%;
-    height: calc(100vh - 7.5rem - 5rem - 15vh);
-    object-fit: cover;
   }
 </style>
 
 {#if products.length}
   <div class="wrapper">
-    <button class="controls" on:click={getPrevious}>◀</button>
-    <picture on:click={getNextPicture}>
-      <source
-        srcset={currentProduct.images[pictureCounter].original_url}
-        media="(min-width: 600px)" />
-      <!-- <source srcset={products[productCounter].images[0].large_url} /> -->
-      <img
-        src={currentProduct.images[pictureCounter].original_url}
-        alt="logo" />
-    </picture>
-    <button class="controls" on:click={getNext}>▶</button>
-  </div>
-  <div class="panel">
-    <div class="info">
-      <div class="title">{currentProduct.title}</div>
-      {#if currentProduct.short_description}
-        <div class="description">
-          {currentProduct.short_description.replace(/<[^>]*>?/gm, '')}
-        </div>
-      {/if}
-      <div class="price">
-        {#if currentProduct.variants[0].old_price}
-          <s class="old">{currentProduct.variants[0].old_price.slice(0, -2)}</s>
-        {/if}
-        {currentProduct.variants[0].price.slice(0, -2)}
-      </div>
+    <div class="gallery">
+      <button class="controls" on:click={getPrevious}>◀</button>
+      <picture on:click={getNextPicture}>
+        <source
+          srcset={currentProduct.images[pictureCounter].original_url}
+          media="(min-width: 600px)" />
+        <img
+          class="cover"
+          src={currentProduct.images[pictureCounter].original_url}
+          alt="logo" />
+      </picture>
+      <button class="controls" on:click={getNext}>▶</button>
     </div>
-    <BuyButton product={currentProduct} />
+    <div class="panel">
+      <div class="info">
+        <div class="title">{currentProduct.title}</div>
+        {#if currentProduct.short_description}
+          <div class="description">
+            {currentProduct.short_description.replace(/<[^>]*>?/gm, '')}
+          </div>
+        {/if}
+        <div class="price">
+          {#if currentProduct.variants[0].old_price}
+            <s class="old">
+              {currentProduct.variants[0].old_price.slice(0, -2)}
+            </s>
+          {/if}
+          {currentProduct.variants[0].price.slice(0, -2)}
+        </div>
+      </div>
+      <BuyButton class="buy" product={currentProduct} />
+    </div>
   </div>
 {/if}

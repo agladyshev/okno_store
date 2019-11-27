@@ -6,7 +6,8 @@
     paymentGateways,
     collectionsArray,
     collections,
-    productsRaw
+    productsRaw,
+    orders
   } from "../stores.js";
   import { push } from "svelte-spa-router";
   import DeleteButton from "../DeleteButton.svelte";
@@ -62,19 +63,21 @@
             p.is_hidden = true;
             productsMap.set(id, p);
           });
-          basket.set(new Map(productsMap));
+          return basket.set(new Map(productsMap));
         }
         if (result.number) {
           productsRaw.update(store => {
-            let here = store.filter(item => !productsMap.has(item.id));
-            return here;
+            return store.filter(item => !productsMap.has(item.id));
           });
           basket.set(new Map());
+          orders.update(o => o.set(result.number, new Date()));
           alert(
             `Заказ №${result.number} оформлен. Мы позвоним вам в ближайшее время.`
           );
-          push("/");
+          return push("/");
         }
+        console.log(result);
+        alert(`Что-то пошло не так, позвоните нам, мы оформим заказ`);
       })
       .catch(err => {
         console.log(err.json());
@@ -84,6 +87,7 @@
 
 <style>
   ul {
+    height: 5rem;
     margin: 0;
     padding: 0;
   }
@@ -100,7 +104,6 @@
     border: solid red 1px;
   }
   ul li picture img {
-    height: 5rem;
   }
   ul li div {
     /* flex-grow: 1; */
