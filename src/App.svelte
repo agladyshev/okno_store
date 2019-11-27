@@ -11,7 +11,6 @@
 
   import Collection from "./Collection.svelte";
 
-  // export let collections;
   import {
     collections,
     collectionsArray,
@@ -20,19 +19,7 @@
     basket
   } from "./stores.js";
 
-  // console.log(collections);
-  // let collections = {};
-  // setContext("collections", collections);
-
   const BASE_URL = "http://localhost:3000";
-
-  // const getLocalStorage = function() {
-  // console.log(localStorage.getItem("basket"));
-  // if (basketLocalStorage.length) {
-  // basket.set(new Set(basketLocalStorage));
-  // }
-  // let basketLocalStorage = JSON.parse(localStorage.getItem("basket") || "[]");
-  // };
 
   $: {
     basket.subscribe(basket => {
@@ -50,9 +37,6 @@
     return fetch(`${BASE_URL}/getCollections`).then(res => {
       return res.json();
     });
-    // .then(array => {
-    // return arrayToObject(array, "id");
-    // });
   };
 
   const getProducts = function() {
@@ -76,9 +60,6 @@
     return products.reduce((obj, product) => {
       let ids = product.collections_ids;
       for (let id of ids) {
-        // if (typeof obj[id].products === "undefined") {
-        //   obj[id].products = [];
-        // }
         obj[id].products.push(product);
       }
       return obj;
@@ -92,13 +73,13 @@
   onMount(async () => {
     Promise.all([getCollections(), getProducts()])
       .then(res => {
-        let [collections, products] = res;
-        return populateCollections(collections, products);
+        let [col, products] = res;
+        return populateCollections(col, products);
       })
-      .then(col => Object.values(col))
-      .then(col => col.filter(filterEmptyCollections))
-      .then(res => collectionsArray.set(res));
-    // getLocalStorage();
+      .then(col => collections.set(col));
+    // .then(col => Object.values(col))
+    // .then(col => col.filter(filterEmptyCollections))
+    // .then(res => collectionsArray.set(res));
 
     getDelivery().then(variants => {
       deliveryVariants.set(variants);

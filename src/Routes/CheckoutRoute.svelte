@@ -1,6 +1,11 @@
 <script>
   let BASE_URL = "http://localhost:3000";
-  import { basket, deliveryVariants, paymentGateways } from "../stores.js";
+  import {
+    basket,
+    deliveryVariants,
+    paymentGateways,
+    collectionsArray
+  } from "../stores.js";
   import { push } from "svelte-spa-router";
   import DeleteButton from "../DeleteButton.svelte";
   let products, productsMap, deliveryOptions, paymentOptions;
@@ -33,6 +38,7 @@
         quantity: 1
       };
     });
+    console.log(orderLines);
     let ids = products.map(product => product.id);
     const body = {
       ids,
@@ -57,7 +63,13 @@
           });
           basket.set(new Map(productsMap));
         }
-        // push("/");
+        if (result.number) {
+          // collectionsArray.update()
+          // basket.update(new Map());
+          console.log(result.number);
+
+          push("/");
+        }
       });
     //   .catch(err => {
     // console.log(err.json());
