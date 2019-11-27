@@ -14,14 +14,14 @@
     /* flex-shrink: 0; */
     display: flex;
 
-    justify-content: center;
+    /* justify-content: center; */
 
     /* flex-wrap: wrap; */
     overflow-x: scroll;
     /* overflow: hidden; */
     /* cursor: grab; */
-    padding-left: 1rem;
-    /* padding: 0; */
+    /* padding-left: 1rem; */
+    padding: 0;
     margin: 0;
 
     height: 5rem;

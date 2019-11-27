@@ -78,6 +78,8 @@
 
 <style>
   .wrapper {
+    max-width: 768px;
+    margin: auto;
     display: grid;
     grid-template-columns: auto;
     grid-template-rows: 4rem 1.5rem calc(100vh - 7.7rem) 2rem;

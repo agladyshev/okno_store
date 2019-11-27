@@ -17,4 +17,6 @@
   }
 </style>
 
-<input type="button" on:click={addToBasket} value="Хочу" />
+<div>
+  <input type="button" on:click={addToBasket} value="Хочу" />
+</div>

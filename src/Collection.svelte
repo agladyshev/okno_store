@@ -74,6 +74,7 @@
     padding: 0.5rem 15vw;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     flex-basis: 100%;
   }
   .info {
@@ -129,7 +130,7 @@
           {currentProduct.variants[0].price.slice(0, -2)}
         </div>
       </div>
-      <BuyButton class="buy" product={currentProduct} />
+      <BuyButton product={currentProduct} />
     </div>
   </div>
 {/if}

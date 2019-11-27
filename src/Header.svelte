@@ -29,6 +29,24 @@
     padding-left: 10px;
   }
 
+  header .logo span {
+    border-right: solid black 0.14rem;
+    position: absolute;
+    height: 1.7rem;
+    top: 1.3rem;
+    animation: blink 2.5s infinite;
+    animation-timing-function: steps(2, end);
+  }
+
+  @keyframes blink {
+    from {
+      border-right: solid black 0.14rem;
+    }
+    to {
+      border-right: 0;
+    }
+  }
+
   header a img {
     max-width: 2rem;
     margin: 0.2rem 0.6rem 0 0;
@@ -54,6 +72,8 @@
   <a href="/#" class="logo">
     <img src="/search-grey.png" alt="magnifying glass icon" />
     <h1>окно</h1>
+    <span />
+
   </a>
   <a href="#/checkout">
     {#if basketSize}
