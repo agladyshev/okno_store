@@ -8,6 +8,9 @@
       products = Array.from(map.values());
     });
   }
+  $: totalSum = products.reduce((sum, product) => {
+    return sum + Number(product.variants[0].price);
+  }, 0);
 </script>
 
 <style>
@@ -16,7 +19,7 @@
     flex-basis: 100%;
     display: flex;
     flex-wrap: wrap;
-    margin: 1rem;
+    margin: 0 1rem;
     padding: 0;
   }
   ul li {
@@ -26,10 +29,14 @@
     /* border: solid #333 1px; */
     border-radius: 3px;
     list-style: none;
+
+    /* box-shadow: 1px 1px 1px 1px #333; */
+  }
+
+  ul li.item {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    /* box-shadow: 1px 1px 1px 1px #333; */
   }
 
   ul li.unavailable {
@@ -69,12 +76,20 @@
     align-self: flex-start;
     display: flex;
   }
+
+  ul li.total {
+    text-align: right;
+  }
+  ul li.total span {
+    background-color: yellow;
+    color: #333;
+  }
 </style>
 
 <ul>
   {#each products as product}
     {#if product.is_hidden}Товар недоступен{/if}
-    <li class:unavailable={product.is_hidden}>
+    <li class:unavailable={product.is_hidden} class="item">
       <picture>
         <source
           srcset={product.images[0].thumb_url}
@@ -109,4 +124,7 @@
       </div>
     </li>
   {/each}
+  <li class="total">
+    <span>Всего: {totalSum}</span>
+  </li>
 </ul>

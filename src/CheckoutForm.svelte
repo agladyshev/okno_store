@@ -167,7 +167,7 @@
     box-shadow: none;
   }
   input:invalid {
-    box-shadow: 0 0 3px yellow;
+    box-shadow: 0 0 3px #fcd116;
   }
   .invisible {
     visibility: hidden;

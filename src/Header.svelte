@@ -7,6 +7,9 @@
 </script>
 
 <style>
+  a {
+    text-decoration: none;
+  }
   header {
     grid-area: header;
     display: flex;
