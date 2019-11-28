@@ -13,8 +13,17 @@
 
 <style>
   .wrapper {
+    height: 98%;
+    width: 100%;
     display: flex;
-    flex-direction: column;
+    /* align-items: stretch; */
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  div {
+    text-align: center;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
   }
 </style>
 
@@ -22,6 +31,8 @@
   {#if products.length}
     <CheckoutList />
     <CheckoutForm />
-  {:else}В пакете ничего нет{/if}
+  {:else}
+    <div>В пакете пока ничего нет</div>
+  {/if}
 
 </div>

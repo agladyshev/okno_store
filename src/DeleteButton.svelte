@@ -14,14 +14,19 @@
 </script>
 
 <style>
-  input {
+  button {
     /* margin: 0.5rem; */
     padding: 0rem 0.5rem 0.5rem 0.5rem;
     font-size: 0.8rem;
     background-color: white;
+    color: #333;
+    opacity: 70%;
     border: none;
+    line-height: 0.8rem;
     /* background-color: yellow; */
   }
 </style>
 
-<input type="button" on:click={deleteProduct} value="&#128473;" />
+<!-- <input type="button" on:click={deleteProduct} value="&#128473;" /> -->
+
+<button on:click={deleteProduct}>&#128473;</button>

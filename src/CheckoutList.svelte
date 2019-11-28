@@ -12,6 +12,8 @@
 
 <style>
   ul {
+    /* flex-grow: 1; */
+    flex-basis: 100%;
     display: flex;
     flex-wrap: wrap;
     margin: 1rem;
@@ -27,6 +29,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    /* box-shadow: 1px 1px 1px 1px #333; */
   }
 
   ul li.unavailable {
