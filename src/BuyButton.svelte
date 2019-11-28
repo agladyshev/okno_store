@@ -12,8 +12,11 @@
 <style>
   input {
     /* margin: auto; */
-    padding: 0.5rem;
     background-color: yellow;
+    border-radius: 0.3rem;
+    align-self: flex-end;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
   }
 </style>
 
