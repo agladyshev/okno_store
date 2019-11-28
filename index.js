@@ -97,6 +97,16 @@ var getPayment = function(req, res, next) {
     .catch(error => console.log(error));
 };
 
+var getPromo = function(req, res, next) {
+  fetch(new URL("/admin/articles.json", baseURL))
+    .then(res => res.json())
+    .then(json => {
+      res.promo = json.find(article => article.pinned);
+      next();
+    })
+    .catch(error => console.log(error));
+};
+
 var addOrder = function(req, res, next) {
   let {
     products,
@@ -123,7 +133,6 @@ var addOrder = function(req, res, next) {
       payment_gateway_id: paymentOption
     }
   };
-  console.log(body);
   fetch(
     "http://08dc48a4dbcd3a4e4b1ede809fe9e676:4172a97218461e722ed8fba3bb8f866d@myshop-yq315.myinsales.ru/admin/orders.json",
     {
@@ -159,6 +168,10 @@ app.get("/getDelivery", getDelivery, function(req, res, next) {
 
 app.get("/getPayment", getPayment, function(req, res, next) {
   res.send(res.payment);
+});
+
+app.get("/getPromo", getPromo, function(req, res, next) {
+  res.send(res.promo);
 });
 
 app.post("/addOrder", express.json(), checkAvailability, addOrder, function(

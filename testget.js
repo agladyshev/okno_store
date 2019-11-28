@@ -1,6 +1,10 @@
-const fetch = require('node-fetch');
-fetch(new URL('http://08dc48a4dbcd3a4e4b1ede809fe9e676:4172a97218461e722ed8fba3bb8f866d@myshop-yq315.myinsales.ru/admin/orders.json'), {
-    method: 'GET',
+const fetch = require("node-fetch");
+fetch(
+  new URL(
+    "http://08dc48a4dbcd3a4e4b1ede809fe9e676:4172a97218461e722ed8fba3bb8f866d@myshop-yq315.myinsales.ru/admin/articles.json"
+  ),
+  {
+    method: "GET"
     // headers: { 'Content-Type': 'application/json', 'Authorization': 'Basic' },
     // body: {
     //     "order": {
@@ -23,11 +27,10 @@ fetch(new URL('http://08dc48a4dbcd3a4e4b1ede809fe9e676:4172a97218461e722ed8fba3b
     //         "coupon": "20% discount"
     //     }
     // }
-})
-    .then(res => res.json())
-    .then((json) => {
-        console.log(json[0])
-
-        // next();
-    })
-    .catch(error => console.log(error));
+  }
+)
+  .then(res => res.json())
+  .then(json => {
+    console.log(json);
+  })
+  .catch(error => console.log(error));
