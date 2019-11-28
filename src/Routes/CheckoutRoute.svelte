@@ -16,7 +16,8 @@
   let name = "",
     phone = "",
     deliveryOption,
-    paymentOption;
+    paymentOption,
+    message = {};
 
   $: {
     deliveryVariants.subscribe(values => {
@@ -33,7 +34,14 @@
     });
   }
 
+  const validatePhoneNumber = function() {
+    return /\+?[0-9]{11,20}/.test(phone);
+  };
+
   const addOrder = function(event) {
+    if (!validatePhoneNumber()) {
+      return (message = { type: "error", text: "Некорректный номер телефона" });
+    }
     let orderLines = products.map(product => {
       // Rewrite for different variants and quantity
       return {
@@ -77,7 +85,9 @@
           return push("/");
         }
         console.log(result);
-        alert(`Что-то пошло не так, позвоните нам, мы оформим заказ`);
+        alert(
+          `Что-то пошло не так, позвонитеvalidatePhone нам, мы оформим заказ`
+        );
       })
       .catch(err => {
         console.log(err.json());
@@ -137,10 +147,21 @@
   </ul>
 
   <form action="submit" on:submit|preventDefault={addOrder}>
+    {#if message.text}
+      <span class={message.type}>{message.text}</span>
+    {/if}
     <label for="name">имя</label>
     <input id="name" type="text" bind:value={name} required />
     <label for="phone">телефон</label>
-    <input id="phone" type="tel" bind:value={phone} required />
+
+    <input
+      type="text"
+      id="phone"
+      name="phone"
+      placeholder="+79774879349"
+      bind:value={phone}
+      required />
+
     <p>Доставка:</p>
     <div>
       {#each deliveryOptions as option}
