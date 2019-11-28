@@ -14,7 +14,6 @@
   let promo = "";
   onMount(async () => {
     getPromo().then(value => {
-      console.log(value);
       promo = value.content.replace(/<[^>]*>?/gm, "");
     });
   });

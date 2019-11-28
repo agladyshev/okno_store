@@ -1,5 +1,6 @@
 <script>
-  let BASE_URL = "http://localhost:3000";
+  //   let BASE_URL = "http://localhost:3000";
+  let BASE_URL = "";
   import {
     basket,
     deliveryVariants,
@@ -87,7 +88,7 @@
         );
       })
       .catch(err => {
-        console.log(err.json());
+        console.log(err);
       });
   };
 </script>

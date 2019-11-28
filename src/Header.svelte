@@ -84,10 +84,11 @@
     <span />
   </a>
   <a href="#/checkout">
-    {#if basketSize}
-      <div class="counter">
+
+    <div class="counter">
+      {#if basketSize}
         <div class="text">{basketSize}</div>
-      </div>
-    {/if}
+      {/if}
+    </div>
   </a>
 </header>
