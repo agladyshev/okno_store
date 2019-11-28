@@ -50,24 +50,30 @@
     }
   }
 
-  header a img {
+  /* header a img {
     max-width: 2rem;
     margin: 0.2rem 0.6rem 0 0;
+  } */
+  .counter {
+    height: 2rem;
+    width: 2rem;
+    margin-right: 0.3rem;
+    background-image: url("/bag.png");
+    background-size: contain;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
+
+  .counter .text {
+    padding-top: 0.5rem;
+    color: #333;
+    font-weight: 800;
+    font-size: 0.7rem;
+  }
+
   header .logo img {
     max-width: 1.5rem;
-  }
-  header .counter {
-    color: #333;
-    position: absolute;
-    right: 0.4rem;
-    padding: 1rem;
-    font-size: 0.7rem;
-    font-weight: 800;
-    text-align: center;
-  }
-  header .counter.double {
-    right: 0.25rem;
   }
 </style>
 
@@ -76,18 +82,12 @@
     <img src="/search-grey.png" alt="magnifying glass icon" />
     <h1>окно</h1>
     <span />
-
   </a>
   <a href="#/checkout">
     {#if basketSize}
-      {#if basketSize < 10}
-        <span class="counter">{basketSize}</span>
-      {:else if basketSize < 100}
-        <span class="counter double">{basketSize}</span>
-      {:else}
-        <span class="counter double" />
-      {/if}
+      <div class="counter">
+        <div class="text">{basketSize}</div>
+      </div>
     {/if}
-    <img src="/bag.png" alt="paper bag icon" />
   </a>
 </header>
