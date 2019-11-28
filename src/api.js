@@ -22,3 +22,9 @@ export const getPayment = function() {
     return res.json();
   });
 };
+
+export const getPromo = function() {
+  return fetch(`${BASE_URL}/getPromo`).then(res => {
+    return res.json();
+  });
+};
