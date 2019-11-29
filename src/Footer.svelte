@@ -8,12 +8,13 @@
   }
   footer a {
     text-align: center;
-    padding: 0.25rem 0;
+    /* padding: 0.25rem 0; */
     flex: 1;
     margin: 0;
     font-size: 1.2rem;
   }
   footer a img {
+    /* margin-top: 0.05rem; */
     height: 1.5rem;
   }
 </style>

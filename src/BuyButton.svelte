@@ -10,4 +10,4 @@
   }
 </script>
 
-<Button onclick={addToBasket} value="Хочу" type="button" />
+<Button onclick={addToBasket} value="хочу" type="button" />

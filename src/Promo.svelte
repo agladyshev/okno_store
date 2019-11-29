@@ -30,6 +30,7 @@
   section.promo span {
     text-align: center;
     font-size: 0.7rem;
+    letter-spacing: 0.05rem;
   }
 
   section.promo span .order {
@@ -40,9 +41,9 @@
 <section class="promo">
   {#if secondsSinceLastOrder < 10}
     <span class="order">
-      Заказ №{lastOrder} принят! Мы позвоним вам в ближайшее время.
+      заказ №{lastOrder} принят! мы позвоним вам в ближайшее время
     </span>
   {:else}
-    <span>{promo}</span>
+    <span>{promo.toLowerCase()}</span>
   {/if}
 </section>

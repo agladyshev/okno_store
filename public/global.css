@@ -18,6 +18,8 @@ body {
 body {
   font-family: "Open Sans", sans-serif;
   color: #333;
+  letter-spacing: 0.05rem;
+  text-transform: lowercase;
   margin: 0;
   /* padding: 8px; */
   box-sizing: border-box;

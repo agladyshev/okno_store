@@ -1,6 +1,6 @@
 <script>
-  let BASE_URL = "http://localhost:3000";
-  // let BASE_URL = "";
+  // let BASE_URL = "http://localhost:3000";
+  let BASE_URL = "";
   import {
     basket,
     deliveryVariants,
@@ -136,10 +136,13 @@
   }
 
   form input[type="submit"] {
+    -webkit-appearance: none;
+    padding: 0.2rem 1.3rem;
     background-color: yellow;
-    align-self: flex-end;
-    padding: 0.5rem 1.3rem;
-    font-size: 0.9rem;
+    border-radius: 2px;
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.1), 0 2px 5px 0 rgba(0, 0, 0, 0.05);
+    border: none;
+    letter-spacing: 0.05rem;
   }
 
   label,
@@ -219,6 +222,6 @@
     {/each}
   </div> -->
 
-  <input type="submit" value="Могу" />
+  <input type="submit" value="могу себе позволить" />
 
 </form>

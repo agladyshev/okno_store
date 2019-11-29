@@ -54,20 +54,22 @@
     object-fit: cover;
   }
   ul li .info {
-    flex-basis: 40%;
+    flex-grow: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     /* flex-grow: 2; */
   }
 
   ul li .info .title {
-    font-size: 0.9rem;
-  }
-
-  ul li .info .description {
-    font-size: 0.7rem;
+    flex-basis: 40%;
+    font-size: 1rem;
+    text-align: left;
+    padding: 2rem;
   }
 
   ul li .price {
-    flex-basis: 25%;
+    /* flex-basis: 35%; */
     font-size: 0.8rem;
     text-align: right;
   }
@@ -83,6 +85,19 @@
   ul li.total span {
     background-color: yellow;
     color: #333;
+    /* padding: 0.2rem 1rem; */
+    /* background-color: yellow; */
+    border-radius: 2px;
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.1), 0 2px 5px 0 rgba(0, 0, 0, 0.05);
+    border: none;
+    letter-spacing: 0.05rem;
+  }
+  .info .option {
+    font-size: 0.8rem;
+  }
+
+  .info .option span.size {
+    font-weight: 800;
   }
 </style>
 
@@ -106,18 +121,24 @@
         <img class="cover" src={product.images[0].original_url} alt="logo" />
       </picture>
       <div class="info">
-        <div class="title">{product.title}</div>
-        {#if product.short_description}
-          <div class="description">
-            {product.short_description.replace(/<[^>]*>?/gm, '')}
+        <div class="title">{product.title.toLowerCase()}</div>
+        {#each product.option_names as optionName}
+          <div class="option">
+            {#if optionName.title == 'Размер'}
+              <!-- {optionName.title.toLowerCase()}: -->
+              <span class="size">
+                {product.variants[0].option_values.find(v => v.option_name_id == optionName.id).title}
+              </span>
+            {/if}
           </div>
-        {/if}
-      </div>
-      <div class="price">
-        {#if product.variants[0].old_price}
-          <s class="old">{product.variants[0].old_price.slice(0, -2)}</s>
-        {/if}
-        {product.variants[0].price.slice(0, -2)}
+        {/each}
+        <div class="price">
+          {#if product.variants[0].old_price}
+            <s class="old">{product.variants[0].old_price.slice(0, -2)}</s>
+          {/if}
+          {product.variants[0].price.slice(0, -2)}
+        </div>
+
       </div>
       <div class="delete">
         <DeleteButton {product} />
@@ -125,6 +146,6 @@
     </li>
   {/each}
   <li class="total">
-    <span>Всего: {totalSum}</span>
+    <span>{totalSum}&#8381;</span>
   </li>
 </ul>

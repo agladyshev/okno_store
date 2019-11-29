@@ -49,7 +49,7 @@
   .gallery {
     grid-area: gallery;
     display: flex;
-    height: calc(100vh - 7.5rem - 5.7rem - 5.8rem);
+    height: calc(100vh - 7.5rem - 5.7rem - 6rem);
   }
   picture {
     flex-basis: 70vw;
@@ -61,7 +61,7 @@
     3rd value is for collecion list
     4th value is for info
      */
-    height: calc(100vh - 7.5rem - 5.7rem - 5.8rem);
+    height: calc(100vh - 7.5rem - 5.7rem - 6rem);
   }
   img {
     /* max-width: 100%; */
@@ -79,12 +79,17 @@
   }
   .info {
     font-size: 0.9rem;
+    letter-spacing: 0.05rem;
   }
-
+  .info .title {
+    font-size: 1rem;
+    letter-spacing: 0.05rem;
+  }
   .info .price {
     font-size: 0.8rem;
+    letter-spacing: 0.05rem;
   }
-  .info .price span {
+  .info .price .sale {
     background-color: yellow;
   }
 
@@ -92,7 +97,7 @@
     font-size: 0.8rem;
   }
 
-  .info span.size {
+  .info .option span.size {
     font-weight: 800;
   }
 
@@ -108,7 +113,9 @@
     flex-basis: 15vw;
     margin: 0;
     padding: 0;
-    background-color: ivory;
+    /* background-color: ivory; */
+    background-color: white;
+    border: none;
     color: #999;
     opacity: 20%;
   }
@@ -117,7 +124,9 @@
 {#if products.length}
   <div class="wrapper">
     <div class="gallery">
-      <button class="controls" on:click={getPrevious}>◀</button>
+      <button class="controls" on:click={getPrevious}>
+        <i class="fas fa-chevron-left" />
+      </button>
       <picture on:click={getNextPicture}>
         <source
           srcset={currentProduct.images[pictureCounter].original_url}
@@ -127,18 +136,23 @@
           src={currentProduct.images[pictureCounter].original_url}
           alt="logo" />
       </picture>
-      <button class="controls" on:click={getNext}>▶</button>
+      <button class="controls" on:click={getNext}>
+        <i class="fas fa-chevron-right" />
+      </button>
     </div>
     <div class="panel">
       <div class="info">
-        <div class="title">{currentProduct.title}</div>
+        <div class="title">{currentProduct.title.toLowerCase()}</div>
         <div class="price">
           {#if currentProduct.variants[0].old_price}
             <s class="old">
               {currentProduct.variants[0].old_price.slice(0, -2)}
             </s>
           {/if}
-          <span>{currentProduct.variants[0].price.slice(0, -2)}</span>
+          <span class:sale={currentProduct.variants[0].old_price}>
+            {currentProduct.variants[0].price.slice(0, -2)}&#8381;
+          </span>
+          <span />
         </div>
         {#each currentProduct.option_names as optionName}
           <div class="option">

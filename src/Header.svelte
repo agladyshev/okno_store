@@ -50,14 +50,10 @@
     }
   }
 
-  /* header a img {
-    max-width: 2rem;
-    margin: 0.2rem 0.6rem 0 0;
-  } */
   .counter {
-    height: 2rem;
-    width: 2rem;
-    margin-right: 0.3rem;
+    height: 1.9rem;
+    width: 1.9rem;
+    margin-right: 0.6rem;
     background-image: url("/bag.png");
     background-size: contain;
     display: flex;

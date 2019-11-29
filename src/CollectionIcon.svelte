@@ -27,7 +27,8 @@
 
   li a figure figcaption {
     text-align: center;
-    font-size: 0.6rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.05rem;
     height: 1rem;
   }
 
@@ -56,7 +57,7 @@
         {/if}
 
       </picture>
-      <figcaption>{title}</figcaption>
+      <figcaption>{title.toLowerCase()}</figcaption>
     </figure>
   </a>
 </li>

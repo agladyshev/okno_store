@@ -29,4 +29,4 @@
 
 <!-- <input type="button" on:click={deleteProduct} value="&#128473;" /> -->
 
-<button on:click={deleteProduct}>&#128473;</button>
+<button on:click={deleteProduct}>&#10799;</button>
