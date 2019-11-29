@@ -1,20 +1,13 @@
+require("dotenv").config();
 const fetch = require("node-fetch");
 const express = require("express");
 // const bodyParser = require("body-parser");
 const app = express();
-const port = 3000;
-
-require("dotenv").config();
+const port = process.env.PORT || 3000;
 
 let baseURL = `https://${process.env.INSALES_KEY}:${process.env.INSALES_PASSWORD}@${process.env.INSALES_HOSTNAME}`;
 
 app.use("/", express.static("public"));
-
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Content-Type, X-Requested-With");
-  next();
-});
 
 var filterEmptyProducts = function(product) {
   return product.variants[0].quantity == true;
@@ -153,6 +146,20 @@ var addOrder = function(req, res, next) {
   // next();
   // });
 };
+
+// app.use(function(req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header("Access-Control-Allow-Headers", "Content-Type, X-Requested-With");
+//   next();
+// });
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "https://okno.herokuapp.com/");
+  res.header("Access-Control-Allow-Headers", "Content-Type, X-Requested-With");
+  next();
+});
+
+app.use("/", express.static("public"));
 
 app.get("/getCollections", getCollections, function(req, res, next) {
   res.send(res.collections);
