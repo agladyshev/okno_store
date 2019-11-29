@@ -1,6 +1,6 @@
 <script>
-  //   let BASE_URL = "http://localhost:3000";
-  let BASE_URL = "";
+  let BASE_URL = "http://localhost:3000";
+  // let BASE_URL = "";
   import {
     basket,
     deliveryVariants,
@@ -145,7 +145,7 @@
   input {
     display: inline-block;
   }
-
+  /* 
   input[type="radio"] {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -160,7 +160,7 @@
 
     position: relative;
     margin: 0.2rem 0.5rem 0.2rem 0;
-  }
+  } */
   input:checked {
     border: 2px solid black;
   }

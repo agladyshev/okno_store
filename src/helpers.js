@@ -15,9 +15,11 @@ export const populateCollections = function(collections, products) {
   }
   return products.reduce((obj, product) => {
     let ids = product.collections_ids;
-    for (let id of ids) {
-      obj[id].products.push(product);
-    }
+    ids.forEach(id => {
+      if (obj[id]) {
+        obj[id].products.push(product);
+      }
+    });
     return obj;
   }, arrayToObject(collections.map(addProductsArray), "id"));
 };

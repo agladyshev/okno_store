@@ -39,7 +39,7 @@
     /* align-items: stretch; */
     display: grid;
     grid-template-columns: auto;
-    grid-template-rows: auto 5rem;
+    grid-template-rows: auto auto;
     grid-template-areas:
       "gallery"
       "panel";
@@ -84,8 +84,24 @@
   .info .price {
     font-size: 0.8rem;
   }
+  .info .price span {
+    background-color: yellow;
+  }
+
+  .info .option {
+    font-size: 0.8rem;
+  }
+
+  .info span.size {
+    font-weight: 800;
+  }
+
   .info .description {
     font-size: 0.7rem;
+  }
+
+  .info .description p {
+    margin: 0;
   }
 
   button.controls {
@@ -116,19 +132,28 @@
     <div class="panel">
       <div class="info">
         <div class="title">{currentProduct.title}</div>
-        {#if currentProduct.short_description}
-          <div class="description">
-            {currentProduct.short_description.replace(/<[^>]*>?/gm, '')}
-          </div>
-        {/if}
         <div class="price">
           {#if currentProduct.variants[0].old_price}
             <s class="old">
               {currentProduct.variants[0].old_price.slice(0, -2)}
             </s>
           {/if}
-          {currentProduct.variants[0].price.slice(0, -2)}
+          <span>{currentProduct.variants[0].price.slice(0, -2)}</span>
         </div>
+        {#each currentProduct.option_names as optionName}
+          <div class="option">
+            {#if optionName.title != 'Материал'}
+              {optionName.title.toLowerCase()}:
+            {/if}
+            {#if optionName.title == 'Размер'}
+              <span class="size">
+                {currentProduct.variants[0].option_values.find(v => v.option_name_id == optionName.id).title}
+              </span>
+            {:else}
+              {currentProduct.variants[0].option_values.find(v => v.option_name_id == optionName.id).title}
+            {/if}
+          </div>
+        {/each}
       </div>
       <BuyButton product={currentProduct} />
     </div>
