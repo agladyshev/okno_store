@@ -9,6 +9,7 @@
     orders
   } from "./stores.js";
   import { push } from "svelte-spa-router";
+  import Button from "./Button.svelte";
   let products, productsMap, deliveryOptions, paymentOptions;
 
   let name = "",
@@ -136,31 +137,19 @@
 
   form input[type="submit"] {
     background-color: yellow;
-    border-radius: 0.3rem;
     align-self: flex-end;
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 1.3rem;
+    font-size: 0.9rem;
   }
 
   label,
   input {
     display: inline-block;
   }
-  /* 
+
   input[type="radio"] {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-
-    border-radius: 50%;
-    width: 16px;
-    height: 16px;
-
-    border: 2px solid #999;
-    margin-right: 5px;
-
-    position: relative;
-    margin: 0.2rem 0.5rem 0.2rem 0;
-  } */
+    margin: 0.1rem 0.5rem 0.2rem 0;
+  }
   input:checked {
     border: 2px solid black;
   }
@@ -231,4 +220,5 @@
   </div> -->
 
   <input type="submit" value="Могу" />
+
 </form>

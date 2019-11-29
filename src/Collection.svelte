@@ -49,7 +49,7 @@
   .gallery {
     grid-area: gallery;
     display: flex;
-    height: calc(100vh - 7.5rem - 5.7rem - 5.4rem);
+    height: calc(100vh - 7.5rem - 5.7rem - 5.8rem);
   }
   picture {
     flex-basis: 70vw;
@@ -61,7 +61,7 @@
     3rd value is for collecion list
     4th value is for info
      */
-    height: calc(100vh - 7.5rem - 5.7rem - 5.4rem);
+    height: calc(100vh - 7.5rem - 5.7rem - 5.8rem);
   }
   img {
     /* max-width: 100%; */
