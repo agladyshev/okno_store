@@ -90,8 +90,13 @@
     border-radius: 2px;
     box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.1), 0 2px 5px 0 rgba(0, 0, 0, 0.05);
     border: none;
-    letter-spacing: 0.05rem;
+    font-size: 0.8rem;
   }
+
+  ul li.total span img {
+    max-height: 0.6rem;
+  }
+
   .info .option {
     font-size: 0.8rem;
   }
@@ -146,6 +151,6 @@
     </li>
   {/each}
   <li class="total">
-    <span>{totalSum}&#8381;</span>
+    <span>{totalSum}р</span>
   </li>
 </ul>

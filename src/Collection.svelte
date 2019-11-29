@@ -70,7 +70,6 @@
   }
   .panel {
     grid-area: panel;
-    flex-grow: 0;
     padding: 0.5rem 15vw;
     display: flex;
     justify-content: space-between;
@@ -78,6 +77,7 @@
     flex-basis: 100%;
   }
   .info {
+    flex-grow: 1;
     font-size: 0.9rem;
     letter-spacing: 0.05rem;
   }
@@ -89,7 +89,12 @@
     font-size: 0.8rem;
     letter-spacing: 0.05rem;
   }
-  .info .price .sale {
+
+  .info .price span {
+    font-size: 0.8rem;
+  }
+
+  .sale {
     background-color: yellow;
   }
 
@@ -150,9 +155,8 @@
             </s>
           {/if}
           <span class:sale={currentProduct.variants[0].old_price}>
-            {currentProduct.variants[0].price.slice(0, -2)}&#8381;
+            {currentProduct.variants[0].price.slice(0, -2)}р
           </span>
-          <span />
         </div>
         {#each currentProduct.option_names as optionName}
           <div class="option">
