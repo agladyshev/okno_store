@@ -1,4 +1,5 @@
 <script>
+  import CrossButton from "./CrossButton.svelte";
   import BuyButton from "./BuyButton.svelte";
   export let collection = {};
   let products = [];
@@ -41,15 +42,30 @@
     grid-template-columns: auto;
     grid-template-rows: auto auto;
     grid-template-areas:
+      "counter"
       "gallery"
       "panel";
-    margin-top: 0.6rem;
+    /* margin-top: 0rem; */
     /* height: calc(100vh - 7.5rem - 5.7rem); */
   }
+  .counter {
+    grid-area: counter;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    opacity: 70%;
+    font-size: 0.8rem;
+    padding: 0.25rem 4vw 0.25rem;
+  }
+
+  .counter a.disabled {
+    visibility: hidden;
+  }
+
   .gallery {
     grid-area: gallery;
     display: flex;
-    height: calc(100vh - 7.5rem - 5.7rem - 6.2rem);
+    height: calc(100vh - 7.5rem - 5.7rem - 7.3rem);
   }
   picture {
     flex-basis: 70vw;
@@ -61,7 +77,7 @@
     3rd value is for collecion list
     4th value is for info
      */
-    height: calc(100vh - 7.5rem - 5.7rem - 6.2rem);
+    height: calc(100vh - 7.5rem - 5.7rem - 7.3rem);
   }
   img {
     /* max-width: 100%; */
@@ -137,6 +153,9 @@
     .panel {
       padding: 0.5rem 25vw;
     }
+    .counter {
+      padding: 0.25rem 25vw 0.25rem 25vw;
+    }
   }
   @media screen and (min-width: 768px) {
     picture {
@@ -148,11 +167,20 @@
     .panel {
       padding: 0.5rem 25%;
     }
+    .counter {
+      padding: 0.25rem 25% 0.25rem 25%;
+    }
   }
 </style>
 
 {#if products.length}
   <div class="wrapper">
+    <div class="counter">
+      <a href="#/" class:disabled={collection.permalink == 'frontpage'}>
+        <CrossButton icon="back-arrow.svg" />
+      </a>
+      <div>{productCounter + 1}/{collection.products.length}</div>
+    </div>
     <div class="gallery">
       <button class="controls" on:click={getPrevious}>
         <img class="arrow" src="/left-arrow.svg" alt="<" />
