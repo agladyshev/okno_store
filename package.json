@@ -5,12 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
     "build": "rollup -c",
     "dev": "rollup -c -w",
+    "start": "node index.js"
   },
-  "keywords": [],
-  "author": "",
+  "author": "Alexey Gladyshev",
   "license": "ISC",
   "devDependencies": {
     "rollup": "^1.12.0",
@@ -28,3 +27,4 @@
     "sirv-cli": "^0.4.4",
     "svelte-spa-router": "^2.0.0"
   }
+}
