@@ -124,13 +124,16 @@
     color: #999;
     opacity: 20%;
   }
+  button.controls img.arrow {
+    max-height: 0.8rem;
+  }
 </style>
 
 {#if products.length}
   <div class="wrapper">
     <div class="gallery">
       <button class="controls" on:click={getPrevious}>
-        <i class="fas fa-chevron-left" />
+        <img class="arrow" src="/left-arrow.svg" alt="<" />
       </button>
       <picture on:click={getNextPicture}>
         <source
@@ -142,7 +145,7 @@
           alt="logo" />
       </picture>
       <button class="controls" on:click={getNext}>
-        <i class="fas fa-chevron-right" />
+        <img class="arrow" src="/right-arrow.svg" alt=">" />
       </button>
     </div>
     <div class="panel">
