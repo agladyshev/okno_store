@@ -38,10 +38,21 @@
     height: 1.7rem;
     top: 1.3rem;
     animation: blink 2.5s infinite;
+    -webkit-animation: webkit-blink 2.5s infinite;
     animation-timing-function: steps(2, end);
+    -webkit-animation-timing-function: steps(2, end);
   }
 
   @keyframes blink {
+    from {
+      border-right: solid black 0.14rem;
+    }
+    to {
+      border-right: 0;
+    }
+  }
+
+  @-webkit-keyframes webkit-blink {
     from {
       border-right: solid black 0.14rem;
     }
