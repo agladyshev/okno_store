@@ -18,6 +18,7 @@
     align-content: center;
     padding: 0 0.25rem 0 0.25rem;
     color: black;
+    text-decoration: none;
   }
 
   li a figure {

@@ -5,7 +5,45 @@ const express = require("express");
 const app = express();
 const port = process.env.PORT || 3000;
 
+// const cors = require("cors");
+
+// const whitelist = [
+//   "http://winxdow.ru",
+//   "http://okno.com.ru",
+//   "http://okno.store",
+//   "http://okno.herokuapp.com",
+//   "https://winxdow.ru",
+//   "https://okno.com.ru",
+//   "https://okno.store",
+//   "https://okno.herokuapp.com",
+//   "http://localhost:5000"
+// ];
+
+// const corsOptions = {
+//   origin: function(origin, callback) {
+//     if (whitelist.indexOf(origin) !== -1) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error("Not allowed by CORS"));
+//     }
+//   }
+// };
+
 let baseURL = `https://${process.env.INSALES_KEY}:${process.env.INSALES_PASSWORD}@${process.env.INSALES_HOSTNAME}`;
+
+// app.use(cors(corsOptions));
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Content-Type, X-Requested-With");
+  next();
+});
+
+// app.use(function(req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "https://okno.herokuapp.com/");
+//   res.header("Access-Control-Allow-Headers", "Content-Type, X-Requested-With");
+//  next();
+// });
 
 app.use("/", express.static("public"));
 
@@ -142,22 +180,10 @@ var addOrder = function(req, res, next) {
       next();
     });
   // .catch(error => {
-  // res.json = error;
-  // next();
+  //   res.json = error;
+  //   next();
   // });
 };
-
-// app.use(function(req, res, next) {
-//   res.header("Access-Control-Allow-Origin", "*");
-//   res.header("Access-Control-Allow-Headers", "Content-Type, X-Requested-With");
-//   next();
-// });
-
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "https://okno.herokuapp.com/");
-  res.header("Access-Control-Allow-Headers", "Content-Type, X-Requested-With");
-  next();
-});
 
 app.use("/", express.static("public"));
 
