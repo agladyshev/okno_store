@@ -32,7 +32,7 @@
 
 <style>
   .wrapper {
-    /* overflow-y: scroll; */
+    /* overflow: auto; */
     /* display: flex; */
     /* flex-wrap: wrap; */
     /* flex-direction: column; */

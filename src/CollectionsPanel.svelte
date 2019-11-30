@@ -15,16 +15,18 @@
     display: flex;
 
     /* justify-content: center; */
-
+    justify-content: safe center;
     /* flex-wrap: wrap; */
-    overflow-x: scroll;
+    overflow: auto;
     /* overflow: hidden; */
     /* cursor: grab; */
     /* padding-left: 1rem; */
-    padding: 0;
+    padding: 0 0 0 0;
+    /* padding: 0; */
     margin: 0;
+    /* float: left; */
 
-    height: 5rem;
+    /* height: 5rem; */
   }
 </style>
 

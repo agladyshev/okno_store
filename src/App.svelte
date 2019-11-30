@@ -92,7 +92,8 @@
 
   main {
     grid-area: main;
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
+    overflow: auto;
     /* display: flex; */
     /* flex-direction: column; */
   }
