@@ -56,7 +56,7 @@
 
   .cover {
     width: 100%;
-    height: calc(5rem);
+    /* height: calc(5rem); */
   }
   img {
     object-fit: cover;
@@ -122,16 +122,16 @@
       <picture>
         <source
           srcset={product.images[0].thumb_url}
-          media="(min-width: 200px)" />
+          media="(max-width: 200px)" />
         <source
           srcset={product.images[0].compact_url}
-          media="(min-width: 300px)" />
+          media="(max-width: 300px)" />
         <source
           srcset={product.images[0].medium_url}
-          media="(min-width: 400px)" />
+          media="(max-width: 400px)" />
         <source
           srcset={product.images[0].large_url}
-          media="(min-width: 600px)" />
+          media="(max-width: 600px)" />
         <img class="cover" src={product.images[0].original_url} alt="logo" />
       </picture>
       <div class="info">
