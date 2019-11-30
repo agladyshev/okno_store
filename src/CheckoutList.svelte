@@ -40,8 +40,16 @@
   }
 
   ul li.unavailable {
-    border: solid red 1px;
+    background-color: #fcc7c7;
+
+    opacity: 70%;
+
+    border-radius: 10px;
   }
+  span.unavailable-text {
+    font-size: 0.7rem;
+  }
+
   ul li picture {
     flex-basis: 15%;
   }
@@ -108,8 +116,9 @@
 
 <ul>
   {#each products as product}
-    {#if product.is_hidden}Товар недоступен{/if}
-    <li class:unavailable={product.is_hidden} class="item">
+    <li
+      class:unavailable={product.is_hidden || !product.available}
+      class="item">
       <picture>
         <source
           srcset={product.images[0].thumb_url}
@@ -127,16 +136,21 @@
       </picture>
       <div class="info">
         <div class="title">{product.title.toLowerCase()}</div>
-        {#each product.option_names as optionName}
-          <div class="option">
-            {#if optionName.title == 'Размер'}
-              <!-- {optionName.title.toLowerCase()}: -->
-              <span class="size">
-                {product.variants[0].option_values.find(v => v.option_name_id == optionName.id).title}
-              </span>
-            {/if}
-          </div>
-        {/each}
+
+        {#if product.is_hidden || !product.available}
+          <span class="unavailable-text">Товар недоступен</span>
+        {:else if product.option_names.length}
+          {#each product.option_names as optionName}
+            <div class="option">
+              {#if optionName.title == 'Размер'}
+                <!-- {optionName.title.toLowerCase()}: -->
+                <span class="size">
+                  {product.variants[0].option_values.find(v => v.option_name_id == optionName.id).title}
+                </span>
+              {/if}
+            </div>
+          {/each}
+        {/if}
         <div class="price">
           {#if product.variants[0].old_price}
             <s class="old">{product.variants[0].old_price.slice(0, -2)}</s>

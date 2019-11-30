@@ -18,8 +18,7 @@
     /* margin: 0.5rem; */
     padding: 0rem 0.5rem 0.5rem 0.5rem;
     font-size: 0.8rem;
-    background-color: white;
-    color: #333;
+    background: none;
     opacity: 70%;
     border: none;
     line-height: 0.8rem;
