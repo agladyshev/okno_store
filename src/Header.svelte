@@ -41,9 +41,11 @@
     animation-name: blink;
     animation-duration: 2.5s;
     animation-iteration-count: infinite;
-    /* -webkit-animation: webkit-blink 2.5s infinite; */
     animation-timing-function: steps(2, end);
-    /* -webkit-animation-timing-function: steps(2, end); */
+    -webkit-animation-name: webkit-blink;
+    -webkit-animation-duration: 2.5s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: steps(2, end);
   }
 
   @keyframes blink {
@@ -54,15 +56,15 @@
       border-right: 0;
     }
   }
-  /* 
+
   @-webkit-keyframes webkit-blink {
-    from {
+    0% {
       border-right: solid black 0.14rem;
     }
-    to {
+    100% {
       border-right: 0;
     }
-  } */
+  }
 
   .counter {
     height: 1.9rem;
