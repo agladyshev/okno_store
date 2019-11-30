@@ -2,6 +2,7 @@
   import CheckoutForm from "../CheckoutForm.svelte";
   import CheckoutList from "../CheckoutList.svelte";
   import { basket } from "../stores.js";
+  import Button from "../Button.svelte";
   let products;
 
   $: {
@@ -20,10 +21,18 @@
     flex-direction: row;
     flex-wrap: wrap;
   }
-  div {
+  div.empty {
+    flex-grow: 1;
     text-align: center;
     font-size: 0.9rem;
-    margin-top: 0.5rem;
+    margin-top: 1rem;
+    /* display: flex; */
+    /* text-align: center; */
+    /* flex-direction: column; */
+  }
+
+  div.empty .button {
+    margin-top: 1rem;
   }
 </style>
 
@@ -32,7 +41,14 @@
     <CheckoutList />
     <CheckoutForm />
   {:else}
-    <div>В пакете пока ничего нет</div>
+    <div class="empty">
+      В пакете пока ничего нет
+      <div class="button" />
+      <a href="#/">
+        <Button value="добавить" type="button" />
+      </a>
+
+    </div>
   {/if}
 
 </div>
