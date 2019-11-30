@@ -1,0 +1,90 @@
+<script>
+  import { basket } from "./stores";
+  let basketSize;
+  basket.subscribe(basket => {
+    basketSize = basket.size;
+  });
+</script>
+
+<style>
+  a {
+    text-decoration: none;
+  }
+  header {
+    grid-area: header;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  header .logo {
+    flex-grow: 1;
+    text-align: center;
+    margin: 0 0 0 1.5rem;
+  }
+
+  header .logo h1 {
+    margin: 0;
+    display: inline;
+    font-size: 2rem;
+    color: black;
+    font-weight: 400;
+    padding-left: 10px;
+  }
+
+  header .logo span {
+    border-right: solid black 0.14rem;
+    position: absolute;
+    height: 1.7rem;
+    top: 1.3rem;
+    animation: blink 2.5s infinite;
+    animation-timing-function: steps(2, end);
+  }
+
+  @keyframes blink {
+    from {
+      border-right: solid black 0.14rem;
+    }
+    to {
+      border-right: 0;
+    }
+  }
+
+  .counter {
+    height: 1.9rem;
+    width: 1.9rem;
+    margin-right: 0.6rem;
+    background-image: url("/bag.png");
+    background-size: contain;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .counter .text {
+    padding-top: 0.5rem;
+    color: #333;
+    font-weight: 800;
+    font-size: 0.7rem;
+  }
+
+  header .logo img {
+    max-width: 1.5rem;
+  }
+</style>
+
+<header>
+  <a href="/#" class="logo">
+    <img src="/search-grey.png" alt="magnifying glass icon" />
+    <h1>окно</h1>
+    <span />
+  </a>
+  <a href="#/checkout">
+
+    <div class="counter">
+      {#if basketSize}
+        <div class="text">{basketSize}</div>
+      {/if}
+    </div>
+  </a>
+</header>
