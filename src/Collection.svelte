@@ -49,7 +49,7 @@
   .gallery {
     grid-area: gallery;
     display: flex;
-    height: calc(100vh - 7.5rem - 5.7rem - 6rem);
+    height: calc(100vh - 7.5rem - 5.7rem - 6.2rem);
   }
   picture {
     flex-basis: 70vw;
@@ -61,7 +61,7 @@
     3rd value is for collecion list
     4th value is for info
      */
-    height: calc(100vh - 7.5rem - 5.7rem - 6rem);
+    height: calc(100vh - 7.5rem - 5.7rem - 6.2rem);
   }
   img {
     /* max-width: 100%; */
@@ -75,6 +75,19 @@
     justify-content: space-between;
     align-items: center;
     flex-basis: 100%;
+  }
+  button.controls {
+    flex-basis: 15vw;
+    margin: 0;
+    padding: 0;
+    /* background-color: ivory; */
+    background-color: white;
+    border: none;
+    color: #999;
+    opacity: 20%;
+  }
+  button.controls img.arrow {
+    max-height: 0.8rem;
   }
   .info {
     flex-grow: 1;
@@ -114,18 +127,27 @@
     margin: 0;
   }
 
-  button.controls {
-    flex-basis: 15vw;
-    margin: 0;
-    padding: 0;
-    /* background-color: ivory; */
-    background-color: white;
-    border: none;
-    color: #999;
-    opacity: 20%;
+  @media screen and (min-width: 600px) {
+    picture {
+      flex-basis: 50vw;
+    }
+    button.controls {
+      flex-basis: 25vw;
+    }
+    .panel {
+      padding: 0.5rem 25vw;
+    }
   }
-  button.controls img.arrow {
-    max-height: 0.8rem;
+  @media screen and (min-width: 768px) {
+    picture {
+      flex-basis: 50%;
+    }
+    button.controls {
+      flex-basis: 25%;
+    }
+    .panel {
+      padding: 0.5rem 25%;
+    }
   }
 </style>
 
