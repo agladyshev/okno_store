@@ -50,6 +50,8 @@
       };
     });
     let ids = products.map(product => product.id);
+    console.log(paymentOptions[0].id);
+    console.log(deliveryOption);
     const body = {
       ids,
       products: orderLines,
@@ -86,9 +88,7 @@
           return push("/");
         }
         console.log(result);
-        alert(
-          `Что-то пошло не так, позвонитеvalidatePhone нам, мы оформим заказ`
-        );
+        alert(`Что-то пошло не так, позвоните нам, мы оформим заказ`);
       })
       .catch(err => {
         console.log(err);

@@ -33,7 +33,7 @@ let baseURL = `https://${process.env.INSALES_KEY}:${process.env.INSALES_PASSWORD
 
 // app.use(cors(corsOptions));
 
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Content-Type, X-Requested-With");
   next();
@@ -47,16 +47,16 @@ app.use(function(req, res, next) {
 
 app.use("/", express.static("public"));
 
-var filterEmptyProducts = function(product) {
-  return product.available && !product.is_hidden && product.images.length;
+var filterEmptyProducts = function (product) {
+  return product.available && !product.is_hidden && product.images.length && product.variants[0].quantity;
 };
 
-var addProductsArray = function(collection) {
+var addProductsArray = function (collection) {
   collection.products = [];
   return collection;
 };
 
-var getCollections = function(req, res, next) {
+var getCollections = function (req, res, next) {
   fetch(new URL("/admin/collections.json", baseURL))
     .then(res => res.json())
     .then(json => {
@@ -73,14 +73,14 @@ var getCollections = function(req, res, next) {
     .catch(error => console.log(error));
 };
 
-var fetchProducts = function() {
+var fetchProducts = function () {
   return fetch(new URL("/admin/products.json", baseURL))
     .then(res => res.json())
     .then(json => json.filter(filterEmptyProducts))
     .catch(error => console.log(error));
 };
 
-var getProducts = function(req, res, next) {
+var getProducts = function (req, res, next) {
   fetch(new URL("/admin/products.json", baseURL))
     .then(res => res.json())
     .then(json => json.filter(filterEmptyProducts))
@@ -91,7 +91,7 @@ var getProducts = function(req, res, next) {
     .catch(error => console.log(error));
 };
 
-var checkAvailability = function(req, res, next) {
+var checkAvailability = function (req, res, next) {
   let { ids } = req.body;
   fetchProducts()
     .then(available => {
@@ -108,7 +108,7 @@ var checkAvailability = function(req, res, next) {
     });
 };
 
-var getDelivery = function(req, res, next) {
+var getDelivery = function (req, res, next) {
   fetch(new URL("/admin/delivery_variants.json", baseURL))
     .then(res => res.json())
     .then(json => {
@@ -118,7 +118,7 @@ var getDelivery = function(req, res, next) {
     .catch(error => console.log(error));
 };
 
-var getPayment = function(req, res, next) {
+var getPayment = function (req, res, next) {
   fetch(new URL("/admin/payment_gateways.json", baseURL))
     .then(res => res.json())
     .then(json => {
@@ -128,7 +128,7 @@ var getPayment = function(req, res, next) {
     .catch(error => console.log(error));
 };
 
-var getPromo = function(req, res, next) {
+var getPromo = function (req, res, next) {
   fetch(new URL("/admin/articles.json", baseURL))
     .then(res => res.json())
     .then(json => {
@@ -138,7 +138,7 @@ var getPromo = function(req, res, next) {
     .catch(error => console.log(error));
 };
 
-var addOrder = function(req, res, next) {
+var addOrder = function (req, res, next) {
   let {
     products,
     name,
@@ -164,8 +164,9 @@ var addOrder = function(req, res, next) {
       payment_gateway_id: paymentOption
     }
   };
-  fetch(
-    "http://08dc48a4dbcd3a4e4b1ede809fe9e676:4172a97218461e722ed8fba3bb8f866d@myshop-yq315.myinsales.ru/admin/orders.json",
+  console.log(products);
+  console.log(body);
+  fetch(new URL("/admin/orders.json", baseURL),
     {
       method: "post",
       body: JSON.stringify(body),
@@ -187,27 +188,27 @@ var addOrder = function(req, res, next) {
 
 app.use("/", express.static("public"));
 
-app.get("/getCollections", getCollections, function(req, res, next) {
+app.get("/getCollections", getCollections, function (req, res, next) {
   res.send(res.collections);
 });
 
-app.get("/getProducts", getProducts, function(req, res, next) {
+app.get("/getProducts", getProducts, function (req, res, next) {
   res.send(res.products);
 });
 
-app.get("/getDelivery", getDelivery, function(req, res, next) {
+app.get("/getDelivery", getDelivery, function (req, res, next) {
   res.send(res.delivery);
 });
 
-app.get("/getPayment", getPayment, function(req, res, next) {
+app.get("/getPayment", getPayment, function (req, res, next) {
   res.send(res.payment);
 });
 
-app.get("/getPromo", getPromo, function(req, res, next) {
+app.get("/getPromo", getPromo, function (req, res, next) {
   res.send(res.promo);
 });
 
-app.post("/addOrder", express.json(), checkAvailability, addOrder, function(
+app.post("/addOrder", express.json(), checkAvailability, addOrder, function (
   req,
   res,
   next
