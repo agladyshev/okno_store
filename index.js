@@ -10,7 +10,7 @@ let baseURL = `https://${process.env.INSALES_KEY}:${process.env.INSALES_PASSWORD
 app.use("/", express.static("public"));
 
 var filterEmptyProducts = function(product) {
-  return product.variants[0].quantity == true;
+  return product.available && !product.is_hidden;
 };
 
 var addProductsArray = function(collection) {
