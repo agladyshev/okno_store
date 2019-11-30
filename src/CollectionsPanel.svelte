@@ -14,9 +14,6 @@
     /* flex-shrink: 0; */
     display: flex;
 
-    /* justify-content: center; */
-    justify-content: safe center;
-    /* flex-wrap: wrap; */
     overflow: auto;
     /* overflow: hidden; */
     /* cursor: grab; */
@@ -27,6 +24,11 @@
     /* float: left; */
 
     /* height: 5rem; */
+  }
+  @media screen and (min-width: 480px) {
+    ul {
+      justify-content: safe center;
+    }
   }
 </style>
 

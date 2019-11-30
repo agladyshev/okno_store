@@ -102,7 +102,8 @@
     color: #999;
     opacity: 20%;
   }
-  button.controls img.arrow {
+  button.controls img {
+    /* -webkit-appearance: none; */
     max-height: 0.8rem;
   }
   .info {
@@ -177,13 +178,13 @@
   <div class="wrapper">
     <div class="counter">
       <a href="#/" class:disabled={collection.permalink == 'frontpage'}>
-        <CrossButton icon="back-arrow.svg" />
+        <CrossButton icon="barr.png" />
       </a>
       <div>{productCounter + 1}/{collection.products.length}</div>
     </div>
     <div class="gallery">
       <button class="controls" on:click={getPrevious}>
-        <img class="arrow" src="/left-arrow.svg" alt="<" />
+        <img class="" src="/larr.png" alt="<" />
       </button>
       <picture on:click={getNextPicture}>
         <source
@@ -195,7 +196,7 @@
           alt="logo" />
       </picture>
       <button class="controls" on:click={getNext}>
-        <img class="arrow" src="/right-arrow.svg" alt=">" />
+        <img class="" src="/rarr.png" alt=">" />
       </button>
     </div>
     <div class="panel">
