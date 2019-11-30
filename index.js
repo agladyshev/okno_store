@@ -106,7 +106,7 @@ var addOrder = function(req, res, next) {
     name,
     // email = "",
     phone,
-    // address = "",
+    address,
     deliveryOption = "2217458",
     paymentOption = "968309"
   } = req.body;
@@ -120,7 +120,7 @@ var addOrder = function(req, res, next) {
         phone: phone
       },
       shipping_address_attributes: {
-        // address: address
+        address: address
       },
       delivery_variant_id: deliveryOption,
       payment_gateway_id: paymentOption

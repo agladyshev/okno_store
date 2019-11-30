@@ -16,6 +16,7 @@
     phone = "",
     deliveryOption,
     paymentOption,
+    address = "",
     message = {};
 
   $: {
@@ -54,6 +55,7 @@
       products: orderLines,
       name,
       phone,
+      address,
       deliveryOption,
       paymentOption: paymentOptions[0].id
     };
@@ -116,19 +118,23 @@
   .message span {
     background-color: yellow;
   }
-
-  form .contact {
+  form div {
     flex-basis: 100%;
+  }
+  form .contact {
     display: flex;
   }
 
   form .delivery {
-    flex-basis: 100%;
+    /* flex-basis: 100%; */
     display: flex;
   }
   form .payment {
-    flex-basis: 100%;
+    /* flex-basis: 100%; */
     display: flex;
+  }
+  form .submit {
+    text-align: right;
   }
 
   form label {
@@ -208,7 +214,26 @@
       <!-- </div> -->
     {/each}
   </div>
-
+  {#if deliveryOptions.find(d => d.id == deliveryOption)}
+    {#if deliveryOptions.find(d => d.id == deliveryOption).title == 'Доставка'}
+      <div class="address">
+        <input
+          id="address"
+          type="text"
+          bind:value={address}
+          required
+          size="20"
+          placeholder="адрес доставки" />
+      </div>
+    {/if}
+    {#if deliveryOptions.find(d => d.id == deliveryOption).title == 'Самовывоз'}
+      <div>
+        {deliveryOptions
+          .find(d => d.id == deliveryOption)
+          .description.replace(/<\/?[^>]+(>|$)/g, '')}
+      </div>
+    {/if}
+  {/if}
   <!-- <div class="payment">
     {#each paymentOptions as option}
       <input
@@ -221,7 +246,8 @@
       <label for={option.id}>{option.title}</label>
     {/each}
   </div> -->
-
-  <input type="submit" value="могу себе позволить" />
+  <div class="submit">
+    <input type="submit" value="могу себе позволить" />
+  </div>
 
 </form>

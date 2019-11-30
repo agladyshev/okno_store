@@ -37,11 +37,11 @@
     position: absolute;
     height: 1.7rem;
     top: 1.3rem;
-
+    /* 
     -webkit-animation-name: webkit-blink;
     -webkit-animation-duration: 2.5s;
     -webkit-animation-iteration-count: infinite;
-    -webkit-animation-timing-function: steps(2, end);
+    -webkit-animation-timing-function: steps(2, end); */
   }
 
   @media screen and (orientation: landscape) {
@@ -61,14 +61,14 @@
     }
   }
 
-  @-webkit-keyframes webkit-blink {
+  /* @-webkit-keyframes webkit-blink {
     0% {
       border-right: solid black 0.14rem;
     }
     100% {
       border-right: 0;
     }
-  }
+  } */
 
   .counter {
     height: 1.9rem;

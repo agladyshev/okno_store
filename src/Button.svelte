@@ -1,5 +1,7 @@
 <script>
-  export let value, onclick, type;
+  export let value,
+    onclick = undefined,
+    type;
 </script>
 
 <style>
