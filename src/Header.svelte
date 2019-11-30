@@ -37,10 +37,13 @@
     position: absolute;
     height: 1.7rem;
     top: 1.3rem;
-    animation: blink 2.5s infinite;
-    -webkit-animation: webkit-blink 2.5s infinite;
+    /* animation: blink 2.5s infinite; */
+    animation-name: blink;
+    animation-duration: 2.5s;
+    animation-iteration-count: infinite;
+    /* -webkit-animation: webkit-blink 2.5s infinite; */
     animation-timing-function: steps(2, end);
-    -webkit-animation-timing-function: steps(2, end);
+    /* -webkit-animation-timing-function: steps(2, end); */
   }
 
   @keyframes blink {
@@ -51,7 +54,7 @@
       border-right: 0;
     }
   }
-
+  /* 
   @-webkit-keyframes webkit-blink {
     from {
       border-right: solid black 0.14rem;
@@ -59,7 +62,7 @@
     to {
       border-right: 0;
     }
-  }
+  } */
 
   .counter {
     height: 1.9rem;

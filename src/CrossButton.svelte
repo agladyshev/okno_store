@@ -11,12 +11,16 @@
     opacity: 70%;
     border: none;
     /* line-height: 0.8rem; */
-    width: 1rem;
+
     /* margin: 0.2rem 0 0 0; */
     margin: 0;
     padding: 0;
     display: flex;
     align-content: center;
+  }
+  img {
+    width: 1rem;
+    height: 1rem;
   }
 </style>
 

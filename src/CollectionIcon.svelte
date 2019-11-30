@@ -43,11 +43,11 @@
   .highlight {
     border: dotted black 2px;
   }
-  @media screen and (orientation: portrait) {
+  /* @media screen and (orientation: portrait) {
     li {
       margin: auto;
     }
-  }
+  } */
 </style>
 
 <li>
