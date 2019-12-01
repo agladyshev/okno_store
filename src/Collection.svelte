@@ -78,10 +78,14 @@
   }
   picture {
     flex-basis: 70vw;
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    /* text-align: center; */
   }
   .cover {
     /* object-fit: cover; */
-    width: 100%;
+    /* width: 100%; */
     /* first 2 values are for main
     3rd value is for collecion list
     4th value is for info
@@ -89,9 +93,11 @@
     height: calc(100vh - 7.5rem - 5.7rem - 7.3rem);
   }
   img {
-    /* max-width: 100%; */
+    max-width: 100%;
     /* max-height: 100%; */
     object-fit: cover;
+    /* margin: auto; */
+    /* object-position: 50% 50%; */
   }
   img.basket {
     opacity: 70%;
