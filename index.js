@@ -57,7 +57,7 @@ var addProductsArray = function (collection) {
 };
 
 var getCollections = function (req, res, next) {
-  fetch(new URL("/admin/collections.json", baseURL))
+  fetch(new URL("/admin/collections.json?per_page=1000", baseURL))
     .then(res => res.json())
     .then(json => {
       // Check if collection is not hidden
@@ -74,14 +74,14 @@ var getCollections = function (req, res, next) {
 };
 
 var fetchProducts = function () {
-  return fetch(new URL("/admin/products.json", baseURL))
+  return fetch(new URL("/admin/products.json?per_page=1000", baseURL))
     .then(res => res.json())
     .then(json => json.filter(filterEmptyProducts))
     .catch(error => console.log(error));
 };
 
 var getProducts = function (req, res, next) {
-  fetch(new URL("/admin/products.json", baseURL))
+  fetch(new URL("/admin/products.json?per_page=1000", baseURL))
     .then(res => res.json())
     .then(json => json.filter(filterEmptyProducts))
     .then(filtered => {
