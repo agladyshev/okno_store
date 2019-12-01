@@ -2,6 +2,7 @@
   import CrossButton from "./CrossButton.svelte";
   import BuyButton from "./BuyButton.svelte";
   import { basket } from "./stores.js";
+  import { location } from "svelte-spa-router";
 
   export let collection = {};
   let products = [];
@@ -9,6 +10,10 @@
   let pictureCounter = 0;
   let currentProduct = {};
 
+  location.subscribe(l => {
+    productCounter = 0;
+    pictureCounter = 0;
+  });
   let images = [];
   let basketMap = new Map();
 

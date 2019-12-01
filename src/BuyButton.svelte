@@ -2,7 +2,7 @@
   export let product, added;
   import { basket } from "./stores.js";
   import Button from "./Button.svelte";
-  $: value = added ? "не хочу" : "хочу";
+  $: value = added ? "удалить" : "хочу";
   function toggleBasket() {
     basket.update(basket => {
       if (added) {
