@@ -1,16 +1,26 @@
 <script>
   import CrossButton from "./CrossButton.svelte";
   import BuyButton from "./BuyButton.svelte";
+  import { basket } from "./stores.js";
+
   export let collection = {};
   let products = [];
   let productCounter = 0;
   let pictureCounter = 0;
   let currentProduct = {};
+
   let images = [];
+  let basketMap = new Map();
+
   $: {
     ({ products = [] } = collection);
     currentProduct = products[productCounter] || {};
     images = currentProduct.images;
+
+    basket.subscribe(map => {
+      basketMap = map;
+    });
+    console.log(basketMap.has(currentProduct.id));
   }
   function getNext() {
     pictureCounter = 0;
@@ -83,6 +93,9 @@
     /* max-width: 100%; */
     /* max-height: 100%; */
     object-fit: cover;
+  }
+  img.basket {
+    opacity: 70%;
   }
   .panel {
     grid-area: panel;
@@ -184,13 +197,14 @@
     </div>
     <div class="gallery">
       <button class="controls" on:click={getPrevious}>
-        <img class="" src="/larr.png" alt="<" />
+        <img src="/larr.png" alt="<" />
       </button>
       <picture on:click={getNextPicture}>
         <source
           srcset={currentProduct.images[pictureCounter].original_url}
           media="(min-width: 600px)" />
         <img
+          class:basket={basketMap.has(currentProduct.id)}
           class="cover"
           src={currentProduct.images[pictureCounter].original_url}
           alt="logo" />
