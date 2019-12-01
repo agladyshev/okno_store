@@ -82,13 +82,11 @@
           });
           basket.set(new Map());
           orders.update(o => o.set(result.number, new Date()));
-          alert(
-            `Заказ №${result.number} оформлен. Мы позвоним вам в ближайшее время.`
-          );
+          alert(`Заказ №${result.number} оформлен. Мы позвоним`);
           return push("/");
         }
         console.log(result);
-        alert(`Что-то пошло не так, позвоните нам, мы оформим заказ`);
+        alert(`Что-то сломалось, позвоните нам, мы оформим заказ`);
       })
       .catch(err => {
         console.log(err);

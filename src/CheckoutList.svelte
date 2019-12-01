@@ -138,7 +138,7 @@
         <div class="title">{product.title.toLowerCase()}</div>
 
         {#if product.is_hidden || !product.available}
-          <span class="unavailable-text">Товар недоступен</span>
+          <span class="unavailable-text">уже купили</span>
         {:else if product.option_names.length}
           {#each product.option_names as optionName}
             <div class="option">
