@@ -103,7 +103,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-end;
-    margin: 0 1rem;
+    margin: 0 1rem 1rem 1rem;
     padding: 0.5rem 0.5rem;
     border-radius: 1rem;
   }

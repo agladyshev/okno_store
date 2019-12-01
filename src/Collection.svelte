@@ -20,7 +20,6 @@
     basket.subscribe(map => {
       basketMap = map;
     });
-    console.log(basketMap.has(currentProduct.id));
   }
   function getNext() {
     pictureCounter = 0;
@@ -241,7 +240,9 @@
           </div>
         {/each}
       </div>
-      <BuyButton product={currentProduct} />
+      <BuyButton
+        product={currentProduct}
+        added={basketMap.has(currentProduct.id)} />
     </div>
   </div>
 {/if}

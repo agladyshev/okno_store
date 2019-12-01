@@ -1,13 +1,18 @@
 <script>
-  export let product;
+  export let product, added;
   import { basket } from "./stores.js";
   import Button from "./Button.svelte";
-  function addToBasket() {
+  $: value = added ? "не хочу" : "хочу";
+  function toggleBasket() {
     basket.update(basket => {
-      let map = basket.set(product.id, product);
-      return map;
+      if (added) {
+        basket.delete(product.id);
+        return basket;
+      } else {
+        return basket.set(product.id, product);
+      }
     });
   }
 </script>
 
-<Button onclick={addToBasket} value="хочу" type="button" />
+<Button onclick={toggleBasket} {value} type="button" />
