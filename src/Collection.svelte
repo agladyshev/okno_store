@@ -23,8 +23,9 @@
   let images = [];
   let currentProduct = {};
   let productCounter = 0;
-
   let basketMap = new Map();
+  // Special variable for forced rerender
+  let keys = [0];
 
   let original_url, inBasket;
 
@@ -188,8 +189,13 @@
       <button class="controls" on:click={getPrevious}>
         <img src="/larr.png" alt="<" />
       </button>
-
-      <ProductImage {currentProduct} {inBasket} />
+      <!-- {#each [keys] as x (currentProduct)} -->
+      <!-- {#if } -->
+      {#each [keys] as x (products[productCounter])}
+        <ProductImage currentProduct={products[productCounter]} {inBasket} />
+      {/each}
+      <!-- {/if} -->
+      <!-- {/each} -->
       <button class="controls" on:click={getNext}>
         <img class="" src="/rarr.png" alt=">" />
       </button>

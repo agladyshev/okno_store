@@ -8,6 +8,15 @@
       ? pictureCounter++
       : (pictureCounter = 0);
   }
+  function fade(node, { delay = 0, duration = 600 }) {
+    const o = +getComputedStyle(node).opacity;
+
+    return {
+      delay,
+      duration,
+      css: t => `opacity: ${t * o}`
+    };
+  }
 </script>
 
 <style>
@@ -32,20 +41,26 @@
   }
 </style>
 
-<picture on:click={getNextPicture}>
-  <source
-    srcset={images[pictureCounter].original_url}
-    media="(min-width: 600px)" />
-  <source
-    srcset={images[pictureCounter].original_url}
-    media="(min-device-pixel-ratio: 3), (-webkit-min-device-pixel-ratio: 3)" />
-  <source
-    srcset={images[pictureCounter].large_url}
-    media="(min-width: 300px)" />
-  <source srcset={images[pictureCounter].medium_url} />
-  <img
-    class:basket={inBasket}
-    class="cover"
-    src={currentProduct.images[pictureCounter].original_url}
-    alt="product image" />
-</picture>
+{#if currentProduct}
+  <picture on:click={getNextPicture} in:fade>
+    <source
+      srcset={images[pictureCounter].original_url}
+      media="(min-width: 600px)" />
+    <source
+      srcset={images[pictureCounter].original_url}
+      media="(min-device-pixel-ratio: 3), (-webkit-min-device-pixel-ratio: 3)" />
+    <source
+      srcset={images[pictureCounter].original_url}
+      media="(min-width: 400px),(min-device-pixel-ratio: 2),
+      (-webkit-min-device-pixel-ratio: 2)" />
+    <source
+      srcset={images[pictureCounter].large_url}
+      media="(min-width: 300px)" />
+    <source srcset={images[pictureCounter].medium_url} />
+    <img
+      class:basket={inBasket}
+      class="cover"
+      src={currentProduct.images[pictureCounter].original_url}
+      alt="product image" />
+  </picture>
+{/if}
