@@ -3,25 +3,42 @@
   import BuyButton from "./BuyButton.svelte";
   import { basket } from "./stores.js";
   import { location } from "svelte-spa-router";
+
+  import ProductImage from "./ProductImage.svelte";
+
+  function getNext() {
+    productCounter == products.length - 1
+      ? (productCounter = 0)
+      : productCounter++;
+  }
+  function getPrevious() {
+    productCounter == 0
+      ? (productCounter = products.length - 1)
+      : productCounter--;
+  }
+
   export let collection = {};
 
   let products = [];
   let images = [];
   let currentProduct = {};
   let productCounter = 0;
-  let pictureCounter = 0;
-  let imageSet = "";
+
   let basketMap = new Map();
+
+  let original_url, inBasket;
 
   location.subscribe(l => {
     productCounter = 0;
-    pictureCounter = 0;
   });
 
   $: {
     ({ products = [] } = collection);
+  }
+  $: {
     basket.subscribe(map => {
       basketMap = map;
+      inBasket = basketMap.has(currentProduct.id);
     });
   }
   $: if (products.length) {
@@ -30,28 +47,6 @@
 
   $: if (currentProduct) {
     images = currentProduct.images;
-  }
-
-  // $: if (images) {
-  //   imageSet = `${currentProduct.images[pictureCounter].original_url} 600w, ${currentProduct.images[pictureCounter].original_url} 2x, ${currentProduct.images[pictureCounter].original_url} 3x, ${currentProduct.images[pictureCounter].large_url} `;
-  // }
-
-  function getNext() {
-    pictureCounter = 0;
-    productCounter == products.length - 1
-      ? (productCounter = 0)
-      : productCounter++;
-  }
-  function getPrevious() {
-    pictureCounter = 0;
-    productCounter == 0
-      ? (productCounter = products.length - 1)
-      : productCounter--;
-  }
-  function getNextPicture() {
-    pictureCounter < images.length - 1
-      ? pictureCounter++
-      : (pictureCounter = 0);
   }
 </script>
 
@@ -90,32 +85,6 @@
     grid-area: gallery;
     display: flex;
     height: calc(100vh - 7.5rem - 5.7rem - 7.3rem);
-  }
-  picture {
-    flex-basis: 70vw;
-    display: flex;
-    justify-content: center;
-    /* align-items: center; */
-    /* text-align: center; */
-  }
-  .cover {
-    /* object-fit: cover; */
-    /* width: 100%; */
-    /* first 2 values are for main
-    3rd value is for collecion list
-    4th value is for info
-     */
-    height: calc(100vh - 7.5rem - 5.7rem - 7.3rem);
-  }
-  img {
-    max-width: 100%;
-    /* max-height: 100%; */
-    object-fit: cover;
-    /* margin: auto; */
-    /* object-position: 50% 50%; */
-  }
-  img.basket {
-    opacity: 70%;
   }
   .panel {
     grid-area: panel;
@@ -188,7 +157,7 @@
       padding: 0.5rem 25vw;
     }
     .counter {
-      padding: 0.25rem 25vw 0.25rem 25vw;
+      padding: 0.25rem 20vw 0.25rem 20vw;
     }
   }
   @media screen and (min-width: 768px) {
@@ -202,7 +171,7 @@
       padding: 0.5rem 25%;
     }
     .counter {
-      padding: 0.25rem 25% 0.25rem 25%;
+      padding: 0.25rem 20% 0.25rem 20%;
     }
   }
 </style>
@@ -219,24 +188,8 @@
       <button class="controls" on:click={getPrevious}>
         <img src="/larr.png" alt="<" />
       </button>
-      <picture on:click={getNextPicture}>
-        <source
-          srcset={images[pictureCounter].original_url}
-          media="(min-width: 600px)" />
-        <source
-          srcset={images[pictureCounter].original_url}
-          media="(min-device-pixel-ratio: 3), (-webkit-min-device-pixel-ratio:
-          3)" />
-        <source
-          srcset={images[pictureCounter].large_url}
-          media="(min-width: 300px)" />
-        <source srcset={images[pictureCounter].medium_url} />
-        <img
-          class:basket={basketMap.has(currentProduct.id)}
-          class="cover"
-          src={currentProduct.images[pictureCounter].original_url}
-          alt="product image" />
-      </picture>
+
+      <ProductImage {currentProduct} {inBasket} />
       <button class="controls" on:click={getNext}>
         <img class="" src="/rarr.png" alt=">" />
       </button>

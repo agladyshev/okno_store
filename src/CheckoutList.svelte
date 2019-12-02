@@ -70,14 +70,14 @@
   }
 
   ul li .info .title {
-    flex-basis: 40%;
+    flex-basis: 30%;
     font-size: 1rem;
     text-align: left;
-    padding: 2rem;
+    padding-left: 2rem;
   }
 
   ul li .price {
-    /* flex-basis: 35%; */
+    flex-basis: 15%;
     font-size: 0.8rem;
     text-align: right;
   }
@@ -107,6 +107,7 @@
 
   .info .option {
     font-size: 0.8rem;
+    text-align: right;
   }
 
   .info .option span.size {
