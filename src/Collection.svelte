@@ -3,29 +3,39 @@
   import BuyButton from "./BuyButton.svelte";
   import { basket } from "./stores.js";
   import { location } from "svelte-spa-router";
-
   export let collection = {};
+
   let products = [];
+  let images = [];
+  let currentProduct = {};
   let productCounter = 0;
   let pictureCounter = 0;
-  let currentProduct = {};
+  let imageSet = "";
+  let basketMap = new Map();
 
   location.subscribe(l => {
     productCounter = 0;
     pictureCounter = 0;
   });
-  let images = [];
-  let basketMap = new Map();
 
   $: {
     ({ products = [] } = collection);
-    currentProduct = products[productCounter] || {};
-    images = currentProduct.images;
-
     basket.subscribe(map => {
       basketMap = map;
     });
   }
+  $: if (products.length) {
+    currentProduct = products[productCounter];
+  }
+
+  $: if (currentProduct) {
+    images = currentProduct.images;
+  }
+
+  // $: if (images) {
+  //   imageSet = `${currentProduct.images[pictureCounter].original_url} 600w, ${currentProduct.images[pictureCounter].original_url} 2x, ${currentProduct.images[pictureCounter].original_url} 3x, ${currentProduct.images[pictureCounter].large_url} `;
+  // }
+
   function getNext() {
     pictureCounter = 0;
     productCounter == products.length - 1
@@ -211,13 +221,21 @@
       </button>
       <picture on:click={getNextPicture}>
         <source
-          srcset={currentProduct.images[pictureCounter].original_url}
+          srcset={images[pictureCounter].original_url}
           media="(min-width: 600px)" />
+        <source
+          srcset={images[pictureCounter].original_url}
+          media="(min-device-pixel-ratio: 3), (-webkit-min-device-pixel-ratio:
+          3)" />
+        <source
+          srcset={images[pictureCounter].large_url}
+          media="(min-width: 300px)" />
+        <source srcset={images[pictureCounter].medium_url} />
         <img
           class:basket={basketMap.has(currentProduct.id)}
           class="cover"
           src={currentProduct.images[pictureCounter].original_url}
-          alt="logo" />
+          alt="product image" />
       </picture>
       <button class="controls" on:click={getNext}>
         <img class="" src="/rarr.png" alt=">" />

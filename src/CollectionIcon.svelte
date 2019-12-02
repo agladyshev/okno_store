@@ -58,9 +58,9 @@
       <picture>
 
         {#if highlight}
-          <img src={images.large_url} alt={title} class="highlight" />
+          <img src={images.medium_url} alt={title} class="highlight" />
         {:else}
-          <img src={images.large_url} alt={title} />
+          <img src={images.medium_url} alt={title} />
         {/if}
 
       </picture>
