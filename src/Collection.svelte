@@ -4,44 +4,46 @@
   import { basket } from "./stores.js";
   import { location } from "svelte-spa-router";
 
-  export let collection = {};
-  let products = [];
-  let productCounter = 0;
-  let pictureCounter = 0;
-  let currentProduct = {};
+  import ProductImage from "./ProductImage.svelte";
 
-  location.subscribe(l => {
-    productCounter = 0;
-    pictureCounter = 0;
-  });
-  let images = [];
-  let basketMap = new Map();
-
-  $: {
-    ({ products = [] } = collection);
-    currentProduct = products[productCounter] || {};
-    images = currentProduct.images;
-
-    basket.subscribe(map => {
-      basketMap = map;
-    });
-  }
   function getNext() {
-    pictureCounter = 0;
     productCounter == products.length - 1
       ? (productCounter = 0)
       : productCounter++;
   }
   function getPrevious() {
-    pictureCounter = 0;
     productCounter == 0
       ? (productCounter = products.length - 1)
       : productCounter--;
   }
-  function getNextPicture() {
-    pictureCounter < images.length - 1
-      ? pictureCounter++
-      : (pictureCounter = 0);
+
+  export let collection = {};
+  let products = [];
+  let productCounter = 0;
+
+  let currentProduct = {};
+
+  let images = [];
+  let basketMap = new Map();
+
+  let original_url, inBasket;
+
+  location.subscribe(l => {
+    productCounter = 0;
+    // pictureCounter = 0;
+  });
+
+  $: {
+    ({ products = [] } = collection);
+    currentProduct = products[productCounter] || {};
+    images = currentProduct.images;
+    basket.subscribe(map => {
+      basketMap = map;
+    });
+    // if (currentProduct.images) {
+    // original_url = images[pictureCounter].original_url;
+    // }
+    inBasket = basketMap.has(currentProduct.id);
   }
 </script>
 
@@ -80,32 +82,6 @@
     grid-area: gallery;
     display: flex;
     height: calc(100vh - 7.5rem - 5.7rem - 7.3rem);
-  }
-  picture {
-    flex-basis: 70vw;
-    display: flex;
-    justify-content: center;
-    /* align-items: center; */
-    /* text-align: center; */
-  }
-  .cover {
-    /* object-fit: cover; */
-    /* width: 100%; */
-    /* first 2 values are for main
-    3rd value is for collecion list
-    4th value is for info
-     */
-    height: calc(100vh - 7.5rem - 5.7rem - 7.3rem);
-  }
-  img {
-    max-width: 100%;
-    /* max-height: 100%; */
-    object-fit: cover;
-    /* margin: auto; */
-    /* object-position: 50% 50%; */
-  }
-  img.basket {
-    opacity: 70%;
   }
   .panel {
     grid-area: panel;
@@ -209,16 +185,7 @@
       <button class="controls" on:click={getPrevious}>
         <img src="/larr.png" alt="<" />
       </button>
-      <picture on:click={getNextPicture}>
-        <source
-          srcset={currentProduct.images[pictureCounter].original_url}
-          media="(min-width: 600px)" />
-        <img
-          class:basket={basketMap.has(currentProduct.id)}
-          class="cover"
-          src={currentProduct.images[pictureCounter].original_url}
-          alt="logo" />
-      </picture>
+      <ProductImage {currentProduct} {inBasket} />
       <button class="controls" on:click={getNext}>
         <img class="" src="/rarr.png" alt=">" />
       </button>
