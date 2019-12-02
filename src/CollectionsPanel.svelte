@@ -1,5 +1,4 @@
 <script>
-  // import "dragscroll.js";
   export let params;
   import CollectionIcon from "./CollectionIcon.svelte";
   import { collectionsArray } from "./stores.js";
@@ -11,19 +10,10 @@
 
 <style>
   ul {
-    /* flex-shrink: 0; */
     display: flex;
-
     overflow: auto;
-    /* overflow: hidden; */
-    /* cursor: grab; */
-    /* padding-left: 1rem; */
     padding: 0 0 0 0;
-    /* padding: 0; */
     margin: 0;
-    /* float: left; */
-
-    /* height: 5rem; */
   }
   @media screen and (min-width: 480px) {
     ul {
@@ -33,7 +23,7 @@
 </style>
 
 <nav>
-  <ul class="draggable">
+  <ul>
     {#each collections as { id, title, products, permalink }}
       <CollectionIcon
         highlight={permalink == params.permalink}

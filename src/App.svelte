@@ -1,5 +1,6 @@
 <script>
   import Router from "svelte-spa-router";
+  import { fade } from "svelte/transition";
   import routes from "./routes";
 
   import { onMount } from "svelte";
@@ -36,8 +37,6 @@
   let col = [],
     prod = [];
 
-  let test = {};
-
   $: {
     collectionsRaw.subscribe(c => {
       col = c;
@@ -45,18 +44,12 @@
     productsRaw.subscribe(p => {
       prod = p;
     });
-
     collections.set(populateCollections(col, prod));
-
     basket.subscribe(basket => {
       localStorage.setItem("basket", JSON.stringify(Array.from(basket)));
     });
     orders.subscribe(orders => {
       localStorage.setItem("orders", JSON.stringify(Array.from(orders)));
-    });
-
-    collectionsArray.subscribe(v => {
-      test = v;
     });
   }
 
@@ -108,8 +101,10 @@
 <div class="wrapper">
   <Header />
   <Promo />
-  <main>
-    <Router {routes} />
-  </main>
+  {#if col.length && prod.length}
+    <main transition:fade>
+      <Router {routes} />
+    </main>
+  {/if}
   <Footer />
 </div>
