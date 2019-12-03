@@ -51,8 +51,8 @@
       media="(min-device-pixel-ratio: 3), (-webkit-min-device-pixel-ratio: 3)" />
     <source
       srcset={images[pictureCounter].original_url}
-      media="(min-width: 400px),(min-device-pixel-ratio: 2),
-      (-webkit-min-device-pixel-ratio: 2)" />
+      media="(min-width: 400px) and (min-device-pixel-ratio: 2), (min-width:
+      400px) and (-webkit-min-device-pixel-ratio: 2)" />
     <source
       srcset={images[pictureCounter].large_url}
       media="(min-width: 300px)" />
