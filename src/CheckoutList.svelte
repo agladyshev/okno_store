@@ -1,7 +1,7 @@
 <script>
   import { basket } from "./stores.js";
   import DeleteButton from "./DeleteButton.svelte";
-  let products;
+  let products = [];
 
   $: {
     basket.subscribe(map => {

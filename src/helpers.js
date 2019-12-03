@@ -27,3 +27,4 @@ export const populateCollections = function(collections, products) {
 export const filterEmptyCollections = function(col) {
   return col.products.length;
 };
+

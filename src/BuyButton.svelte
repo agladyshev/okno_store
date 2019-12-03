@@ -2,17 +2,11 @@
   export let product, added;
   import { basket } from "./stores.js";
   import Button from "./Button.svelte";
+  import { toggleBasket } from "./storeHelpers.js";
   $: value = added ? "удалить" : "хочу";
-  function toggleBasket() {
-    basket.update(basket => {
-      if (added) {
-        basket.delete(product.id);
-        return basket;
-      } else {
-        return basket.set(product.id, product);
-      }
-    });
+  function handleClick() {
+    toggleBasket(product, added);
   }
 </script>
 
-<Button onclick={toggleBasket} {value} type="button" />
+<Button onclick={handleClick} {value} type="button" />

@@ -6,6 +6,6 @@ const routes = new Map();
 
 routes.set("/", HomeRoute);
 routes.set("/collection/:permalink", CollectionRoute);
-routes.set("/checkout", Checkout);
+routes.set("/checkout/:productId?", Checkout);
 
 export default routes;
