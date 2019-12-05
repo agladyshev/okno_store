@@ -29,18 +29,48 @@
 
   let original_url, inBasket;
 
+  let sort_type;
+
+  function sort_by(sort_type) {
+    const sortLookUp = {
+      3: { field: "created_at", reverse: true, variants: false },
+      4: { field: "created_at", reverse: false, variants: false },
+      5: { field: "price", reverse: true, variants: true },
+      6: { field: "price", reverse: false, variants: true },
+      7: { field: "position", reverse: false, variants: false }
+    };
+    let { field = "position", reverse = "false", variants = "false" } =
+      sortLookUp[sort_type] || sortLookUp[7];
+    if (!reverse) {
+      products.sort((a, b) => {
+        if (variants) {
+          return a.variants[0][field] - b.variants[0][field];
+        } else if (field == "created_at") {
+          return new Date(a[field]) - new Date(b[field]);
+        } else {
+          return a[field] - b[field];
+        }
+      });
+    } else {
+      products.sort((a, b) => {
+        if (variants) {
+          return b.variants[0][field] - a.variants[0][field];
+        } else if (field == "created_at") {
+          return new Date(b[field]) - new Date(a[field]);
+        } else {
+          return a[field] - b[field];
+        }
+      });
+    }
+  }
   location.subscribe(l => {
     productCounter = 0;
   });
 
   $: {
-    ({ products = [] } = collection);
+    ({ products = [], sort_type } = collection);
+    sort_by(sort_type);
   }
-
-  $: {
-    products.sort((a, b) => a.position - b.position);
-  }
-
   $: {
     basket.subscribe(map => {
       basketMap = map;
