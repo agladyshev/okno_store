@@ -1,10 +1,10 @@
 <script>
   export let params;
   import CollectionIcon from "./CollectionIcon.svelte";
-  import { collectionsArray } from "./stores.js";
-  let collections;
-  collectionsArray.subscribe(values => {
-    collections = values.filter(el => el.permalink != "frontpage");
+  import { collections } from "./stores.js";
+  let col;
+  collections.subscribe(values => {
+    col = values.filter(el => el.permalink != "frontpage");
   });
 </script>
 
@@ -24,7 +24,7 @@
 
 <nav>
   <ul>
-    {#each collections as { id, title, products, permalink }}
+    {#each col as { id, title, products, permalink }}
       <CollectionIcon
         highlight={permalink == params.permalink}
         {title}

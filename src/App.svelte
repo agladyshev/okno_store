@@ -14,7 +14,6 @@
     collectionsRaw,
     productsRaw,
     collections,
-    collectionsArray,
     deliveryVariants,
     paymentGateways,
     basket,

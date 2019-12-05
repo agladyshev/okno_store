@@ -36,6 +36,11 @@
   $: {
     ({ products = [] } = collection);
   }
+
+  $: {
+    products.sort((a, b) => a.position - b.position);
+  }
+
   $: {
     basket.subscribe(map => {
       basketMap = map;

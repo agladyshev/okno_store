@@ -4,27 +4,21 @@ export const arrayToObject = (array, keyField) =>
     return obj;
   }, {});
 
-export const addProductsArray = function(collection) {
-  collection.products = [];
-  return collection;
-};
 
-export const populateCollections = function(collections, products) {
+export const populateCollections = function (collections, products) {
   if (!collections.length || !products.length) {
-    return {};
+    return [];
   }
-  return products.reduce((obj, product) => {
-    let ids = product.collections_ids;
-    ids.forEach(id => {
-      if (obj[id]) {
-        obj[id].products.push(product);
-      }
-    });
-    return obj;
-  }, arrayToObject(collections.map(addProductsArray), "id"));
+  return collections.map(c => {
+    c.products = c.products.map(p => {
+      return Object.assign(p, products.find(prod => prod.id == p.product_id))
+    })
+    return c;
+  })
+
 };
 
-export const filterEmptyCollections = function(col) {
+export const filterEmptyCollections = function (col) {
   return col.products.length;
 };
 

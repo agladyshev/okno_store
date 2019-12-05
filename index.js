@@ -52,8 +52,11 @@ var filterEmptyProducts = function (product) {
 };
 
 var addProductsArray = function (collection) {
-  collection.products = [];
-  return collection;
+  // collection.products = [];
+  return getCollectionOrder(collection.id).then((res) => {
+    collection.products = res;
+    return collection;
+  })
 };
 
 var getCollections = function (req, res, next) {
@@ -67,7 +70,12 @@ var getCollections = function (req, res, next) {
       );
     })
     .then(collections => {
-      res.collections = collections.map(addProductsArray);
+      // res.collections = collections.map(addProductsArray);
+      return Promise.all(collections.map(addProductsArray))
+
+    })
+    .then(collections => {
+      res.collections = collections
       next();
     })
     .catch(error => console.log(error));
@@ -90,6 +98,12 @@ var getProducts = function (req, res, next) {
     })
     .catch(error => console.log(error));
 };
+
+var getCollectionOrder = function (id) {
+  return fetch(new URL(`/admin/collects.json?collection_id=${id}`, baseURL))
+    .then(res => res.json())
+    .catch(error => console.log(error));
+}
 
 var checkAvailability = function (req, res, next) {
   let { ids } = req.body;
@@ -164,8 +178,6 @@ var addOrder = function (req, res, next) {
       payment_gateway_id: paymentOption
     }
   };
-  console.log(products);
-  console.log(body);
   fetch(new URL("/admin/orders.json", baseURL),
     {
       method: "post",
