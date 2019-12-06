@@ -4,21 +4,23 @@ export const arrayToObject = (array, keyField) =>
     return obj;
   }, {});
 
-
-export const populateCollections = function (collections, products) {
+export const populateCollections = function(collections, products) {
   if (!collections.length || !products.length) {
     return [];
   }
   return collections.map(c => {
     c.products = c.products.map(p => {
-      return Object.assign(p, products.find(prod => prod.id == p.product_id))
-    })
-    return c;
-  })
-
+      return Object.assign(
+        p,
+        products.find(prod => prod.id == p.product_id)
+      );
+    });
+    if (c.products.length) {
+      return c;
+    }
+  });
 };
 
-export const filterEmptyCollections = function (col) {
+export const filterEmptyCollections = function(col) {
   return col.products.length;
 };
-

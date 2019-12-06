@@ -3,8 +3,16 @@
   import CollectionIcon from "./CollectionIcon.svelte";
   import { collections } from "./stores.js";
   let col;
+  function isMainPage(value) {
+    if (value) {
+      return value.permalink != "frontpage";
+    }
+    return false;
+  }
   collections.subscribe(values => {
-    col = values.filter(el => el.permalink != "frontpage");
+    if (values) {
+      col = values.filter(isMainPage);
+    }
   });
 </script>
 
@@ -25,11 +33,13 @@
 <nav>
   <ul>
     {#each col as { id, title, products, permalink }}
-      <CollectionIcon
-        highlight={permalink == params.permalink}
-        {title}
-        {permalink}
-        images={products[0].images[0]} />
+      {#if products[0].images}
+        <CollectionIcon
+          highlight={permalink == params.permalink}
+          {title}
+          {permalink}
+          images={products[0].images[0]} />
+      {/if}
     {/each}
   </ul>
 </nav>
