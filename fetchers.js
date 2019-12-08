@@ -128,13 +128,13 @@ export const postOrder = function(body) {
     }
   })
     .then(result => result.json())
-    .then(json => {
+    .then(order => {
       // Filter unused fields
-      return json.map(obj => {
-        return Object.fromEntries(
-          Object.entries(obj).filter(([key]) => ["number"].includes(key))
-        );
-      });
+      // return json.map(obj => {
+      return Object.fromEntries(
+        Object.entries(order).filter(([key]) => ["number"].includes(key))
+      );
+      // });
     })
     .catch(error => console.log(error));
 };

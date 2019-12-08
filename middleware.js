@@ -43,7 +43,7 @@ export const checkAvailability = function(req, res, next) {
   findMissingProducts(ids)
     .then(missing => {
       if (missing.length) {
-        res.send({ status: "missing_items", items: missing });
+        res.send({ status: "missing_products", products: missing });
       } else {
         next();
       }
@@ -72,7 +72,10 @@ export const getPayment = function(req, res, next) {
 export const getPromo = function(req, res, next) {
   fetchPromo()
     .then(json => {
-      res.promo = json.find(article => article.pinned);
+      res.promo = json.find(article => article.pinned) || {
+        pinned: true,
+        content: "поменяйте промо в разделе Статьи"
+      };
       next();
     })
     .catch(error => console.log(error));
@@ -104,7 +107,7 @@ export const addOrder = function(req, res, next) {
       payment_gateway_id: paymentOption
     }
   };
-  postOrder().then(order => {
+  postOrder(body).then(order => {
     res.order = order;
     next();
   });

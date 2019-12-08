@@ -27,11 +27,23 @@
     getPayment
   } from "./api.js";
 
-  import {
-    arrayToObject,
-    populateCollections,
-    filterEmptyCollections
-  } from "./helpers.js";
+  import { populateCollections } from "./helpers.js";
+
+  onMount(async () => {
+    //Fetch inSales data and populate svelte stores
+    getCollections().then(value => {
+      collectionsRaw.set(value);
+    });
+    getProducts().then(value => {
+      productsRaw.set(value);
+    });
+    getDelivery().then(value => {
+      deliveryVariants.set(value);
+    });
+    getPayment().then(value => {
+      paymentGateways.set(value);
+    });
+  });
 
   let col = [],
     prod = [];
@@ -51,21 +63,6 @@
       localStorage.setItem("orders", JSON.stringify(Array.from(orders)));
     });
   }
-
-  onMount(async () => {
-    getCollections().then(value => {
-      collectionsRaw.set(value);
-    });
-    getProducts().then(value => {
-      productsRaw.set(value);
-    });
-    getDelivery().then(value => {
-      deliveryVariants.set(value);
-    });
-    getPayment().then(value => {
-      paymentGateways.set(value);
-    });
-  });
 </script>
 
 <style>
@@ -81,20 +78,10 @@
       "main"
       "footer";
   }
-
   main {
     grid-area: main;
-    /* overflow-y: scroll; */
     overflow: auto;
-    /* display: flex; */
-    /* flex-direction: column; */
   }
-
-  /* @media (min-width: 640px) { */
-  /* main { */
-  /* max-width: none; */
-  /* } */
-  /* } */
 </style>
 
 <div class="wrapper">

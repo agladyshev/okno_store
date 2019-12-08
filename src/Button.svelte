@@ -8,7 +8,6 @@
   input {
     -webkit-appearance: none;
     min-width: 5rem;
-    /* padding: 0.2rem 1.3rem; */
     padding: 0.2rem 0rem;
     background-color: yellow;
     border-radius: 2px;
