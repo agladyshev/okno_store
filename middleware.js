@@ -1,5 +1,5 @@
 import { fetchCollections, fetchProducts, fetchDelivery, fetchPromo, fetchPayment, postOrder } from './fetchers.js'
-import { addProductsArray } from './helpers.js'
+import { addProductsArray, filterEmptyProducts } from './helpers.js'
 
 
 export const getCollections = function (req, res, next) {
@@ -24,6 +24,7 @@ export const getCollections = function (req, res, next) {
 
 export const getProducts = function (req, res, next) {
     fetchProducts()
+        .then(json => json.filter(filterEmptyProducts))
         .then(filtered => {
             res.products = filtered;
             next();
@@ -34,6 +35,7 @@ export const getProducts = function (req, res, next) {
 export const checkAvailability = function (req, res, next) {
     let { ids } = req.body;
     fetchProducts()
+        .then(json => json.filter(filterEmptyProducts))
         .then(available => {
             return ids.filter(id => {
                 return !available.find(item => item.id == id);
