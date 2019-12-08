@@ -1,20 +1,13 @@
 import { fetchCollections, fetchProducts, fetchDelivery, fetchPromo, fetchPayment, postOrder } from './fetchers.js'
-import { addProductsArray, filterEmptyProducts } from './helpers.js'
+import { addProductsPositions, filterProducts, filterCollections, findMissingProducts } from './helpers.js'
 
 
 export const getCollections = function (req, res, next) {
     fetchCollections()
         .then(collections => {
-            return Promise.all(collections.map(addProductsArray));
+            return Promise.all(collections.map(addProductsPositions));
         })
-        .then(json => {
-            // Check if collection is not hidden
-            // Remove parent collection
-            // Remove empty collections
-            return json.filter(
-                collection => (!collection.is_hidden && collection.position && collection.products.length)
-            );
-        })
+        .then(collections => collections.filter(filterCollections))
         .then(collections => {
             res.collections = collections;
             next();
@@ -24,7 +17,7 @@ export const getCollections = function (req, res, next) {
 
 export const getProducts = function (req, res, next) {
     fetchProducts()
-        .then(json => json.filter(filterEmptyProducts))
+        .then(json => json.filter(filterProducts))
         .then(filtered => {
             res.products = filtered;
             next();
@@ -33,21 +26,18 @@ export const getProducts = function (req, res, next) {
 };
 
 export const checkAvailability = function (req, res, next) {
+    // check every product id in the basket
+    // return only those which are unavailable for purchase
     let { ids } = req.body;
-    fetchProducts()
-        .then(json => json.filter(filterEmptyProducts))
-        .then(available => {
-            return ids.filter(id => {
-                return !available.find(item => item.id == id);
-            });
-        })
-        .then(notAvailable => {
-            if (notAvailable.length) {
-                res.send({ status: "missing_items", items: notAvailable });
+    findMissingProducts(ids)
+        .then(missing => {
+            if (missing.length) {
+                res.send({ status: "missing_items", items: missing });
             } else {
                 next();
             }
-        });
+        })
+        .catch(error => console.log(error));
 };
 
 
