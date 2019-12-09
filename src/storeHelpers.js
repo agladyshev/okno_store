@@ -49,6 +49,8 @@ export const removeOne = function(productId, variantId = null) {
         quantity: quantity - 1
       });
     });
+  } else {
+    return null;
   }
 };
 

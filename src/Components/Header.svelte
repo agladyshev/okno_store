@@ -2,9 +2,7 @@
   import { basket } from "../stores";
   let basketSize;
   basket.subscribe(basket => {
-    console.log(basket);
     basketSize = Array.from(basket.values()).reduce((acc, { quantity }) => {
-      console.log(quantity);
       return acc + quantity;
     }, 0);
   });

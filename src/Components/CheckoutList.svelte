@@ -1,7 +1,7 @@
 <script>
   import { basket } from "../stores.js";
   import DeleteButton from "./DeleteButton.svelte";
-  import { productById } from "../storeHelpers.js";
+  import { productById, addOne, removeOne } from "../storeHelpers.js";
 
   let products = [];
 
@@ -11,7 +11,6 @@
         variant.product = productById(variant.productId);
         return variant;
       });
-      console.log(products);
     });
   }
 
@@ -122,8 +121,24 @@
   .info .option span.size {
     font-weight: 800;
   }
-  .info .option span.quantity {
+  .info .option div.quantity {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .info .option div.quantity div {
     font-weight: 800;
+    /* padding-bottom: 0.3rem; */
+  }
+  .info .option div.quantity input {
+    /* height: 0.6rem; */
+    /* width: 0.6rem; */
+    border: none;
+    margin: 0;
+    height: 1.4rem;
+    width: 1.4rem;
   }
 </style>
 
@@ -155,8 +170,20 @@
         {:else if product.option_names.length}
           {#each product.option_names as optionName}
             <div class="option">
-              {#if quantity > 1}
-                <span class="quantity">{quantity}</span>
+              {#if product.variants.find(v => (v.id = variantId)).quantity > 1}
+                <div class="quantity">
+                  <input
+                    on:click={() => addOne(productId, variantId)}
+                    type="image"
+                    src="./uarr.png"
+                    alt="upward arrow" />
+                  <div class="quantity">{quantity}</div>
+                  <input
+                    on:click={() => removeOne(productId, variantId)}
+                    type="image"
+                    src="./darr.png"
+                    alt="down arrow" />
+                </div>
               {:else if optionName.title == 'Размер'}
                 <!-- {optionName.title.toLowerCase()}: -->
                 <span class="size">
