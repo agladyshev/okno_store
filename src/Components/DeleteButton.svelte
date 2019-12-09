@@ -1,8 +1,8 @@
 <script>
-  export let product;
-  import { deleteProduct } from "../storeHelpers.js";
+  export let productId, variantId;
+  import { deleteVariant } from "../storeHelpers.js";
   function handleClick() {
-    return deleteProduct(product.id);
+    return deleteVariant(productId, variantId);
   }
 </script>
 

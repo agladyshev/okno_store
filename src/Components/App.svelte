@@ -48,6 +48,8 @@
   let col = [],
     prod = [];
 
+  localStorage.setItem("version", JSON.stringify(1.1));
+
   $: {
     collectionsRaw.subscribe(c => {
       col = c;

@@ -1,15 +1,24 @@
 <script>
   import { basket } from "../stores.js";
   import DeleteButton from "./DeleteButton.svelte";
+  import { productById } from "../storeHelpers.js";
+
   let products = [];
 
   $: {
     basket.subscribe(map => {
-      products = Array.from(map.values());
+      products = Array.from(map.values()).map(variant => {
+        variant.product = productById(variant.productId);
+        return variant;
+      });
+      console.log(products);
     });
   }
-  $: totalSum = products.reduce((sum, product) => {
-    return sum + Number(product.variants[0].price);
+
+  $: totalSum = products.reduce((sum, entry) => {
+    let { product, variantId, quantity } = entry;
+    let price = product.variants.find(v => (v.id = variantId)).price;
+    return sum + Number(price) * quantity;
   }, 0);
 </script>
 
@@ -113,10 +122,13 @@
   .info .option span.size {
     font-weight: 800;
   }
+  .info .option span.quantity {
+    font-weight: 800;
+  }
 </style>
 
 <ul>
-  {#each products as product}
+  {#each products as { product, productId, variantId, quantity }}
     <li
       class:unavailable={product.is_hidden || !product.available}
       class="item">
@@ -143,7 +155,9 @@
         {:else if product.option_names.length}
           {#each product.option_names as optionName}
             <div class="option">
-              {#if optionName.title == 'Размер'}
+              {#if quantity > 1}
+                <span class="quantity">{quantity}</span>
+              {:else if optionName.title == 'Размер'}
                 <!-- {optionName.title.toLowerCase()}: -->
                 <span class="size">
                   {product.variants[0].option_values.find(v => v.option_name_id == optionName.id).title}
@@ -161,7 +175,7 @@
 
       </div>
       <div class="delete">
-        <DeleteButton {product} />
+        <DeleteButton {productId} {variantId} />
       </div>
     </li>
   {/each}

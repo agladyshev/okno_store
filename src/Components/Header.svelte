@@ -2,7 +2,11 @@
   import { basket } from "../stores";
   let basketSize;
   basket.subscribe(basket => {
-    basketSize = basket.size;
+    console.log(basket);
+    basketSize = Array.from(basket.values()).reduce((acc, { quantity }) => {
+      console.log(quantity);
+      return acc + quantity;
+    }, 0);
   });
 </script>
 

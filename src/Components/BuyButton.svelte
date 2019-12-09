@@ -2,10 +2,10 @@
   export let product, added;
   import { basket } from "../stores.js";
   import Button from "./Button.svelte";
-  import { toggleBasket } from "../storeHelpers.js";
+  import { addOne } from "../storeHelpers.js";
   $: value = added ? "удалить" : "хочу";
   function handleClick() {
-    toggleBasket(product, added);
+    addOne(product.id);
   }
 </script>
 
