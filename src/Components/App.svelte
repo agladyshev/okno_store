@@ -1,7 +1,7 @@
 <script>
   import Router from "svelte-spa-router";
   import { fade } from "svelte/transition";
-  import routes from "./routes";
+  import routes from "../routes";
 
   import { onMount } from "svelte";
   import Header from "./Header.svelte";
@@ -18,23 +18,37 @@
     paymentGateways,
     basket,
     orders
-  } from "./stores.js";
+  } from "../stores.js";
 
   import {
     getCollections,
     getProducts,
     getDelivery,
     getPayment
-  } from "./api.js";
+  } from "../api.js";
 
-  import {
-    arrayToObject,
-    populateCollections,
-    filterEmptyCollections
-  } from "./helpers.js";
+  import { populateCollections } from "../helpers.js";
+
+  onMount(async () => {
+    //Fetch inSales data and populate svelte stores
+    getCollections().then(value => {
+      collectionsRaw.set(value);
+    });
+    getProducts().then(value => {
+      productsRaw.set(value);
+    });
+    getDelivery().then(value => {
+      deliveryVariants.set(value);
+    });
+    getPayment().then(value => {
+      paymentGateways.set(value);
+    });
+  });
 
   let col = [],
     prod = [];
+
+  localStorage.setItem("version", JSON.stringify(1.1));
 
   $: {
     collectionsRaw.subscribe(c => {
@@ -51,21 +65,6 @@
       localStorage.setItem("orders", JSON.stringify(Array.from(orders)));
     });
   }
-
-  onMount(async () => {
-    getCollections().then(value => {
-      collectionsRaw.set(value);
-    });
-    getProducts().then(value => {
-      productsRaw.set(value);
-    });
-    getDelivery().then(value => {
-      deliveryVariants.set(value);
-    });
-    getPayment().then(value => {
-      paymentGateways.set(value);
-    });
-  });
 </script>
 
 <style>
@@ -81,20 +80,10 @@
       "main"
       "footer";
   }
-
   main {
     grid-area: main;
-    /* overflow-y: scroll; */
     overflow: auto;
-    /* display: flex; */
-    /* flex-direction: column; */
   }
-
-  /* @media (min-width: 640px) { */
-  /* main { */
-  /* max-width: none; */
-  /* } */
-  /* } */
 </style>
 
 <div class="wrapper">

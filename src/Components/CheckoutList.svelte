@@ -1,15 +1,23 @@
 <script>
-  import { basket } from "./stores.js";
+  import { basket } from "../stores.js";
   import DeleteButton from "./DeleteButton.svelte";
+  import { productById, addOne, removeOne } from "../storeHelpers.js";
+
   let products = [];
 
   $: {
     basket.subscribe(map => {
-      products = Array.from(map.values());
+      products = Array.from(map.values()).map(variant => {
+        variant.product = productById(variant.productId);
+        return variant;
+      });
     });
   }
-  $: totalSum = products.reduce((sum, product) => {
-    return sum + Number(product.variants[0].price);
+
+  $: totalSum = products.reduce((sum, entry) => {
+    let { product, variantId, quantity } = entry;
+    let price = product.variants.find(v => (v.id = variantId)).price;
+    return sum + Number(price) * quantity;
   }, 0);
 </script>
 
@@ -113,10 +121,29 @@
   .info .option span.size {
     font-weight: 800;
   }
+  .info .option div.quantity {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .info .option div.quantity div {
+    font-weight: 800;
+    /* padding-bottom: 0.3rem; */
+  }
+  .info .option div.quantity input {
+    /* height: 0.6rem; */
+    /* width: 0.6rem; */
+    border: none;
+    margin: 0;
+    height: 1.4rem;
+    width: 1.4rem;
+  }
 </style>
 
 <ul>
-  {#each products as product}
+  {#each products as { product, productId, variantId, quantity }}
     <li
       class:unavailable={product.is_hidden || !product.available}
       class="item">
@@ -143,7 +170,21 @@
         {:else if product.option_names.length}
           {#each product.option_names as optionName}
             <div class="option">
-              {#if optionName.title == 'Размер'}
+              {#if product.variants.find(v => (v.id = variantId)).quantity > 1}
+                <div class="quantity">
+                  <input
+                    on:click={() => addOne(productId, variantId)}
+                    type="image"
+                    src="./uarr.png"
+                    alt="upward arrow" />
+                  <div class="quantity">{quantity}</div>
+                  <input
+                    on:click={() => removeOne(productId, variantId)}
+                    type="image"
+                    src="./darr.png"
+                    alt="down arrow" />
+                </div>
+              {:else if optionName.title == 'Размер'}
                 <!-- {optionName.title.toLowerCase()}: -->
                 <span class="size">
                   {product.variants[0].option_values.find(v => v.option_name_id == optionName.id).title}
@@ -161,7 +202,7 @@
 
       </div>
       <div class="delete">
-        <DeleteButton {product} />
+        <DeleteButton {productId} {variantId} />
       </div>
     </li>
   {/each}

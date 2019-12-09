@@ -1,7 +1,7 @@
 <script>
   export let params;
-  import CollectionsPanel from "../CollectionsPanel.svelte";
-  import Collection from "../Collection.svelte";
+  import CollectionsPanel from "../Components/CollectionsPanel.svelte";
+  import Collection from "../Components/Collection.svelte";
   import { collections } from "../stores.js";
   let collectionMain;
   collections.subscribe(values => {

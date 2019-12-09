@@ -1,9 +1,9 @@
 <script>
-  import CheckoutForm from "../CheckoutForm.svelte";
-  import CheckoutList from "../CheckoutList.svelte";
+  import CheckoutForm from "../Components/CheckoutForm.svelte";
+  import CheckoutList from "../Components/CheckoutList.svelte";
   import { basket } from "../stores.js";
-  import Button from "../Button.svelte";
-  import { addToBasket } from "../storeHelpers.js";
+  import Button from "../Components/Button.svelte";
+  import { addOne } from "../storeHelpers.js";
   import { fade } from "svelte/transition";
   export let params;
 
@@ -11,7 +11,7 @@
 
   if (params.productId) {
     // adding product by direct link
-    let result = addToBasket(params.productId);
+    let result = addOne(params.productId);
     if (result === null) {
       directFailure = true;
       setTimeout(function() {

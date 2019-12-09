@@ -1,8 +1,10 @@
 <script>
-  import { basket } from "./stores";
+  import { basket } from "../stores";
   let basketSize;
   basket.subscribe(basket => {
-    basketSize = basket.size;
+    basketSize = Array.from(basket.values()).reduce((acc, { quantity }) => {
+      return acc + quantity;
+    }, 0);
   });
 </script>
 

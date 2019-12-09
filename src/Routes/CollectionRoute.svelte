@@ -1,8 +1,8 @@
 <script>
   export let params = {};
-  import Collection from "../Collection.svelte";
+  import Collection from "../Components/Collection.svelte";
   import { collections } from "../stores.js";
-  import CollectionsPanel from "../CollectionsPanel.svelte";
+  import CollectionsPanel from "../Components/CollectionsPanel.svelte";
   let permalink;
   let collection = {};
   $: {

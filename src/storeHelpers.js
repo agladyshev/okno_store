@@ -1,40 +1,66 @@
-import { basket, productsRaw } from './stores.js'
+import { basket, productsRaw } from "./stores.js";
 
-export const productById = function (id, variantId = undefined) {
-    if (!variantId) {
-        let p;
-        productsRaw.subscribe(products => {
-            p = products.find(p => p.id == id)
-        })
-        return p;
-    }
-}
-
-export const toggleBasket = function (product, added) {
-    basket.update(basket => {
-        if (added) {
-            basket.delete(product.id);
-            return basket;
-        } else {
-            return basket.set(product.id, product);
-        }
+export const productById = function(id, variantId = undefined) {
+  if (!variantId) {
+    let p;
+    productsRaw.subscribe(products => {
+      p = products.find(p => p.id == id);
     });
-}
+    return p;
+  }
+};
 
-export const addToBasket = function (id) {
-    let product = (productById(id));
-    if (product) {
-        basket.update(basket => {
-            return basket.set(product.id, product)
-        })
-    } else {
-        return null;
-    }
-}
-
-export const deleteProduct = function (id) {
+export const addOne = function(productId, variantId = null) {
+  let product = productById(productId);
+  let variant = variantId
+    ? product.variants.find(v => (v.id = variantId))
+    : product.variants[0];
+  if (product) {
     basket.update(basket => {
-        basket.delete(id);
+      let quantityMax = variant.quantity;
+      let { quantity = 0, ...rest } = basket.get(variant.id) || {};
+      let nextQuantity = quantity < quantityMax ? quantity + 1 : quantity;
+      return basket.set(variant.id, {
+        variantId: variant.id,
+        productId: product.id,
+        quantity: nextQuantity
+      });
+    });
+  } else {
+    return null;
+  }
+};
+
+export const removeOne = function(productId, variantId = null) {
+  let product = productById(productId);
+  let variant = variantId
+    ? product.variants.find(v => (v.id = variantId))
+    : product.variants[0];
+  if (product) {
+    basket.update(basket => {
+      let { quantity, variantId, productId } = basket.get(variant.id);
+      if (quantity == 1 || !quantity) {
+        basket.delete(variantId);
         return basket;
-    })
-}
+      }
+      return basket.set(variantId, {
+        variantId,
+        productId,
+        quantity: quantity - 1
+      });
+    });
+  } else {
+    return null;
+  }
+};
+
+export const deleteVariant = function(productId, variantId = null) {
+  let product = productById(productId);
+  let variant = variantId
+    ? product.variants.find(v => (v.id = variantId))
+    : product.variants[0];
+  basket.update(basket => {
+    basket.delete(variant.id);
+    return basket;
+  });
+};

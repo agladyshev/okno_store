@@ -1,15 +1,14 @@
 <script>
-  // let BASE_URL = "http://localhost:3000";
-  let BASE_URL = "";
   import {
     basket,
     deliveryVariants,
     paymentGateways,
     productsRaw,
     orders
-  } from "./stores.js";
+  } from "../stores.js";
   import { push } from "svelte-spa-router";
   import Button from "./Button.svelte";
+  import { addOrder } from "../api.js";
   let products, productsMap, deliveryOptions, paymentOptions;
 
   let name = "",
@@ -38,54 +37,62 @@
     return /\+?[0-9]{11,20}/.test(phone);
   };
 
-  const addOrder = function(event) {
-    if (!validatePhoneNumber()) {
-      return (message = { type: "error", text: "Некорректный номер телефона" });
-    }
-    let orderLines = products.map(product => {
-      // Rewrite for different variants and quantity
-      return {
-        variant_id: product.variants[0].id,
-        quantity: 1
-      };
-    });
-    let ids = products.map(product => product.id);
-    console.log(paymentOptions[0].id);
-    console.log(deliveryOption);
-    const body = {
-      ids,
-      products: orderLines,
+  const constructOrderBody = function() {
+    // let orderLines = products.map(product => {
+    // Rewrite for different variants and quantity
+    // return {
+    // variant_id: product.variants[0].id,
+    // quantity: 1
+    // };
+    // });
+    // let ids = products.map(product => product.id);
+    return {
+      ids: products.map(product => product.id),
+      products: products.map(product => {
+        // Rewrite for different variants and quantity
+        return {
+          variant_id: product.variants[0].id,
+          quantity: 1
+        };
+      }),
       name,
       phone,
       address,
       deliveryOption,
       paymentOption: paymentOptions[0].id
     };
-    return fetch(`${BASE_URL}/addOrder`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body)
-    })
-      .then(res => res.json())
+  };
+  const handleMissingProducts = function(items) {
+    items.forEach(id => {
+      let p = productsMap.get(id);
+      p.is_hidden = true;
+      productsMap.set(id, p);
+    });
+    return basket.set(new Map(productsMap));
+  };
+  const handleOrderSuccess = function(number) {
+    // Delete products from available products, empty basket, store new order
+    productsRaw.update(store => {
+      return store.filter(item => !productsMap.has(item.id));
+    });
+    basket.set(new Map());
+    orders.update(o => o.set(number, new Date()));
+  };
+
+  const handleSubmit = function(event) {
+    if (!validatePhoneNumber()) {
+      return (message = { type: "error", text: "Некорректный номер телефона" });
+    }
+    return addOrder(constructOrderBody())
       .then(result => {
-        if (result.status == "missing_items") {
-          result.items.forEach(id => {
-            let p = productsMap.get(id);
-            p.is_hidden = true;
-            productsMap.set(id, p);
-          });
-          return basket.set(new Map(productsMap));
+        if (result.status == "missing_products") {
+          return handleMissingProducts(result.products);
         }
         if (result.number) {
-          productsRaw.update(store => {
-            return store.filter(item => !productsMap.has(item.id));
-          });
-          basket.set(new Map());
-          orders.update(o => o.set(result.number, new Date()));
+          handleOrderSuccess(result.number);
           alert(`Заказ №${result.number} оформлен. Мы позвоним`);
           return push("/");
         }
-        console.log(result);
         alert(`Что-то сломалось, позвоните нам, мы оформим заказ`);
       })
       .catch(err => {
@@ -124,7 +131,6 @@
   }
 
   form .delivery {
-    /* flex-basis: 100%; */
     display: flex;
   }
   form .payment {
@@ -171,8 +177,7 @@
   }
 </style>
 
-<form action="submit" on:submit|preventDefault={addOrder}>
-  <!-- <label for="name">имя</label> -->
+<form action="submit" on:submit|preventDefault={handleSubmit}>
   <div class:invisible={!message.text} class="message">
     <span>{message.text}</span>
   </div>
@@ -184,7 +189,6 @@
       required
       size="11"
       placeholder="имя" />
-    <!-- <label for="phone">телефон</label> -->
   </div>
   <div class="contact">
     <input
@@ -200,7 +204,6 @@
 
   <div class="delivery">
     {#each deliveryOptions as option}
-      <!-- <div> -->
       <input
         bind:group={deliveryOption}
         name="delivery"
@@ -209,7 +212,6 @@
         id={option.id}
         required />
       <label for={option.id}>{option.title}</label>
-      <!-- </div> -->
     {/each}
   </div>
   {#if deliveryOptions.find(d => d.id == deliveryOption)}
