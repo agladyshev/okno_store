@@ -1,7 +1,7 @@
 <script>
   import Router from "svelte-spa-router";
   import { fade } from "svelte/transition";
-  import routes from "./routes";
+  import routes from "../routes";
 
   import { onMount } from "svelte";
   import Header from "./Header.svelte";
@@ -18,16 +18,16 @@
     paymentGateways,
     basket,
     orders
-  } from "./stores.js";
+  } from "../stores.js";
 
   import {
     getCollections,
     getProducts,
     getDelivery,
     getPayment
-  } from "./api.js";
+  } from "../api.js";
 
-  import { populateCollections } from "./helpers.js";
+  import { populateCollections } from "../helpers.js";
 
   onMount(async () => {
     //Fetch inSales data and populate svelte stores

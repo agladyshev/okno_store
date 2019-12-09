@@ -1,7 +1,7 @@
 <script>
   import CrossButton from "./CrossButton.svelte";
   import BuyButton from "./BuyButton.svelte";
-  import { basket } from "./stores.js";
+  import { basket } from "../stores.js";
   import { location } from "svelte-spa-router";
 
   import ProductImage from "./ProductImage.svelte";

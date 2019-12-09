@@ -1,5 +1,5 @@
 <script>
-  import { basket } from "./stores";
+  import { basket } from "../stores";
   let basketSize;
   basket.subscribe(basket => {
     basketSize = basket.size;

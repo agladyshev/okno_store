@@ -1,9 +1,3 @@
-// export const arrayToObject = (array, keyField) =>
-//   array.reduce((obj, item) => {
-//     obj[item[keyField]] = item;
-//     return obj;
-//   }, {});
-
 export const populateCollections = function(collections, products) {
   if (!collections.length || !products.length) {
     return [];
@@ -20,8 +14,4 @@ export const populateCollections = function(collections, products) {
       return c;
     }
   });
-};
-
-export const filterEmptyCollections = function(col) {
-  return col.products.length;
 };

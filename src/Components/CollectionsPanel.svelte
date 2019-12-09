@@ -1,7 +1,7 @@
 <script>
   export let params;
   import CollectionIcon from "./CollectionIcon.svelte";
-  import { collections } from "./stores.js";
+  import { collections } from "../stores.js";
   let col;
   function isMainPage(value) {
     if (value) {

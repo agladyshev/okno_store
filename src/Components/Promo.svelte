@@ -1,7 +1,7 @@
 <script>
   import { querystring } from "svelte-spa-router";
-  import { orders } from "./stores.js";
-  import { getPromo } from "./api.js";
+  import { orders } from "../stores.js";
+  import { getPromo } from "../api.js";
   import { onMount } from "svelte";
   let lastOrder;
   let secondsSinceLastOrder;

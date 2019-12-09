@@ -1,30 +1,20 @@
 export const getCollections = function() {
-  return fetch(`/getCollections`).then(res => {
-    return res.json();
-  });
+  return fetch(`/getCollections`).then(res => res.json());
 };
 
 export const getProducts = function() {
-  return fetch(`/getProducts`).then(res => {
-    return res.json();
-  });
+  return fetch(`/getProducts`).then(res => res.json());
 };
 export const getDelivery = function() {
-  return fetch(`/getDelivery`).then(res => {
-    return res.json();
-  });
+  return fetch(`/getDelivery`).then(res => res.json());
 };
 
 export const getPayment = function() {
-  return fetch(`/getPayment`).then(res => {
-    return res.json();
-  });
+  return fetch(`/getPayment`).then(res => res.json());
 };
 
 export const getPromo = function() {
-  return fetch(`/getPromo`).then(res => {
-    return res.json();
-  });
+  return fetch(`/getPromo`).then(res => res.json());
 };
 
 export const addOrder = function(body) {

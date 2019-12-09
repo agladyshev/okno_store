@@ -5,10 +5,10 @@
     paymentGateways,
     productsRaw,
     orders
-  } from "./stores.js";
+  } from "../stores.js";
   import { push } from "svelte-spa-router";
   import Button from "./Button.svelte";
-  import { addOrder } from "./api.js";
+  import { addOrder } from "../api.js";
   let products, productsMap, deliveryOptions, paymentOptions;
 
   let name = "",

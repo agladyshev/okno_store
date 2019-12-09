@@ -1,5 +1,5 @@
 <script>
-  import { basket } from "./stores.js";
+  import { basket } from "../stores.js";
   import DeleteButton from "./DeleteButton.svelte";
   let products = [];
 
