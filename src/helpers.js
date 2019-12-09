@@ -9,12 +9,13 @@ export const populateCollections = function(collections, products) {
     return [];
   }
   return collections.map(c => {
-    c.products = c.products.map(p => {
-      return Object.assign(
-        p,
-        products.find(prod => prod.id == p.product_id)
-      );
-    });
+    c.products = c.products.reduce((acc, p) => {
+      let product = products.find(prod => prod.id == p.product_id);
+      if (product) {
+        acc.push(Object.assign(p, product));
+      }
+      return acc;
+    }, []);
     if (c.products.length) {
       return c;
     }
