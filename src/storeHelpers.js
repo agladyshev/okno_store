@@ -41,13 +41,14 @@ export const removeOne = function(productId, variantId = null) {
       let { quantity, variantId, productId } = basket.get(variant.id);
       if (quantity == 1 || !quantity) {
         basket.delete(variantId);
-        return basket;
+      } else {
+        basket.set(variantId, {
+          variantId,
+          productId,
+          quantity: quantity - 1
+        });
       }
-      return basket.set(variantId, {
-        variantId,
-        productId,
-        quantity: quantity - 1
-      });
+      return basket;
     });
   } else {
     return null;

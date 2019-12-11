@@ -24,12 +24,11 @@
   let currentProduct = {};
   let productCounter = 0;
   let basketMap = new Map();
+  let inBasket;
+  let original_url;
+  let sort_type;
   // Special variable for forced rerender
   let keys = [0];
-
-  let original_url, inBasket;
-
-  let sort_type;
 
   function sort_by(sort_type) {
     const sortLookUp = {
@@ -63,6 +62,7 @@
       });
     }
   }
+
   location.subscribe(l => {
     productCounter = 0;
   });
@@ -74,7 +74,6 @@
   $: {
     basket.subscribe(map => {
       basketMap = map;
-      inBasket = basketMap.has(currentProduct.id);
     });
   }
   $: if (products.length) {
@@ -83,6 +82,12 @@
 
   $: if (currentProduct) {
     images = currentProduct.images;
+  }
+
+  $: if (basketMap.get(currentProduct.variants[0].id)) {
+    inBasket = basketMap.get(currentProduct.variants[0].id).quantity;
+  } else {
+    inBasket = 0;
   }
 </script>
 
@@ -263,9 +268,7 @@
           </div>
         {/each}
       </div>
-      <BuyButton
-        product={currentProduct}
-        added={basketMap.has(currentProduct.id)} />
+      <BuyButton product={currentProduct} {inBasket} />
     </div>
   </div>
 {/if}

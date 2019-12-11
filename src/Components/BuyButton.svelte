@@ -1,11 +1,16 @@
 <script>
-  export let product, added;
+  export let product, inBasket;
   import { basket } from "../stores.js";
   import Button from "./Button.svelte";
-  import { addOne } from "../storeHelpers.js";
-  $: value = added ? "удалить" : "хочу";
+  import { addOne, removeOne } from "../storeHelpers.js";
+  $: maxQuantity = product.variants[0].quantity;
+  $: value = inBasket == maxQuantity ? "удалить" : "хочу";
   function handleClick() {
-    addOne(product.id);
+    if (inBasket < maxQuantity) {
+      addOne(product.id);
+    } else {
+      removeOne(product.id);
+    }
   }
 </script>
 
