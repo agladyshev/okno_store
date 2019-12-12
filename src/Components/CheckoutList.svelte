@@ -140,6 +140,11 @@
     height: 1.4rem;
     width: 1.4rem;
   }
+  @media screen and (max-width: 374px) {
+    .min-width {
+      display: none;
+    }
+  }
 </style>
 
 <ul>
@@ -169,22 +174,8 @@
           <span class="unavailable-text">уже купили</span>
         {:else if product.option_names.length}
           {#each product.option_names as optionName}
-            <div class="option">
-              {#if product.variants.find(v => (v.id = variantId)).quantity > 1}
-                <div class="quantity">
-                  <input
-                    on:click={() => addOne(productId, variantId)}
-                    type="image"
-                    src="./uarr.png"
-                    alt="upward arrow" />
-                  <div class="quantity">{quantity}</div>
-                  <input
-                    on:click={() => removeOne(productId, variantId)}
-                    type="image"
-                    src="./darr.png"
-                    alt="down arrow" />
-                </div>
-              {:else if optionName.title == 'Размер'}
+            <div class="option min-width">
+              {#if optionName.title == 'Размер'}
                 <!-- {optionName.title.toLowerCase()}: -->
                 <span class="size">
                   {product.variants[0].option_values.find(v => v.option_name_id == optionName.id).title}
@@ -192,6 +183,23 @@
               {/if}
             </div>
           {/each}
+          {#if product.variants.find(v => (v.id = variantId)).quantity > 1}
+            <div class="option">
+              <div class="quantity">
+                <input
+                  on:click={() => addOne(productId, variantId)}
+                  type="image"
+                  src="./uarr.png"
+                  alt="upward arrow" />
+                <div class="quantity">{quantity}</div>
+                <input
+                  on:click={() => removeOne(productId, variantId)}
+                  type="image"
+                  src="./darr.png"
+                  alt="down arrow" />
+              </div>
+            </div>
+          {/if}
         {/if}
         <div class="price">
           {#if product.variants[0].old_price}
