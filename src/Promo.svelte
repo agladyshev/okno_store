@@ -22,6 +22,7 @@
 <style>
   section.promo {
     grid-area: promo;
+    min-height: 1.5rem;
     background-color: yellow;
     display: flex;
     align-items: center;
