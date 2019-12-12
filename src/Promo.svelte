@@ -42,6 +42,8 @@
   {#if secondsSinceLastOrder < 10}
     <span class="order">заказ №{lastOrder} принят - мы позвоним</span>
   {:else}
-    <span>{promo.toLowerCase()}</span>
+    <span>
+      {@html promo.toLowerCase()}
+    </span>
   {/if}
 </section>
