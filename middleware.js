@@ -74,7 +74,7 @@ export const getPromo = function(req, res, next) {
     .then(json => {
       res.promo = json.find(article => article.pinned) || {
         pinned: true,
-        content: "поменяйте промо в разделе Статьи"
+        content: ""
       };
       next();
     })
