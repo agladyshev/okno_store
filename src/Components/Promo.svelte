@@ -20,6 +20,7 @@
 
 <style>
   section.promo {
+    min-height: 1.5rem;
     grid-area: promo;
     background-color: yellow;
     display: flex;
