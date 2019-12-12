@@ -150,7 +150,9 @@ var getPromo = function(req, res, next) {
   fetch(new URL("/admin/articles.json", baseURL))
     .then(res => res.json())
     .then(json => {
-      res.promo = json.find(article => article.pinned);
+      res.promo = json.find(article => article.pinned) || {
+        content: ""
+      };
       next();
     })
     .catch(error => console.log(error));
