@@ -5,7 +5,7 @@
 
 <style>
   li {
-    padding: 0.5rem 0 0.5rem 0;
+    padding: 0.5rem 0 0.25rem 0;
     /* margin: auto; */
     list-style: none;
   }
