@@ -65,7 +65,7 @@ var addProductsArray = function(collection) {
 };
 
 var getCollections = function(req, res, next) {
-  fetch(new URL("/admin/collections.json?per_page=1000", baseURL))
+  fetch(new URL("/admin/collections.json?per_page=250", baseURL))
     .then(res => res.json())
     .then(json => {
       // Check if collection is not hidden
@@ -85,19 +85,39 @@ var getCollections = function(req, res, next) {
     .catch(error => console.log(error));
 };
 
-var fetchProducts = function() {
-  return fetch(new URL("/admin/products.json?per_page=1000", baseURL))
+var fetchProductsPage = function(page) {
+  return fetch(
+    new URL("/admin/products.json?per_page=250&page=" + page, baseURL)
+  )
     .then(res => res.json())
-    .then(json => json.filter(filterEmptyProducts))
     .catch(error => console.log(error));
 };
 
+var getProductsCount = function() {
+  return fetch(new URL("/admin/products/count.json", baseURL)).then(res =>
+    res.json()
+  );
+};
+
+var fetchProducts = function() {
+  return (
+    getProductsCount()
+      .then(res => {
+        return res.count;
+      })
+      // Making multiple fetches because of the pagination
+      .then(count => [...Array(Math.ceil(count / 250) + 1).keys()].slice(1))
+      .then(pages => Promise.all(pages.map(page => fetchProductsPage(page))))
+      .then(res => [].concat(...res))
+      .then(json => json.filter(filterEmptyProducts))
+      .catch(error => console.log(error))
+  );
+};
+
 var getProducts = function(req, res, next) {
-  fetch(new URL("/admin/products.json?per_page=1000", baseURL))
-    .then(res => res.json())
-    .then(json => json.filter(filterEmptyProducts))
-    .then(filtered => {
-      res.products = filtered;
+  fetchProducts()
+    .then(products => {
+      res.products = products;
       next();
     })
     .catch(error => console.log(error));
