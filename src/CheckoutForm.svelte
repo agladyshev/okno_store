@@ -80,7 +80,7 @@
           });
           basket.set(new Map());
           orders.update(o => o.set(result.number, new Date()));
-          alert(`Заказ №${result.number} оформлен. Мы позвоним`);
+          alert(`Заказ №${result.number} оформлен. Скоро мы свяжемся с тобой`);
           return push("/");
         }
         console.log(result);
