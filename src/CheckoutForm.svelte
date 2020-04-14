@@ -189,7 +189,7 @@
       type="tel"
       id="phone"
       name="phone"
-      placeholder="+79774879349"
+      placeholder="+79251507164"
       bind:value={phone}
       size="11"
       required />

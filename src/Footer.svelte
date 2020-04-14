@@ -19,7 +19,7 @@
 </style>
 
 <footer>
-  <a href="tel:+79774879349">
+  <a href="tel:+79251507164">
     <img src="/phone.png" alt="phone icon" />
   </a>
   <a
