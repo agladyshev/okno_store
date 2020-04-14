@@ -211,7 +211,7 @@
     {/each}
   </div>
   {#if deliveryOptions.find(d => d.id == deliveryOption)}
-    {#if deliveryOptions.find(d => d.id == deliveryOption).title == 'Доставка'}
+    {#if deliveryOptions.find(d => d.id == deliveryOption).type == 'DeliveryVariant::Fixed'}
       <div class="address">
         <input
           id="address"
