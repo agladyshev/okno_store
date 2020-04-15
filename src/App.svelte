@@ -73,7 +73,8 @@
 <style>
   .wrapper {
     max-width: 768px;
-    height: 100vh;
+    /* height: 100vh; */
+    min-height: 100vh;
     margin: auto;
     display: grid;
     grid-template-columns: auto;
@@ -83,12 +84,13 @@
       "promo"
       "main"
       "footer";
+    overflow-y: scroll;
   }
 
   main {
     grid-area: main;
     /* overflow-y: scroll; */
-    overflow: auto;
+    overflow-x: scroll;
     scrollbar-width: none;
 
     /* display: flex; */
