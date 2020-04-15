@@ -135,6 +135,7 @@
 
   form .delivery {
     display: flex;
+    font-size: 0.8rem;
   }
   form .payment {
     /* flex-basis: 100%; */

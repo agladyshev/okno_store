@@ -30,7 +30,7 @@
     flex-basis: 100%;
     display: flex;
     flex-wrap: wrap;
-    margin: 0 1rem;
+    margin: 0 0.5rem;
     padding: 0;
   }
   ul li {
@@ -62,7 +62,7 @@
   }
 
   ul li picture {
-    flex-basis: 15%;
+    max-width: 15%;
   }
 
   .cover {
@@ -82,13 +82,13 @@
 
   ul li .info .title {
     flex-basis: 30%;
-    font-size: 1rem;
     text-align: left;
     padding-left: 2rem;
+    font-size: 0.9rem;
   }
 
   ul li .price {
-    flex-basis: 15%;
+    flex-bais: 15%;
     font-size: 0.8rem;
     text-align: right;
   }

@@ -69,7 +69,7 @@
 
 <style>
   .wrapper {
-    height: 100vh;
+    min-height: 100vh;
     max-width: 768px;
     margin: auto;
     display: grid;
@@ -80,11 +80,17 @@
       "promo"
       "main"
       "footer";
+    overflow-y: scroll;
+    scrollbar-width: none;
   }
   main {
     grid-area: main;
-    overflow: auto;
+    overflow-x: scroll;
+    scrollbar-width: none;
   }
+  main::-webkit-scrollbar {
+    display: none;
+  }  
 </style>
 
 <div class="wrapper">
