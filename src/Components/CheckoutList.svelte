@@ -134,6 +134,10 @@
 
   .info .option div.quantity div {
     font-weight: 800;
+    margin: 0;
+    padding-left: 1px;
+    width: 1.4rem;
+    text-align: center;
     /* padding-bottom: 0.3rem; */
   }
   .info .option div.quantity input {
@@ -196,7 +200,7 @@
                   type="image"
                   src="./uarr.png"
                   alt="upward arrow" />
-                <div class="quantity">{quantity}</div>
+                <div>{quantity}</div>
                 <input
                   on:click={() => removeOne(productId, variantId)}
                   type="image"
