@@ -32,12 +32,13 @@
 
 <nav>
   <ul>
-    {#each col as { id, title, products, permalink }}
+    {#each col as { id, title, products, permalink, image }}
       {#if products[0].images}
         <CollectionIcon
           highlight={permalink == params.permalink}
           {title}
           {permalink}
+          cover={image}
           images={products[0].images[0]} />
       {/if}
     {/each}

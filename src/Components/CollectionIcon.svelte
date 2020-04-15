@@ -1,6 +1,10 @@
 <script>
   import { link } from "svelte-spa-router";
-  export let title, images, permalink, highlight;
+  export let title,
+    images,
+    permalink,
+    highlight,
+    cover = {};
 </script>
 
 <style>
@@ -61,9 +65,12 @@
       <picture>
 
         {#if highlight}
-          <img src={images.medium_url} alt={title} class="highlight" />
+          <img
+            src={cover.original_url || images.medium_url}
+            alt={title}
+            class="highlight" />
         {:else}
-          <img src={images.medium_url} alt={title} />
+          <img src={cover.original_url || images.medium_url} alt={title} />
         {/if}
 
       </picture>
