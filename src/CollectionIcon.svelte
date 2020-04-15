@@ -9,7 +9,7 @@
 
 <style>
   li {
-    padding: 0.5rem 0 0.25rem 0;
+    padding: 0.25rem 0 0.15rem 0;
     /* margin: auto; */
     list-style: none;
   }
@@ -20,7 +20,10 @@
     flex-wrap: wrap;
     justify-content: center;
     align-content: center;
-    padding: 0 0.25rem 0 0.25rem;
+    /* padding: 0 0.25rem 0 0.25rem; */
+    padding: 0;
+    min-width: 3.8rem;
+    /* margin: 0 0.25rem 0 0.25rem; */
     color: black;
     text-decoration: none;
   }
@@ -33,14 +36,14 @@
 
   li a figure figcaption {
     text-align: center;
-    font-size: 0.7rem;
-    letter-spacing: 0.05rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.02rem;
     height: 1rem;
   }
 
   img {
-    width: calc(3rem);
-    height: calc(3rem);
+    width: calc(3.35rem);
+    height: calc(3.35rem);
     object-fit: cover;
     border-radius: 50%;
     border: solid grey 2px;
