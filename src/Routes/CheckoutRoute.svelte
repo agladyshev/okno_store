@@ -1,6 +1,6 @@
 <script>
   import CheckoutForm from "../CheckoutForm.svelte";
-  import CheckoutList from "../CheckoutList.svelte";
+
   import { basket } from "../stores.js";
   import Button from "../Button.svelte";
   import { addToBasket } from "../storeHelpers.js";
@@ -66,7 +66,6 @@
 {/if}
 <div class="wrapper">
   {#if products.length}
-    <CheckoutList />
     <CheckoutForm />
   {:else}
     <div class="empty">

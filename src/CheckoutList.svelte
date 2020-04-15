@@ -2,6 +2,8 @@
   import { basket } from "./stores.js";
   import DeleteButton from "./DeleteButton.svelte";
   let products = [];
+  export let deliverySelected = {};
+  $: deliveryPrice = Math.round(deliverySelected.price) || 0;
 
   $: {
     basket.subscribe(map => {
@@ -10,7 +12,7 @@
   }
   $: totalSum = products.reduce((sum, product) => {
     return sum + Number(product.variants[0].price);
-  }, 0);
+  }, deliveryPrice);
 </script>
 
 <style>

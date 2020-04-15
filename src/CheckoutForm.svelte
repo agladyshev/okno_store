@@ -9,6 +9,7 @@
     orders
   } from "./stores.js";
   import { push } from "svelte-spa-router";
+  import CheckoutList from "./CheckoutList.svelte";
   import Button from "./Button.svelte";
   let products, productsMap, deliveryOptions, paymentOptions;
 
@@ -34,6 +35,8 @@
     });
   }
 
+  $: deliverySelected = deliveryOptions.find(d => d.id == deliveryOption);
+
   const validatePhoneNumber = function() {
     return /\+?[0-9]{11,20}/.test(phone);
   };
@@ -50,6 +53,7 @@
       };
     });
     let ids = products.map(product => product.id);
+
     const body = {
       ids,
       products: orderLines,
@@ -169,6 +173,7 @@
   }
 </style>
 
+<CheckoutList {deliverySelected} />
 <form action="submit" on:submit|preventDefault={addOrder}>
   <!-- <label for="name">имя</label> -->
   <div class:invisible={!message.text} class="message">
