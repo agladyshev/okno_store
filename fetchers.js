@@ -21,6 +21,7 @@ export const fetchCollections = function () {
               "title",
               "permalink",
               "products",
+              "image"
             ].includes(key)
           )
         );
