@@ -53,7 +53,7 @@
   }
 
   ul li picture {
-    flex-basis: 15%;
+    max-width: 15%;
   }
 
   .cover {
