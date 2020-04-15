@@ -1,87 +1,89 @@
 import {
   fetchCollections,
-  fetchProducts,
   fetchDelivery,
   fetchPromo,
   fetchPayment,
-  postOrder
+  postOrder,
+  fetchProducts,
 } from "./fetchers.js";
 import {
   addProductsPositions,
   filterProducts,
   filterCollections,
-  findMissingProducts
+  findMissingProducts,
 } from "./helpers.js";
 
-export const getCollections = function(req, res, next) {
+export const getCollections = function (req, res, next) {
   fetchCollections()
-    .then(collections => {
+    .then((collections) => {
       return Promise.all(collections.map(addProductsPositions));
     })
-    .then(collections => collections.filter(filterCollections))
-    .then(collections => {
+    .then((collections) => collections.filter(filterCollections))
+    .then((collections) => {
       res.collections = collections;
       next();
     })
-    .catch(error => console.log(error));
+    .catch((error) => console.log(error));
 };
 
-export const getProducts = function(req, res, next) {
+export const getProducts = function (req, res, next) {
   fetchProducts()
-    .then(json => json.filter(filterProducts))
-    .then(filtered => {
-      res.products = filtered;
-      next();
-    })
-    .catch(error => console.log(error));
+    .then((json) => json.filter(filterProducts))
+    .then(
+      ((filtered) => {
+        res.products = filtered;
+        next();
+      })
+    )
+    .catch((error) => console.log(error));
 };
 
-export const checkAvailability = function(req, res, next) {
+export const checkAvailability = function (req, res, next) {
   // check every product id in the basket
   // return only those which are unavailable for purchase
   let { ids } = req.body;
   findMissingProducts(ids)
-    .then(missing => {
+    .then((missing) => {
       if (missing.length) {
         res.send({ status: "missing_products", products: missing });
       } else {
         next();
       }
     })
-    .catch(error => console.log(error));
+    .catch((error) => console.log(error));
 };
 
-export const getDelivery = function(req, res, next) {
+export const getDelivery = function (req, res, next) {
   fetchDelivery()
-    .then(json => {
+    .then((json) => {
       res.delivery = json;
       next();
     })
-    .catch(error => console.log(error));
+    .catch((error) => console.log(error));
 };
 
-export const getPayment = function(req, res, next) {
+export const getPayment = function (req, res, next) {
   fetchPayment()
-    .then(json => {
+    .then((json) => {
       res.payment = json;
       next();
     })
-    .catch(error => console.log(error));
+    .catch((error) => console.log(error));
 };
 
-export const getPromo = function(req, res, next) {
+export const getPromo = function (req, res, next) {
   fetchPromo()
-    .then(json => {
-      res.promo = json.find(article => article.pinned) || {
+    .then((json) => {
+      res.promo = json.find((article) => article.pinned) || {
         pinned: true,
-        content: ""
+        content: "",
       };
       next();
     })
-    .catch(error => console.log(error));
+    .catch((error) => console.log(error));
 };
 
-export const addOrder = function(req, res, next) {
+export const addOrder = function (req, res, next) {
   let {
     products,
     name,
@@ -89,7 +91,7 @@ export const addOrder = function(req, res, next) {
     phone,
     address,
     deliveryOption = "2217458",
-    paymentOption = "968309"
+    paymentOption = "968309",
   } = req.body;
 
   const body = {
@@ -98,16 +100,16 @@ export const addOrder = function(req, res, next) {
       client: {
         name: name,
         // email: email,
-        phone: phone
+        phone: phone,
       },
       shipping_address_attributes: {
-        address: address
+        address: address,
       },
       delivery_variant_id: deliveryOption,
-      payment_gateway_id: paymentOption
-    }
+      payment_gateway_id: paymentOption,
+    },
   };
-  postOrder(body).then(order => {
+  postOrder(body).then((order) => {
     res.order = order;
     next();
   });

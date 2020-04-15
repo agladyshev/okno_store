@@ -5,12 +5,12 @@ dotenv.config();
 
 let baseURL = `https://${process.env.INSALES_KEY}:${process.env.INSALES_PASSWORD}@${process.env.INSALES_HOSTNAME}`;
 
-export const fetchCollections = function() {
-  return fetch(new URL("/admin/collections.json?per_page=1000", baseURL))
-    .then(res => res.json())
-    .then(json => {
+export const fetchCollections = function () {
+  return fetch(new URL("/admin/collections.json?per_page=250", baseURL))
+    .then((res) => res.json())
+    .then((json) => {
       // Filter unused fields
-      return json.map(obj => {
+      return json.map((obj) => {
         return Object.fromEntries(
           Object.entries(obj).filter(([key]) =>
             [
@@ -20,21 +20,21 @@ export const fetchCollections = function() {
               "sort_type",
               "title",
               "permalink",
-              "products"
+              "products",
             ].includes(key)
           )
         );
       });
     })
-    .catch(error => console.log(error));
+    .catch((error) => console.log(error));
 };
 
-export const fetchCollectionOrder = function(id) {
+export const fetchCollectionOrder = function (id) {
   return fetch(new URL(`/admin/collects.json?collection_id=${id}`, baseURL))
-    .then(res => res.json())
-    .then(json => {
+    .then((res) => res.json())
+    .then((json) => {
       // Filter unused fields
-      return json.map(obj => {
+      return json.map((obj) => {
         return Object.fromEntries(
           Object.entries(obj).filter(([key]) =>
             ["product_id", "position"].includes(key)
@@ -42,41 +42,66 @@ export const fetchCollectionOrder = function(id) {
         );
       });
     })
-    .catch(error => console.log(error));
+    .catch((error) => console.log(error));
 };
 
-export const fetchProducts = function() {
-  return fetch(new URL("/admin/products.json?per_page=1000", baseURL))
-    .then(res => res.json())
-    .then(json => {
-      // Filter unused fields
-      return json.map(obj => {
-        return Object.fromEntries(
-          Object.entries(obj).filter(([key]) =>
-            [
-              "id",
-              "created_at",
-              "is_hidden",
-              "available",
-              "title",
-              "permalink",
-              "images",
-              "option_names",
-              "variants"
-            ].includes(key)
-          )
-        );
-      });
-    })
-    .catch(error => console.log(error));
+export const fetchProductsPage = function (page) {
+  return fetch(
+    new URL("/admin/products.json?per_page=250&page=" + page, baseURL)
+  )
+    .then((res) => res.json())
+    .catch((error) => console.log(error));
 };
 
-export const fetchDelivery = function() {
+export const fetchProductsCount = function () {
+  return fetch(new URL("/admin/products/count.json", baseURL)).then((res) =>
+    res.json()
+  );
+};
+
+export const fetchProducts = function () {
+  return (
+    fetchProductsCount()
+      .then((res) => {
+        return res.count;
+      })
+      // Making multiple fetches because of the pagination
+      .then((count) => [...Array(Math.ceil(count / 250) + 1).keys()].slice(1))
+      .then((pages) =>
+        Promise.all(pages.map((page) => fetchProductsPage(page)))
+      )
+      .then((res) => [].concat(...res))
+
+      .then((json) => {
+        // Filter unused fields
+        return json.map((obj) => {
+          return Object.fromEntries(
+            Object.entries(obj).filter(([key]) =>
+              [
+                "id",
+                "created_at",
+                "is_hidden",
+                "available",
+                "title",
+                "permalink",
+                "images",
+                "option_names",
+                "variants",
+              ].includes(key)
+            )
+          );
+        });
+      })
+      .catch((error) => console.log(error))
+  );
+};
+
+export const fetchDelivery = function () {
   return fetch(new URL("/admin/delivery_variants.json", baseURL))
-    .then(res => res.json())
-    .then(json => {
+    .then((res) => res.json())
+    .then((json) => {
       // Filter unused fields
-      return json.map(obj => {
+      return json.map((obj) => {
         return Object.fromEntries(
           Object.entries(obj).filter(([key]) =>
             ["id", "position", "title", "description"].includes(key)
@@ -84,15 +109,15 @@ export const fetchDelivery = function() {
         );
       });
     })
-    .catch(error => console.log(error));
+    .catch((error) => console.log(error));
 };
 
-export const fetchPayment = function() {
+export const fetchPayment = function () {
   return fetch(new URL("/admin/payment_gateways.json", baseURL))
-    .then(res => res.json())
-    .then(json => {
+    .then((res) => res.json())
+    .then((json) => {
       // Filter unused fields
-      return json.map(obj => {
+      return json.map((obj) => {
         return Object.fromEntries(
           Object.entries(obj).filter(([key]) =>
             ["id", "position", "title", "description"].includes(key)
@@ -100,15 +125,15 @@ export const fetchPayment = function() {
         );
       });
     })
-    .catch(error => console.log(error));
+    .catch((error) => console.log(error));
 };
 
-export const fetchPromo = function() {
+export const fetchPromo = function () {
   return fetch(new URL("/admin/articles.json", baseURL))
-    .then(res => res.json())
-    .then(json => {
+    .then((res) => res.json())
+    .then((json) => {
       // Filter unused fields
-      return json.map(obj => {
+      return json.map((obj) => {
         return Object.fromEntries(
           Object.entries(obj).filter(([key]) =>
             ["pinned", "content"].includes(key)
@@ -116,19 +141,19 @@ export const fetchPromo = function() {
         );
       });
     })
-    .catch(error => console.log(error));
+    .catch((error) => console.log(error));
 };
 
-export const postOrder = function(body) {
+export const postOrder = function (body) {
   return fetch(new URL("/admin/orders.json", baseURL), {
     method: "post",
     body: JSON.stringify(body),
     headers: {
-      "Content-Type": "application/json; charset=utf-8"
-    }
+      "Content-Type": "application/json; charset=utf-8",
+    },
   })
-    .then(result => result.json())
-    .then(order => {
+    .then((result) => result.json())
+    .then((order) => {
       // Filter unused fields
       // return json.map(obj => {
       return Object.fromEntries(
@@ -136,5 +161,5 @@ export const postOrder = function(body) {
       );
       // });
     })
-    .catch(error => console.log(error));
+    .catch((error) => console.log(error));
 };
