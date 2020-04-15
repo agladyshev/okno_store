@@ -73,7 +73,7 @@
 
   ul li .info .title {
     flex-basis: 30%;
-    font-size: 1rem;
+    font-size: 0.9rem;
     text-align: left;
     padding-left: 2rem;
   }

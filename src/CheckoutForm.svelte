@@ -128,6 +128,7 @@
   form .delivery {
     /* flex-basis: 100%; */
     display: flex;
+    font-size: 0.8rem;
   }
   form .payment {
     /* flex-basis: 100%; */
