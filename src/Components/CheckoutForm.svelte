@@ -90,7 +90,7 @@
         }
         if (result.number) {
           handleOrderSuccess(result.number);
-          alert(`Заказ №${result.number} оформлен. Мы позвоним`);
+          alert(`Заказ №${result.number} оформлен. Скоро мы свяжемся с тобой`);
           return push("/");
         }
         alert(`Что-то сломалось, позвоните нам, мы оформим заказ`);
