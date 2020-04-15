@@ -104,7 +104,7 @@ export const fetchDelivery = function () {
       return json.map((obj) => {
         return Object.fromEntries(
           Object.entries(obj).filter(([key]) =>
-            ["id", "position", "title", "description"].includes(key)
+            ["id", "position", "title", "description", "price", "type"].includes(key)
           )
         );
       });

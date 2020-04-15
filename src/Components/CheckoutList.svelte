@@ -5,6 +5,9 @@
 
   let products = [];
 
+  export let deliverySelected = {};
+  $: deliveryPrice = Math.round(deliverySelected.price) || 0;
+
   $: {
     basket.subscribe(map => {
       products = Array.from(map.values()).map(variant => {
@@ -18,7 +21,7 @@
     let { product, variantId, quantity } = entry;
     let price = product.variants.find(v => (v.id = variantId)).price;
     return sum + Number(price) * quantity;
-  }, 0);
+  }, deliveryPrice);
 </script>
 
 <style>
