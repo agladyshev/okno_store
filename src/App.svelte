@@ -89,8 +89,13 @@
     grid-area: main;
     /* overflow-y: scroll; */
     overflow: auto;
+    scrollbar-width: none;
+
     /* display: flex; */
     /* flex-direction: column; */
+  }
+  main::-webkit-scrollbar {
+    display: none;
   }
 
   /* @media (min-width: 640px) { */
