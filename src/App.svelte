@@ -85,6 +85,7 @@
       "main"
       "footer";
     overflow-y: scroll;
+    scrollbar-width: none;
   }
 
   main {
