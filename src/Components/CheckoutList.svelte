@@ -14,6 +14,7 @@
         variant.product = productById(variant.productId);
         return variant;
       });
+      console.log(products);
     });
   }
 
@@ -186,7 +187,8 @@
               {/if}
             </div>
           {/each}
-          {#if product.variants.find(v => (v.id = variantId)).quantity > 1}
+        {/if}
+          {#if product.variants.find(v => (v.id == variantId)).quantity > 1}
             <div class="option">
               <div class="quantity">
                 <input
@@ -203,14 +205,12 @@
               </div>
             </div>
           {/if}
-        {/if}
         <div class="price">
           {#if product.variants[0].old_price}
             <s class="old">{product.variants[0].old_price.slice(0, -2)}</s>
           {/if}
           {product.variants[0].price.slice(0, -2)}
         </div>
-
       </div>
       <div class="delete">
         <DeleteButton {productId} {variantId} />
