@@ -17,6 +17,10 @@ export const getPromo = function () {
   return fetch(`/getPromo`).then((res) => res.json());
 };
 
+export const getContacts = function () {
+  return fetch(`/getContacts`).then((res) => res.json());
+};
+
 export const addOrder = function (body) {
   return fetch("/addOrder", {
     method: "POST",

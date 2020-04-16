@@ -136,7 +136,7 @@ export const fetchPayment = function () {
     .catch((error) => console.log(error));
 };
 
-export const fetchPromo = function () {
+export const fetchArticles = function () {
   return fetch(new URL("/admin/articles.json", baseURL))
     .then((res) => res.json())
     .then((json) => {
@@ -144,7 +144,7 @@ export const fetchPromo = function () {
       return json.map((obj) => {
         return Object.fromEntries(
           Object.entries(obj).filter(([key]) =>
-            ["pinned", "content"].includes(key)
+            ["pinned", "content", "title"].includes(key)
           )
         );
       });

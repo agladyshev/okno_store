@@ -1,7 +1,7 @@
 import {
   fetchCollections,
   fetchDelivery,
-  fetchPromo,
+  fetchArticles,
   fetchPayment,
   postOrder,
   fetchProducts,
@@ -71,12 +71,24 @@ export const getPayment = function (req, res, next) {
 };
 
 export const getPromo = function (req, res, next) {
-  fetchPromo()
+  fetchArticles()
     .then((json) => {
       res.promo = json.find((article) => article.pinned) || {
         pinned: true,
         content: "",
       };
+      next();
+    })
+    .catch((error) => console.log(error));
+};
+
+export const getContacts = function (req, res, next) {
+  fetchArticles()
+    .then((json) => {
+      res.contacts = json.reduce(function (result, item) {
+        result[item.title] = item.content.replace(/<[^>]*>?/gm, "");
+        return result;
+      }, {});
       next();
     })
     .catch((error) => console.log(error));

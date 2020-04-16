@@ -11,6 +11,7 @@ import {
   getDelivery,
   getPromo,
   checkDiscount,
+  getContacts,
 } from "./middleware.js";
 
 dotenv.config();
@@ -32,26 +33,35 @@ const log = bunyan.createLogger({
 
 app.use(cors());
 
+app.use(function (err, req, res, next) {
+  log.error(err.stack);
+  res.status(500).send("Something broke!");
+});
+
 app.use("/", express.static("public"));
 
 app.get("/getCollections", getCollections, function (req, res, next) {
-  res.send(res.collections);
+  res.json(res.collections);
 });
 
 app.get("/getProducts", getProducts, function (req, res, next) {
-  res.send(res.products);
+  res.json(res.products);
 });
 
 app.get("/getDelivery", getDelivery, function (req, res, next) {
-  res.send(res.delivery);
+  res.json(res.delivery);
 });
 
 app.get("/getPayment", getPayment, function (req, res, next) {
-  res.send(res.payment);
+  res.json(res.payment);
 });
 
 app.get("/getPromo", getPromo, function (req, res, next) {
-  res.send(res.promo);
+  res.json(res.promo);
+});
+
+app.get("/getContacts", getContacts, function (req, res, next) {
+  res.json(res.contacts);
 });
 
 app.get("/checkDiscount", express.json(), checkDiscount, function (
@@ -59,7 +69,7 @@ app.get("/checkDiscount", express.json(), checkDiscount, function (
   res,
   next
 ) {
-  res.send(res.discount);
+  res.json(res.discount);
 });
 
 app.post("/addOrder", express.json(), checkAvailability, addOrder, function (
@@ -71,7 +81,7 @@ app.post("/addOrder", express.json(), checkAvailability, addOrder, function (
     log.error(res.order);
     res.status(500).json(res.order);
   } else {
-    res.send(res.order);
+    res.json(res.order);
   }
 });
 
