@@ -118,8 +118,8 @@ export const addOrder = function (req, res, next) {
     // email = "",
     phone,
     address,
-    deliveryOption = "2217458",
-    paymentOption = "968309",
+    deliveryOption = fetchDelivery()[0].id,
+    paymentOption = fetchPayment()[0].id,
   } = req.body;
 
   const body = {

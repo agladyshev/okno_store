@@ -50,11 +50,11 @@
     // });
     // let ids = products.map(product => product.id);
     return {
-      ids: products.map(product => product.id),
-      products: products.map(product => {
+      ids: products.map(product => product.productId),
+      products: products.map(p => {
         // Rewrite for different variants and quantity
         return {
-          variant_id: product.variants[0].id,
+          variant_id: p.product.variants[0].id,
           quantity: 1
         };
       }),

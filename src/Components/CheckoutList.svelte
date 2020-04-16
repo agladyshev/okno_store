@@ -14,7 +14,6 @@
         variant.product = productById(variant.productId);
         return variant;
       });
-      console.log(products);
     });
   }
 
