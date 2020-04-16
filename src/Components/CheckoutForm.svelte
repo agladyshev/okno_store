@@ -173,6 +173,7 @@
     height: 2rem;
   }
   form .discount [type="text"] {
+    -webkit-appearance: none;
     /* margin: 0; */
     border: none;
     box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.1), 0 2px 5px 0 rgba(0, 0, 0, 0.05);
@@ -221,6 +222,12 @@
   }
   .invisible {
     visibility: hidden;
+  }
+  @media screen and (max-width: 400px) {
+    form input[type="submit"] {
+      font-size: 0.8rem;
+      padding: 0.2rem 0.4rem;
+    }
   }
 </style>
 
@@ -301,7 +308,7 @@
         name="discount"
         placeholder="сертификат"
         bind:value={discountCode}
-        size="8" />
+        size="10" />
       <input
         class="discount-button"
         type="image"
