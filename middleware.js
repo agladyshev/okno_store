@@ -5,7 +5,7 @@ import {
   fetchPayment,
   postOrder,
   fetchProducts,
-  fetchDiscounts
+  fetchDiscounts,
 } from "./fetchers.js";
 import {
   addProductsPositions,
@@ -30,12 +30,10 @@ export const getCollections = function (req, res, next) {
 export const getProducts = function (req, res, next) {
   fetchProducts()
     .then((json) => json.filter(filterProducts))
-    .then(
-      ((filtered) => {
-        res.products = filtered;
-        next();
-      })
-    )
+    .then((filtered) => {
+      res.products = filtered;
+      next();
+    })
     .catch((error) => console.log(error));
 };
 
@@ -88,17 +86,18 @@ export const checkDiscount = function (req, res, next) {
   let { code } = req.body;
   fetchDiscounts()
     .then((discounts) => {
-      let discount = discounts.find(d => d.code == code) 
+      let discount = discounts.find((d) => d.code == code);
       if (discount) {
         if (discount.disabled) {
           res.discount = { status: "disabled" };
           next();
-        }
-        else if ((Date.now() - Date.parse(discount.expired_at)) / 3600000 > 24) {
+        } else if (
+          (Date.now() - Date.parse(discount.expired_at)) / 3600000 >
+          24
+        ) {
           res.discount = { status: "expired" };
           next();
-        }
-        else { 
+        } else {
           res.discount = { status: "success", discount: discount.discount };
           next();
         }
@@ -109,7 +108,6 @@ export const checkDiscount = function (req, res, next) {
     })
     .catch((error) => console.log(error));
 };
-
 
 export const addOrder = function (req, res, next) {
   let {

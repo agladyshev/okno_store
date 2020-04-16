@@ -191,23 +191,23 @@
             </div>
           {/each}
         {/if}
-          {#if product.variants.find(v => (v.id == variantId)).quantity > 1}
-            <div class="option">
-              <div class="quantity">
-                <input
-                  on:click={() => addOne(productId, variantId)}
-                  type="image"
-                  src="./uarr.png"
-                  alt="upward arrow" />
-                <div>{quantity}</div>
-                <input
-                  on:click={() => removeOne(productId, variantId)}
-                  type="image"
-                  src="./darr.png"
-                  alt="down arrow" />
-              </div>
+        {#if product.variants.find(v => v.id == variantId).quantity > 1}
+          <div class="option">
+            <div class="quantity">
+              <input
+                on:click={() => addOne(productId, variantId)}
+                type="image"
+                src="./uarr.png"
+                alt="upward arrow" />
+              <div>{quantity}</div>
+              <input
+                on:click={() => removeOne(productId, variantId)}
+                type="image"
+                src="./darr.png"
+                alt="down arrow" />
             </div>
-          {/if}
+          </div>
+        {/if}
         <div class="price">
           {#if product.variants[0].old_price}
             <s class="old">{product.variants[0].old_price.slice(0, -2)}</s>

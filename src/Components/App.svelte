@@ -90,7 +90,7 @@
   }
   main::-webkit-scrollbar {
     display: none;
-  }  
+  }
 </style>
 
 <div class="wrapper">

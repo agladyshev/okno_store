@@ -1,6 +1,6 @@
 import { fetchCollectionOrder, fetchProducts } from "./fetchers.js";
 
-export const filterProducts = function(product) {
+export const filterProducts = function (product) {
   return (
     product.available &&
     !product.is_hidden &&
@@ -9,7 +9,7 @@ export const filterProducts = function(product) {
   );
 };
 
-export const filterCollections = function(collection) {
+export const filterCollections = function (collection) {
   // Check if collection is not hidden
   // Remove parent collection
   // Remove empty collections
@@ -18,19 +18,19 @@ export const filterCollections = function(collection) {
   );
 };
 
-export const addProductsPositions = function(collection) {
+export const addProductsPositions = function (collection) {
   // Get ordered list of products' ids for each collection
-  return fetchCollectionOrder(collection.id).then(products =>
+  return fetchCollectionOrder(collection.id).then((products) =>
     Object.assign(collection, { products })
   );
 };
 
 export const findMissingProducts = function (ids) {
   return fetchProducts()
-    .then(json => json.filter(filterProducts))
-    .then(available => {
-      return ids.filter(id => {
-        return !available.find(item => item.id == id);
+    .then((json) => json.filter(filterProducts))
+    .then((available) => {
+      return ids.filter((id) => {
+        return !available.find((item) => item.id == id);
       });
     });
 };

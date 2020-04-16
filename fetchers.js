@@ -21,7 +21,7 @@ export const fetchCollections = function () {
               "title",
               "permalink",
               "products",
-              "image"
+              "image",
             ].includes(key)
           )
         );
@@ -105,7 +105,14 @@ export const fetchDelivery = function () {
       return json.map((obj) => {
         return Object.fromEntries(
           Object.entries(obj).filter(([key]) =>
-            ["id", "position", "title", "description", "price", "type"].includes(key)
+            [
+              "id",
+              "position",
+              "title",
+              "description",
+              "price",
+              "type",
+            ].includes(key)
           )
         );
       });
@@ -145,7 +152,7 @@ export const fetchPromo = function () {
     .catch((error) => console.log(error));
 };
 
-export const fetchDiscounts = function () { 
+export const fetchDiscounts = function () {
   return fetch(new URL("/admin/discount_codes.json", baseURL))
     .then((res) => res.json())
     .then((json) => {
@@ -153,7 +160,14 @@ export const fetchDiscounts = function () {
       return json.map((obj) => {
         return Object.fromEntries(
           Object.entries(obj).filter(([key]) =>
-            ["code", "expired_at", "worked", "discount", "type_id", "disabled"].includes(key)
+            [
+              "code",
+              "expired_at",
+              "worked",
+              "discount",
+              "type_id",
+              "disabled",
+            ].includes(key)
           )
         );
       });
@@ -175,11 +189,10 @@ export const postOrder = function (body) {
       // return json.map(obj => {
       if (!order.number) {
         return order;
-      } 
-      else { 
+      } else {
         return Object.fromEntries(
-            Object.entries(order).filter(([key]) => ["number"].includes(key))
-          );
+          Object.entries(order).filter(([key]) => ["number"].includes(key))
+        );
       }
     })
     .catch((error) => console.log(error));
