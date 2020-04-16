@@ -173,10 +173,14 @@ export const postOrder = function (body) {
     .then((order) => {
       // Filter unused fields
       // return json.map(obj => {
-      return Object.fromEntries(
-        Object.entries(order).filter(([key]) => ["number"].includes(key))
-      );
-      // });
+      if (!order.number) {
+        return order;
+      } 
+      else { 
+        return Object.fromEntries(
+            Object.entries(order).filter(([key]) => ["number"].includes(key))
+          );
+      }
     })
     .catch((error) => console.log(error));
 };

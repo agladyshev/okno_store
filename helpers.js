@@ -25,7 +25,7 @@ export const addProductsPositions = function(collection) {
   );
 };
 
-export const findMissingProducts = function(ids) {
+export const findMissingProducts = function (ids) {
   return fetchProducts()
     .then(json => json.filter(filterProducts))
     .then(available => {

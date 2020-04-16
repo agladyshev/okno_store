@@ -40,7 +40,7 @@
 
 <section class="promo">
   {#if secondsSinceLastOrder < 10}
-    <span class="order">заказ №{lastOrder} принят - мы позвоним</span>
+    <span class="order">заказ №{lastOrder} принят - скоро мы свяжемся с тобой</span>
   {:else}
     <span>
       {@html promo.toLowerCase()}
