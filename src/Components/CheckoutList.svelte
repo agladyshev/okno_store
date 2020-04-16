@@ -5,7 +5,9 @@
 
   let products = [];
 
-  export let deliverySelected = {};
+  export let deliverySelected = {},
+    discountAmount = 0;
+
   $: deliveryPrice = Math.round(deliverySelected.price) || 0;
 
   $: {
@@ -22,6 +24,8 @@
     let price = product.variants.find(v => (v.id = variantId)).price;
     return sum + Number(price) * quantity;
   }, deliveryPrice);
+
+  $: discountedSum = Math.floor(totalSum * (1 - discountAmount / 100));
 </script>
 
 <style>
@@ -88,7 +92,7 @@
   }
 
   ul li .price {
-    flex-bais: 15%;
+    flex-basis: 15%;
     font-size: 0.8rem;
     text-align: right;
   }
@@ -110,6 +114,11 @@
     box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.1), 0 2px 5px 0 rgba(0, 0, 0, 0.05);
     border: none;
     font-size: 0.8rem;
+  }
+
+  ul li.total span.old {
+    box-shadow: none;
+    background: none;
   }
 
   ul li.total span img {
@@ -220,7 +229,16 @@
       </div>
     </li>
   {/each}
-  <li class="total">
-    <span>{totalSum}р</span>
-  </li>
+  {#if discountedSum < totalSum}
+    <li class="total">
+      <span class="old">
+        <s>{totalSum}</s>
+      </span>
+      <span>{discountedSum}р</span>
+    </li>
+  {:else}
+    <li class="total">
+      <span>{totalSum}р</span>
+    </li>
+  {/if}
 </ul>

@@ -9,15 +9,19 @@
   import { push } from "svelte-spa-router";
   import Button from "./Button.svelte";
   import CheckoutList from "./CheckoutList.svelte";
-  import { addOrder } from "../api.js";
+  import { addOrder, checkDiscount } from "../api.js";
   let products, productsMap, deliveryOptions, paymentOptions;
 
   let name = "",
     phone = "",
+    discountCode = "",
     deliveryOption,
     paymentOption,
     address = "",
     message = {};
+
+  let discountStatus = "",
+    discountAmount = 0;
 
   $: {
     deliveryVariants.subscribe(values => {
@@ -38,6 +42,25 @@
 
   const validatePhoneNumber = function() {
     return /\+?[0-9]{11,20}/.test(phone);
+  };
+
+  const validateDiscount = function() {
+    checkDiscount({ code: discountCode }).then(res => {
+      (discountAmount = res.discount || 0), (discountStatus = res.status);
+      switch (res.status) {
+        case "not_found":
+          message.text = "сертификат не найден";
+          break;
+        case "expired":
+          message.text = "истёк срок действия";
+          break;
+        case "disabled":
+          message.text = "сертификат больше не действителен";
+          break;
+        default:
+          message.text = "";
+      }
+    });
   };
 
   const constructOrderBody = function() {
@@ -105,6 +128,9 @@
 </script>
 
 <style>
+  .flex {
+    display: flex;
+  }
   form {
     align-self: flex-end;
     flex-basis: 100%;
@@ -141,6 +167,23 @@
     /* flex-basis: 100%; */
     display: flex;
   }
+  form .discount {
+    display: flex;
+    font-size: 0.8rem;
+    height: 2rem;
+  }
+  form .discount [type="text"] {
+    /* margin: 0; */
+    border: none;
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.1), 0 2px 5px 0 rgba(0, 0, 0, 0.05);
+  }
+  form .discount [type="image"] {
+    width: 2rem;
+    padding: 0.4rem 0.5rem 0.1rem 0.5rem;
+    margin-bottom: 0.5rem;
+    border: none;
+  }
+
   form .submit {
     text-align: right;
   }
@@ -181,7 +224,7 @@
   }
 </style>
 
-<CheckoutList {deliverySelected} />
+<CheckoutList {deliverySelected} {discountAmount} />
 <form action="submit" on:submit|preventDefault={handleSubmit}>
   <div class:invisible={!message.text} class="message">
     <span>{message.text}</span>
@@ -204,9 +247,7 @@
       bind:value={phone}
       size="11"
       required />
-
   </div>
-
   <div class="delivery">
     {#each deliveryOptions as option}
       <input
@@ -251,8 +292,27 @@
       <label for={option.id}>{option.title}</label>
     {/each}
   </div> -->
-  <div class="submit">
-    <input type="submit" value="могу себе позволить" />
+  <div class="flex">
+    <div class="discount">
+      <input
+        class="discount-input"
+        type="text"
+        id="discount"
+        name="discount"
+        placeholder="сертификат"
+        bind:value={discountCode}
+        size="8" />
+      <input
+        class="discount-button"
+        type="image"
+        src="/search-grey.png"
+        alt="magnifying glass icon"
+        on:click={validateDiscount} />
+    </div>
+    <div class="submit">
+      <input type="submit" value="могу себе позволить" />
+    </div>
+
   </div>
 
 </form>

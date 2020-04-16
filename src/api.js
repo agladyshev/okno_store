@@ -21,6 +21,14 @@ export const getContacts = function () {
   return fetch(`/getContacts`).then((res) => res.json());
 };
 
+export const checkDiscount = function (body) {
+  return fetch("/checkDiscount", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  }).then((res) => res.json());
+};
+
 export const addOrder = function (body) {
   return fetch("/addOrder", {
     method: "POST",

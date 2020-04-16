@@ -64,11 +64,12 @@ app.get("/getContacts", getContacts, function (req, res, next) {
   res.json(res.contacts);
 });
 
-app.get("/checkDiscount", express.json(), checkDiscount, function (
+app.post("/checkDiscount", express.json(), checkDiscount, function (
   req,
   res,
   next
 ) {
+  console.log(res.discount);
   res.json(res.discount);
 });
 
