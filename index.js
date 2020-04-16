@@ -8,7 +8,8 @@ import {
   addOrder,
   getPayment,
   getDelivery,
-  getPromo
+  getPromo,
+  checkDiscount
 } from "./middleware.js";
 
 dotenv.config();
@@ -37,6 +38,10 @@ app.get("/getPayment", getPayment, function(req, res, next) {
 
 app.get("/getPromo", getPromo, function(req, res, next) {
   res.send(res.promo);
+});
+
+app.get("/checkDiscount", express.json(), checkDiscount, function (req, res, next) {
+  res.send(res.discount);
 });
 
 app.post("/addOrder", express.json(), checkAvailability, addOrder, function(

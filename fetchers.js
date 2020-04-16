@@ -145,6 +145,22 @@ export const fetchPromo = function () {
     .catch((error) => console.log(error));
 };
 
+export const fetchDiscounts = function () { 
+  return fetch(new URL("/admin/discount_codes.json", baseURL))
+    .then((res) => res.json())
+    .then((json) => {
+      // Filter unused fields
+      return json.map((obj) => {
+        return Object.fromEntries(
+          Object.entries(obj).filter(([key]) =>
+            ["code", "expired_at", "worked", "discount", "type_id", "disabled"].includes(key)
+          )
+        );
+      });
+    })
+    .catch((error) => console.log(error));
+};
+
 export const postOrder = function (body) {
   return fetch(new URL("/admin/orders.json", baseURL), {
     method: "post",
