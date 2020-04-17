@@ -69,7 +69,6 @@ app.post("/checkDiscount", express.json(), checkDiscount, function (
   res,
   next
 ) {
-  console.log(res.discount);
   res.json(res.discount);
 });
 

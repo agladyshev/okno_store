@@ -23,7 +23,8 @@
   let discount = {
     status: "",
     discount: 0,
-    type_id: 2
+    type_id: 2,
+    code: ""
   };
 
   $: {
@@ -52,7 +53,8 @@
       checkDiscount({ code: discountCode }).then(res => {
         (discount.discount = res.discount || 0),
           (discount.status = res.status),
-          (discount.type_id = res.type_id || 2);
+          (discount.type_id = res.type_id || 2),
+          (discount.code = res.code || "");
         switch (res.status) {
           case "not_found":
             message.text = "сертификат не найден";
@@ -98,7 +100,7 @@
       address,
       deliveryOption,
       paymentOption: paymentOptions[0].id,
-      coupon: discount.status == "success" ? discountCode : ""
+      coupon: discount.status == "success" ? discount.code : ""
     };
   };
   const handleMissingProducts = function(items) {
@@ -122,6 +124,9 @@
   const handleSubmit = function(event) {
     if (!validatePhoneNumber()) {
       return (message = { type: "error", text: "Некорректный номер телефона" });
+    }
+    if (discountCode && discount.status != "success") {
+      return validateDiscount();
     }
     return addOrder(constructOrderBody())
       .then(result => {

@@ -84,16 +84,11 @@
       "promo"
       "main"
       "footer";
-    overflow-y: scroll;
-    scrollbar-width: none;
   }
   main {
     grid-area: main;
     overflow-x: scroll;
     scrollbar-width: none;
-  }
-  main::-webkit-scrollbar {
-    display: none;
   }
 </style>
 

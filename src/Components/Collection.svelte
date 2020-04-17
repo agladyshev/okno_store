@@ -159,6 +159,7 @@
   .info .title {
     font-size: 1rem;
     letter-spacing: 0.05rem;
+    padding-right: 0.1rem;
   }
   .info .price {
     font-size: 0.8rem;
