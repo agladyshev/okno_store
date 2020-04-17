@@ -30,7 +30,7 @@
   $: discountedSum =
     discount.type_id == 1
       ? Math.floor(totalSum * (1 - discount.discount / 100))
-      : Math.max(totalSum - discount.discount);
+      : Math.max(totalSum - discount.discount, 0);
 </script>
 
 <style>
