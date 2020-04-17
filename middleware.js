@@ -130,8 +130,8 @@ export const addOrder = function (req, res, next) {
     address,
     deliveryOption = fetchDelivery()[0].id,
     paymentOption = fetchPayment()[0].id,
+    coupon,
   } = req.body;
-
   const body = {
     order: {
       order_lines_attributes: products,
@@ -145,6 +145,7 @@ export const addOrder = function (req, res, next) {
       },
       delivery_variant_id: deliveryOption,
       payment_gateway_id: paymentOption,
+      coupon: coupon,
     },
   };
   postOrder(body).then((order) => {

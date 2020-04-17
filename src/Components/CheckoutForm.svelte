@@ -73,26 +73,32 @@
     // });
     // let ids = products.map(product => product.id);
     return {
-      ids: products.map(product => product.productId),
-      products: products.map(p => {
-        // Rewrite for different variants and quantity
+      ids: products.map(p => {
         return {
-          variant_id: p.product.variants[0].id,
-          quantity: 1
+          variant_id: p.variantId,
+          quantity: p.quantity,
+          id: p.productId
+        };
+      }),
+      products: products.map(p => {
+        return {
+          variant_id: p.variantId,
+          quantity: p.quantity
         };
       }),
       name,
       phone,
       address,
       deliveryOption,
-      paymentOption: paymentOptions[0].id
+      paymentOption: paymentOptions[0].id,
+      coupon: discountStatus == "success" ? discountCode : ""
     };
   };
   const handleMissingProducts = function(items) {
-    items.forEach(id => {
-      let p = productsMap.get(id);
+    items.forEach(item => {
+      let p = productsMap.get(item.variant_id);
       p.is_hidden = true;
-      productsMap.set(id, p);
+      productsMap.set(p.variantId, p);
     });
     return basket.set(new Map(productsMap));
   };

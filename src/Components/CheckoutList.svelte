@@ -166,10 +166,8 @@
 </style>
 
 <ul>
-  {#each products as { product, productId, variantId, quantity }}
-    <li
-      class:unavailable={product.is_hidden || !product.available}
-      class="item">
+  {#each products as { product, productId, variantId, quantity, is_hidden }}
+    <li class:unavailable={is_hidden} class="item">
       <picture>
         <source
           srcset={product.images[0].thumb_url}
@@ -188,7 +186,7 @@
       <div class="info">
         <div class="title">{product.title.toLowerCase()}</div>
 
-        {#if product.is_hidden || !product.available}
+        {#if is_hidden}
           <span class="unavailable-text">уже купили</span>
         {:else if product.option_names.length}
           {#each product.option_names as optionName}
