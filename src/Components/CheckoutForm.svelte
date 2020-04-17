@@ -105,7 +105,8 @@
   const handleOrderSuccess = function(number) {
     // Delete products from available products, empty basket, store new order
     productsRaw.update(store => {
-      return store.filter(item => !productsMap.has(item.id));
+      // rewrite for different variants
+      return store.filter(item => !productsMap.has(item.variants[0].id));
     });
     basket.set(new Map());
     orders.update(o => o.set(number, new Date()));
