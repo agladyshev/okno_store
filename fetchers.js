@@ -153,7 +153,7 @@ export const fetchArticles = function () {
 };
 
 export const fetchDiscounts = function () {
-  return fetch(new URL("/admin/discount_codes.json", baseURL))
+  return fetch(new URL("/admin/discount_codes.json?per_page=250", baseURL))
     .then((res) => res.json())
     .then((json) => {
       // Filter unused fields

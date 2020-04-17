@@ -96,30 +96,55 @@ export const getContacts = function (req, res, next) {
 
 export const checkDiscount = function (req, res, next) {
   let { code } = req.body;
-  fetchDiscounts()
-    .then((discounts) => {
-      let discount = discounts.find((d) => d.code == code);
-      if (discount) {
-        if (discount.disabled || (!discount.worked && discount.act_once)) {
-          res.discount = { status: "disabled" };
-          next();
-        } else if (
-          (Date.now() - Date.parse(discount.expired_at)) / 3600000 >
-          24
-        ) {
-          res.discount = { status: "expired" };
+  if (!code) {
+    fetchDiscounts()
+      .then((discounts) => {
+        res.discount = false;
+        if (discounts.length) {
+          discounts.forEach((discount) => {
+            if (
+              !discount.disabled &&
+              ((discount.worked && discount.act_once) || !discount.act_once) &&
+              ((Date.now() - Date.parse(discount.expired_at)) / 3600000 <= 24 ||
+                !discount.expired_at)
+            ) {
+              res.discount = true;
+              next();
+            }
+          });
           next();
         } else {
-          discount.status = "success";
-          res.discount = discount;
           next();
         }
-      } else {
-        res.discount = { status: "not_found" };
-        next();
-      }
-    })
-    .catch((error) => console.log(error));
+      })
+      .catch((error) => console.log(error));
+  } else {
+    fetchDiscounts()
+      .then((discounts) => {
+        let discount = discounts.find((d) => d.code == code);
+        if (discount) {
+          if (discount.disabled || (!discount.worked && discount.act_once)) {
+            res.discount = { status: "disabled" };
+            next();
+          } else if (
+            // if there is no expiration, still works
+            (Date.now() - Date.parse(discount.expired_at)) / 3600000 >
+            24
+          ) {
+            res.discount = { status: "expired" };
+            next();
+          } else {
+            discount.status = "success";
+            res.discount = discount;
+            next();
+          }
+        } else {
+          res.discount = { status: "not_found" };
+          next();
+        }
+      })
+      .catch((error) => console.log(error));
+  }
 };
 
 export const addOrder = function (req, res, next) {

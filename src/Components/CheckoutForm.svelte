@@ -10,7 +10,7 @@
   import Button from "./Button.svelte";
   import CheckoutList from "./CheckoutList.svelte";
   import { addOrder, checkDiscount } from "../api.js";
-  let products, productsMap, deliveryOptions, paymentOptions;
+  let products, productsMap, deliveryOptions, paymentOptions, discountsEnabled;
 
   let name = "",
     phone = "",
@@ -39,6 +39,9 @@
     basket.subscribe(map => {
       products = Array.from(map.values());
       productsMap = map;
+    });
+    checkDiscount().then(res => {
+      discountsEnabled = res;
     });
   }
 
@@ -319,26 +322,26 @@
     {/each}
   </div> -->
   <div class="flex">
-    <div class="discount">
-      <input
-        class="discount-input"
-        type="text"
-        id="discount"
-        name="discount"
-        placeholder="сертификат"
-        bind:value={discountCode}
-        size="10" />
-      <input
-        class="discount-button"
-        type="image"
-        src="/search-grey.png"
-        alt="magnifying glass icon"
-        on:click|preventDefault={validateDiscount} />
-    </div>
+    {#if discountsEnabled}
+      <div class="discount">
+        <input
+          class="discount-input"
+          type="text"
+          id="discount"
+          name="discount"
+          placeholder="сертификат"
+          bind:value={discountCode}
+          size="10" />
+        <input
+          class="discount-button"
+          type="image"
+          src="/search-grey.png"
+          alt="magnifying glass icon"
+          on:click|preventDefault={validateDiscount} />
+      </div>
+    {/if}
     <div class="submit">
       <input type="submit" value="могу себе позволить" />
     </div>
-
   </div>
-
 </form>
