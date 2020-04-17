@@ -321,7 +321,7 @@
         type="image"
         src="/search-grey.png"
         alt="magnifying glass icon"
-        on:click={validateDiscount} />
+        on:click|preventDefault={validateDiscount} />
     </div>
     <div class="submit">
       <input type="submit" value="могу себе позволить" />
