@@ -25,7 +25,7 @@
     let { product, variantId, quantity } = entry;
     let price = product.variants.find(v => (v.id = variantId)).price;
     return sum + Number(price) * quantity;
-  }, deliveryPrice);
+  }, 0);
 
   $: discountedSum =
     discount.type_id == 1
@@ -235,13 +235,13 @@
   {#if discountedSum < totalSum}
     <li class="total">
       <span class="old">
-        <s>{totalSum}</s>
+        <s>{totalSum + deliveryPrice}</s>
       </span>
-      <span>{discountedSum}р</span>
+      <span>{discountedSum + deliveryPrice}р</span>
     </li>
   {:else}
     <li class="total">
-      <span>{totalSum}р</span>
+      <span>{totalSum + deliveryPrice}р</span>
     </li>
   {/if}
 </ul>
