@@ -6,7 +6,7 @@
   let products = [];
 
   export let deliverySelected = {},
-    discountAmount = 0;
+    discount;
 
   $: deliveryPrice = Math.round(deliverySelected.price) || 0;
 
@@ -27,7 +27,10 @@
     return sum + Number(price) * quantity;
   }, deliveryPrice);
 
-  $: discountedSum = Math.floor(totalSum * (1 - discountAmount / 100));
+  $: discountedSum =
+    discount.type_id == 1
+      ? Math.floor(totalSum * (1 - discount.discount / 100))
+      : Math.max(totalSum - discount.discount);
 </script>
 
 <style>

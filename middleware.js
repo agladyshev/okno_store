@@ -101,16 +101,19 @@ export const checkDiscount = function (req, res, next) {
       let discount = discounts.find((d) => d.code == code);
       if (discount) {
         if (discount.disabled) {
-          res.discount = { status: "disabled" };
+          discount.status = "disabled";
+          res.discount = discount;
           next();
         } else if (
           (Date.now() - Date.parse(discount.expired_at)) / 3600000 >
           24
         ) {
-          res.discount = { status: "expired" };
+          discount.status = "expired";
+          res.discount = discount;
           next();
         } else {
-          res.discount = { status: "success", discount: discount.discount };
+          discount.status = "success";
+          res.discount = discount;
           next();
         }
       } else {

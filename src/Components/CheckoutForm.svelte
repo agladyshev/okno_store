@@ -20,8 +20,11 @@
     address = "",
     message = {};
 
-  let discountStatus = "",
-    discountAmount = 0;
+  let discount = {
+    status: "",
+    discount: 0,
+    type_id: 2
+  };
 
   $: {
     deliveryVariants.subscribe(values => {
@@ -45,22 +48,26 @@
   };
 
   const validateDiscount = function() {
-    checkDiscount({ code: discountCode }).then(res => {
-      (discountAmount = res.discount || 0), (discountStatus = res.status);
-      switch (res.status) {
-        case "not_found":
-          message.text = "сертификат не найден";
-          break;
-        case "expired":
-          message.text = "истёк срок действия";
-          break;
-        case "disabled":
-          message.text = "сертификат больше не действителен";
-          break;
-        default:
-          message.text = "";
-      }
-    });
+    if (discountCode) {
+      checkDiscount({ code: discountCode }).then(res => {
+        (discount.discount = res.discount || 0),
+          (discount.status = res.status),
+          (discount.type_id = res.type_id || 2);
+        switch (res.status) {
+          case "not_found":
+            message.text = "сертификат не найден";
+            break;
+          case "expired":
+            message.text = "истёк срок действия";
+            break;
+          case "disabled":
+            message.text = "сертификат больше не действителен";
+            break;
+          default:
+            message.text = "";
+        }
+      });
+    }
   };
 
   const constructOrderBody = function() {
@@ -91,7 +98,7 @@
       address,
       deliveryOption,
       paymentOption: paymentOptions[0].id,
-      coupon: discountStatus == "success" ? discountCode : ""
+      coupon: discount.status == "success" ? discountCode : ""
     };
   };
   const handleMissingProducts = function(items) {
@@ -238,7 +245,7 @@
   }
 </style>
 
-<CheckoutList {deliverySelected} {discountAmount} />
+<CheckoutList {deliverySelected} {discount} />
 <form action="submit" on:submit|preventDefault={handleSubmit}>
   <div class:invisible={!message.text} class="message">
     <span>{message.text}</span>

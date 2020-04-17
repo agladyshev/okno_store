@@ -167,6 +167,7 @@ export const fetchDiscounts = function () {
               "discount",
               "type_id",
               "disabled",
+              "act_once",
             ].includes(key)
           )
         );
