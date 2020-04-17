@@ -27,6 +27,8 @@
     getPayment
   } from "../api.js";
 
+  import { deleteSoldVariants } from "../storeHelpers.js";
+
   import { populateCollections } from "../helpers.js";
 
   onMount(async () => {
@@ -34,9 +36,11 @@
     getCollections().then(value => {
       collectionsRaw.set(value);
     });
-    getProducts().then(value => {
-      productsRaw.set(value);
-    });
+    getProducts()
+      .then(value => {
+        productsRaw.set(value);
+      })
+      .then(() => deleteSoldVariants());
     getDelivery().then(value => {
       deliveryVariants.set(value);
     });

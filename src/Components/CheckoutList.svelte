@@ -12,9 +12,11 @@
 
   $: {
     basket.subscribe(map => {
-      products = Array.from(map.values()).map(variant => {
+      products = Array.from(map.values()).filter(variant => {
         variant.product = productById(variant.productId);
-        return variant;
+        if (variant.product) {
+          return variant;
+        }
       });
     });
   }

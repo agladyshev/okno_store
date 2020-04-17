@@ -65,3 +65,14 @@ export const deleteVariant = function (productId, variantId = null) {
     return basket;
   });
 };
+
+export const deleteSoldVariants = function () {
+  basket.update((basket) => {
+    basket.forEach(function (variant, variantId) {
+      if (!productById(variant.productId)) {
+        basket.delete(variantId);
+      }
+    });
+    return basket;
+  });
+};
