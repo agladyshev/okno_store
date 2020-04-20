@@ -77,7 +77,8 @@ app.post("/addOrder", express.json(), checkAvailability, addOrder, function (
   res,
   next
 ) {
-  if (!res.order.status && !res.order.number) {
+  if ((!res.order.status && !res.order.number) || res.order.status == "error") {
+    console.log(res.order);
     log.error(res.order);
     res.status(500).json(res.order);
   } else {
