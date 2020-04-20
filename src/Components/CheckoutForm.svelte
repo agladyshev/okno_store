@@ -25,7 +25,8 @@
     status: "",
     discount: 0,
     type_id: 2,
-    code: ""
+    code: "",
+    min_price: 0
   };
 
   $: {
@@ -77,7 +78,8 @@
         (discount.discount = res.discount || 0),
           (discount.status = res.status),
           (discount.type_id = res.type_id || 2),
-          (discount.code = res.code || "");
+          (discount.code = res.code || ""),
+          (discount.min_price = res.min_price);
         switch (res.status) {
           case "not_found":
             message.text = "сертификат не найден";
@@ -153,7 +155,10 @@
     if (!validatePhoneNumber()) {
       return (message = { type: "error", text: "Некорректный номер телефона" });
     }
-    if (discountCode && discount.status != "success") {
+    if (
+      (discountCode && discount.status != "success") ||
+      totalSum < discount.min_price
+    ) {
       return validateDiscount();
     }
     return addOrder(constructOrderBody())
