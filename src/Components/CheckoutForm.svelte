@@ -10,6 +10,7 @@
   import Button from "./Button.svelte";
   import CheckoutList from "./CheckoutList.svelte";
   import { addOrder, checkDiscount } from "../api.js";
+  import { productById } from "../storeHelpers.js";
   let products, productsMap, deliveryOptions, paymentOptions, discountsEnabled;
 
   let name = "",
@@ -31,21 +32,40 @@
     deliveryVariants.subscribe(values => {
       deliveryOptions = values;
     });
-
     paymentGateways.subscribe(values => {
       paymentOptions = values;
-    });
-
-    basket.subscribe(map => {
-      products = Array.from(map.values());
-      productsMap = map;
     });
     checkDiscount().then(res => {
       discountsEnabled = res;
     });
   }
 
-  $: deliverySelected = deliveryOptions.find(d => d.id == deliveryOption);
+  $: deliverySelected = deliveryOptions.find(d => d.id == deliveryOption) || {};
+
+  $: deliveryPrice = Math.round(deliverySelected.price) || 0;
+
+  $: {
+    basket.subscribe(map => {
+      productsMap = map;
+      products = Array.from(map.values()).filter(variant => {
+        variant.product = productById(variant.productId);
+        if (variant.product) {
+          return variant;
+        }
+      });
+    });
+  }
+
+  $: totalSum = products.reduce((sum, entry) => {
+    let { product, variantId, quantity } = entry;
+    let price = product.variants.find(v => (v.id = variantId)).price;
+    return sum + Number(price) * quantity;
+  }, 0);
+
+  $: discountedSum =
+    discount.type_id == 1
+      ? Math.floor(totalSum * (1 - discount.discount / 100))
+      : Math.max(totalSum - discount.discount, 0);
 
   const validatePhoneNumber = function() {
     return /\+?[0-9]{11,20}/.test(phone);
@@ -53,7 +73,7 @@
 
   const validateDiscount = function() {
     if (discountCode) {
-      checkDiscount({ code: discountCode }).then(res => {
+      checkDiscount({ code: discountCode, orderSum: totalSum }).then(res => {
         (discount.discount = res.discount || 0),
           (discount.status = res.status),
           (discount.type_id = res.type_id || 2),
@@ -67,6 +87,11 @@
             break;
           case "disabled":
             message.text = "сертификат больше не действителен";
+            break;
+          case "low_sum":
+            message.text = `минимальная сумма заказа ${Math.round(
+              res.min_price
+            )}р`;
             break;
           default:
             message.text = "";
@@ -153,6 +178,39 @@
   .flex {
     display: flex;
   }
+  ul {
+    flex-basis: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 0.5rem;
+    padding: 0;
+  }
+  ul li {
+    flex-basis: 100vw;
+    margin: 0 0 0.5rem 0;
+    padding: 0.5rem;
+    border-radius: 3px;
+    list-style: none;
+  }
+  ul li.total {
+    text-align: right;
+  }
+  ul li.total span {
+    background-color: yellow;
+    color: #333;
+    /* padding: 0.2rem 1rem; */
+    /* background-color: yellow; */
+    border-radius: 2px;
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.1), 0 2px 5px 0 rgba(0, 0, 0, 0.05);
+    border: none;
+    font-size: 0.8rem;
+  }
+
+  ul li.total span.old {
+    box-shadow: none;
+    background: none;
+  }
+
   form {
     align-self: flex-end;
     flex-basis: 100%;
@@ -253,7 +311,21 @@
   }
 </style>
 
-<CheckoutList {deliverySelected} {discount} />
+<CheckoutList {products} />
+<ul>
+  {#if discountedSum < totalSum}
+    <li class="total">
+      <span class="old">
+        <s>{totalSum + deliveryPrice}</s>
+      </span>
+      <span>{discountedSum + deliveryPrice}р</span>
+    </li>
+  {:else}
+    <li class="total">
+      <span>{totalSum + deliveryPrice}р</span>
+    </li>
+  {/if}
+</ul>
 <form action="submit" on:submit|preventDefault={handleSubmit}>
   <div class:invisible={!message.text} class="message">
     <span>{message.text}</span>

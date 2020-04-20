@@ -1,36 +1,7 @@
 <script>
-  import { basket } from "../stores.js";
   import DeleteButton from "./DeleteButton.svelte";
-  import { productById, addOne, removeOne } from "../storeHelpers.js";
-
-  let products = [];
-
-  export let deliverySelected = {},
-    discount;
-
-  $: deliveryPrice = Math.round(deliverySelected.price) || 0;
-
-  $: {
-    basket.subscribe(map => {
-      products = Array.from(map.values()).filter(variant => {
-        variant.product = productById(variant.productId);
-        if (variant.product) {
-          return variant;
-        }
-      });
-    });
-  }
-
-  $: totalSum = products.reduce((sum, entry) => {
-    let { product, variantId, quantity } = entry;
-    let price = product.variants.find(v => (v.id = variantId)).price;
-    return sum + Number(price) * quantity;
-  }, 0);
-
-  $: discountedSum =
-    discount.type_id == 1
-      ? Math.floor(totalSum * (1 - discount.discount / 100))
-      : Math.max(totalSum - discount.discount, 0);
+  import { addOne, removeOne } from "../storeHelpers.js";
+  export let products = [];
 </script>
 
 <style>
@@ -105,29 +76,6 @@
   ul li .delete {
     align-self: flex-start;
     display: flex;
-  }
-
-  ul li.total {
-    text-align: right;
-  }
-  ul li.total span {
-    background-color: yellow;
-    color: #333;
-    /* padding: 0.2rem 1rem; */
-    /* background-color: yellow; */
-    border-radius: 2px;
-    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.1), 0 2px 5px 0 rgba(0, 0, 0, 0.05);
-    border: none;
-    font-size: 0.8rem;
-  }
-
-  ul li.total span.old {
-    box-shadow: none;
-    background: none;
-  }
-
-  ul li.total span img {
-    max-height: 0.6rem;
   }
 
   .info .option {
@@ -232,16 +180,4 @@
       </div>
     </li>
   {/each}
-  {#if discountedSum < totalSum}
-    <li class="total">
-      <span class="old">
-        <s>{totalSum + deliveryPrice}</s>
-      </span>
-      <span>{discountedSum + deliveryPrice}р</span>
-    </li>
-  {:else}
-    <li class="total">
-      <span>{totalSum + deliveryPrice}р</span>
-    </li>
-  {/if}
 </ul>

@@ -95,7 +95,7 @@ export const getContacts = function (req, res, next) {
 };
 
 export const checkDiscount = function (req, res, next) {
-  let { code } = req.body;
+  let { code, orderSum } = req.body;
   if (!code) {
     fetchDiscounts()
       .then((discounts) => {
@@ -132,6 +132,9 @@ export const checkDiscount = function (req, res, next) {
             24
           ) {
             res.discount = { status: "expired" };
+            next();
+          } else if (orderSum < discount.min_price) {
+            res.discount = { status: "low_sum", min_price: discount.min_price };
             next();
           } else {
             discount.status = "success";
