@@ -74,31 +74,33 @@
 
   const validateDiscount = function() {
     if (discountCode) {
-      checkDiscount({ code: discountCode, orderSum: totalSum }).then(res => {
-        (discount.discount = res.discount || 0),
-          (discount.status = res.status),
-          (discount.type_id = res.type_id || 2),
-          (discount.code = res.code || ""),
-          (discount.min_price = res.min_price);
-        switch (res.status) {
-          case "not_found":
-            message.text = "сертификат не найден";
-            break;
-          case "expired":
-            message.text = "истёк срок действия";
-            break;
-          case "disabled":
-            message.text = "сертификат больше не действителен";
-            break;
-          case "low_sum":
-            message.text = `минимальная сумма заказа ${Math.round(
-              res.min_price
-            )}р`;
-            break;
-          default:
-            message.text = "";
+      checkDiscount({ code: discountCode.trim(), orderSum: totalSum }).then(
+        res => {
+          (discount.discount = res.discount || 0),
+            (discount.status = res.status),
+            (discount.type_id = res.type_id || 2),
+            (discount.code = res.code || ""),
+            (discount.min_price = res.min_price);
+          switch (res.status) {
+            case "not_found":
+              message.text = "сертификат не найден";
+              break;
+            case "expired":
+              message.text = "истёк срок действия";
+              break;
+            case "disabled":
+              message.text = "сертификат больше не действителен";
+              break;
+            case "low_sum":
+              message.text = `минимальная сумма заказа ${Math.round(
+                res.min_price
+              )}р`;
+              break;
+            default:
+              message.text = "";
+          }
         }
-      });
+      );
     }
   };
 
