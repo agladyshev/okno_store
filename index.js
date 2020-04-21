@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 import express from "express";
-import cors from "cors";
+// import cors from "cors";
 import bunyan from "bunyan";
 import {
   getCollections,
@@ -31,7 +31,7 @@ const log = bunyan.createLogger({
   ],
 });
 
-app.use(cors());
+// app.use(cors());
 
 app.use(function (err, req, res, next) {
   log.error(err.stack);
