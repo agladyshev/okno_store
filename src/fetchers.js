@@ -8,11 +8,12 @@
 // let baseURL =
 // "https://6cda2b673ed829dc581e875b6780f87c:fd8b168a1f5ccc7b4d314634b099a462@myshop-bbp427.myinsales.ru";
 
-let baseURL = "http://myshop-bbp427.myinsales.ru";
+let baseURL = "https://myshop-bbp427.myinsales.ru";
 
 let headers = new Headers({
   Authorization:
     "Basic NmNkYTJiNjczZWQ4MjlkYzU4MWU4NzViNjc4MGY4N2M6ZmQ4YjE2OGExZjVjY2M3YjRkMzE0NjM0YjA5OWE0NjI=",
+  "Content-Type": "application/json",
 });
 
 export const fetchCollections = function () {
