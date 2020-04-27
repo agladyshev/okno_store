@@ -112,6 +112,8 @@ export const fetchDelivery = function () {
               "description",
               "price",
               "type",
+              "min_order_sum",
+              "charge_up_to",
             ].includes(key)
           )
         );

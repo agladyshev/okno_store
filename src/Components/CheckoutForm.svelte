@@ -43,7 +43,11 @@
 
   $: deliverySelected = deliveryOptions.find(d => d.id == deliveryOption) || {};
 
-  $: deliveryPrice = Math.round(deliverySelected.price) || 0;
+  $: deliveryPrice =
+    deliverySelected.charge_up_to &&
+    discountedSum >= deliverySelected.charge_up_to
+      ? 0
+      : Math.round(deliverySelected.price) || 0;
 
   $: {
     basket.subscribe(map => {
@@ -162,6 +166,14 @@
       totalSum < discount.min_price
     ) {
       return validateDiscount();
+    }
+    if (discountedSum < deliverySelected.min_order_sum) {
+      return (message = {
+        type: "error",
+        text: `Минимальный заказ для доставки ${Math.round(
+          deliverySelected.min_order_sum
+        )}р`
+      });
     }
     return addOrder(constructOrderBody())
       .then(result => {
