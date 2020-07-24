@@ -203,10 +203,10 @@
     text-align: right;
   }
   ul li.total span {
-    background-color: yellow;
+    background-color: #c8c8c8;
     color: #333;
     /* padding: 0.2rem 1rem; */
-    /* background-color: yellow; */
+    /* background-color: #c8c8c8; */
     border-radius: 2px;
     box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.1), 0 2px 5px 0 rgba(0, 0, 0, 0.05);
     border: none;
@@ -237,7 +237,7 @@
     margin: 0;
   }
   .message span {
-    background-color: yellow;
+    background-color: #c8c8c8;
   }
   form div {
     flex-basis: 100%;
@@ -283,7 +283,7 @@
   form input[type="submit"] {
     -webkit-appearance: none;
     padding: 0.2rem 1.3rem;
-    background-color: yellow;
+    background-color: #c8c8c8;
     border-radius: 2px;
     box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.1), 0 2px 5px 0 rgba(0, 0, 0, 0.05);
     border: none;
@@ -305,7 +305,7 @@
     box-shadow: none;
   }
   input:invalid {
-    box-shadow: 0 0 3px #fcd116;
+    box-shadow: 0 0 3px #c8c8c8;
   }
   .invisible {
     visibility: hidden;
