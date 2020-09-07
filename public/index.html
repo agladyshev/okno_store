@@ -13,11 +13,7 @@
     <link rel="manifest" href="/manifest.webmanifest" />
 
     <link rel="icon" type="image/png" href="/favicon.ico" />
-    <link
-      href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap&subset=cyrillic,latin-ext"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="/global.css" />
+
     <link rel="stylesheet" href="/build/bundle.css" />
 
     <link rel="apple-touch-icon" href="touch-icon-iphone.png" />
@@ -36,14 +32,99 @@
       html {
         overflow-y: scroll;
         scrollbar-width: none;
+        box-sizing: border-box;
+      }
+
+      *,
+      *:before,
+      *:after {
+        box-sizing: inherit;
+      }
+
+      html,
+      body {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+
+      body {
+        font-family: "Open Sans", sans-serif;
+        color: #333;
+        letter-spacing: 0.05rem;
+        text-transform: lowercase;
+        margin: 0;
+        /* padding: 8px; */
+        box-sizing: border-box;
+        /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, */
+        /* Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif; */
+      }
+
+      a {
+        color: rgb(0, 100, 200);
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      a:visited {
+        color: rgb(0, 80, 160);
+      }
+
+      label {
+        display: block;
+      }
+
+      input,
+      button,
+      select,
+      textarea {
+        font-family: inherit;
+        font-size: inherit;
+        padding: 0.4em;
+        margin: 0 0 0.5em 0;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 2px;
+      }
+
+      input:disabled {
+        color: #ccc;
+      }
+
+      input[type="range"] {
+        height: 0;
+      }
+
+      button {
+        color: #333;
+        background-color: #f4f4f4;
+        outline: none;
+      }
+
+      button:active {
+        background-color: #ddd;
+      }
+
+      button:focus {
+        border-color: #666;
+      }
+      /* open-sans-regular - latin-ext_cyrillic */
+      @font-face {
+        font-family: "Open Sans";
+        font-style: normal;
+        font-weight: 400;
+        src: local("Open Sans Regular"), local("OpenSans-Regular"),
+          url("../fonts/open-sans-v17-latin-ext_cyrillic-regular.woff2")
+            format("woff2"),
+          /* Chrome 26+, Opera 23+, Firefox 39+ */
+            url("../fonts/open-sans-v17-latin-ext_cyrillic-regular.woff")
+            format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
       }
     </style>
     <script defer src="/build/bundle.js"></script>
-    <script src="https://getinsights.io/static/js/insights.js"></script>
-    <script>
-      insights.init("CsThbSpbBQVtg5u_");
-      insights.trackPages();
-    </script>
   </head>
 
   <body></body>
