@@ -1,7 +1,7 @@
 <script>
   import { basket } from "../stores";
   let basketSize;
-  basket.subscribe(basket => {
+  basket.subscribe((basket) => {
     basketSize = Array.from(basket.values()).reduce((acc, { quantity }) => {
       return acc + quantity;
     }, 0);
@@ -11,6 +11,7 @@
 <style>
   a {
     text-decoration: none;
+    font-size: 0;
   }
   header {
     grid-area: header;
@@ -102,11 +103,11 @@
     <span />
   </a>
   <a href="#/checkout">
-
     <div class="counter">
       {#if basketSize}
         <div class="text">{basketSize}</div>
       {/if}
     </div>
+    Корзина
   </a>
 </header>
