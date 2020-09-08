@@ -3,6 +3,7 @@ import express from "express";
 import cors from "cors";
 import bunyan from "bunyan";
 import compression from "compression";
+import helmet from "helmet";
 
 import {
   getCollections,
@@ -34,6 +35,12 @@ const log = bunyan.createLogger({
 });
 
 app.use(cors());
+
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+  })
+);
 
 app.use(compression());
 
