@@ -32,14 +32,14 @@
 
 <footer>
   <a href="tel:{contacts.phone}">
-    <img src="/phone.png" alt="phone icon" />Позвонить нам</a>
+    <img src="/phone.png" alt="phone icon" />Телефон</a>
   <a href={contacts.address}>
-    <img src="/google-maps.png" alt="google maps icon" />Найти нас на карте
+    <img src="/google-maps.png" alt="google maps icon" />Адрес
   </a>
   <a href="https://www.instagram.com/{contacts.instagram}/">
-    <img src="/instagram.png" alt="instagram icon" />Наш инстаграм
+    <img src="/instagram.png" alt="instagram icon" />Инстаграм
   </a>
   <a href="https://www.facebook.com/{contacts.facebook}/">
-    <img src="/facebook-alt.png" alt="facebook icon" />Наш фейсбук
+    <img src="/facebook-alt.png" alt="facebook icon" />Фейсбук
   </a>
 </footer>

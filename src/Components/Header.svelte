@@ -88,7 +88,7 @@
     padding-top: 0.5rem;
     color: #333;
     font-weight: 800;
-    font-size: 0.7rem;
+    font-size: 0.75rem;
   }
 
   header .logo img {

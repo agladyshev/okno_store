@@ -36,7 +36,7 @@
 
   li a figure figcaption {
     text-align: center;
-    font-size: 0.65rem;
+    font-size: 0.75rem;
     letter-spacing: 0.02rem;
     height: 1rem;
   }
@@ -63,7 +63,6 @@
   <a href="/collection/{permalink}" use:link>
     <figure>
       <picture>
-
         {#if highlight}
           <img
             src={cover.original_url || images.medium_url}
@@ -72,7 +71,6 @@
         {:else}
           <img src={cover.original_url || images.medium_url} alt={title} />
         {/if}
-
       </picture>
       <figcaption>{title.toLowerCase()}</figcaption>
     </figure>

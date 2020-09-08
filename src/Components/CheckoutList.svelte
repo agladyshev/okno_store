@@ -38,7 +38,7 @@
     border-radius: 10px;
   }
   span.unavailable-text {
-    font-size: 0.7rem;
+    font-size: 0.75rem;
   }
 
   ul li picture {
@@ -145,13 +145,13 @@
               {#if optionName.title == 'Размер'}
                 <!-- {optionName.title.toLowerCase()}: -->
                 <span class="size">
-                  {product.variants[0].option_values.find(v => v.option_name_id == optionName.id).title}
+                  {product.variants[0].option_values.find((v) => v.option_name_id == optionName.id).title}
                 </span>
               {/if}
             </div>
           {/each}
         {/if}
-        {#if product.variants.find(v => v.id == variantId).quantity > 1}
+        {#if product.variants.find((v) => v.id == variantId).quantity > 1}
           <div class="option">
             <div class="quantity">
               <input

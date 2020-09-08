@@ -6,13 +6,13 @@
   let lastOrder;
   let secondsSinceLastOrder;
   let promo = "";
-  orders.subscribe(value => {
+  orders.subscribe((value) => {
     lastOrder = Array.from(value.keys()).slice(-1)[0];
     let lastOrderTime = value.get(lastOrder);
     secondsSinceLastOrder = (new Date() - new Date(lastOrderTime)) / 1000;
   });
   onMount(async () => {
-    getPromo().then(value => {
+    getPromo().then((value) => {
       promo = value.content.replace(/<[^>]*>?/gm, "");
     });
   });
@@ -29,7 +29,7 @@
   }
   section.promo span {
     text-align: center;
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     letter-spacing: 0.05rem;
   }
 

@@ -183,7 +183,7 @@
   }
 
   .info .description {
-    font-size: 0.7rem;
+    font-size: 0.75rem;
   }
 
   .info .description p {
