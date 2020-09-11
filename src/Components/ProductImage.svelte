@@ -42,7 +42,11 @@
 </style>
 
 {#if currentProduct}
-  <picture on:click={getNextPicture} in:fade>
+  <picture
+    tabindex="0"
+    on:click={getNextPicture}
+    on:keydown={getNextPicture}
+    in:fade>
     <source
       srcset={images[pictureCounter].original_url}
       media="(min-width: 600px)" />
