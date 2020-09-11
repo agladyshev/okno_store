@@ -147,6 +147,10 @@
     color: #999;
     opacity: 20%;
   }
+  button.controls:focus {
+    outline: none;
+    box-shadow: 0 0px 16px #0005;
+  }
   button.controls img {
     /* -webkit-appearance: none; */
     max-height: 0.8rem;

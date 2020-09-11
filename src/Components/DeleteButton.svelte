@@ -15,6 +15,9 @@
     border: none;
     line-height: 0.8rem;
   }
+  button:focus {
+    outline: solid;
+  }
 </style>
 
 <button on:click={handleClick}>&#10799;</button>

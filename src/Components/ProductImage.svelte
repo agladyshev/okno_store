@@ -25,6 +25,10 @@
     display: flex;
     justify-content: center;
   }
+  picture:focus {
+    outline: none;
+    box-shadow: 0 0px 16px #0005;
+  }
   .cover {
     /* first 2 values are for main
     3rd value is for collecion list
