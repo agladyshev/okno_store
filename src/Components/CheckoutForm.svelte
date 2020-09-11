@@ -260,8 +260,15 @@
 
   form .delivery {
     display: flex;
+    flex-wrap: wrap;
     font-size: 0.8rem;
   }
+
+  form .delivery div {
+    display: flex;
+    align-items: center;
+  }
+
   form .payment {
     /* flex-basis: 100%; */
     display: flex;
@@ -370,14 +377,16 @@
   </div>
   <div class="delivery">
     {#each deliveryOptions as option}
-      <input
-        bind:group={deliveryOption}
-        name="delivery"
-        type="radio"
-        value={option.id}
-        id={option.id}
-        required />
-      <label for={option.id}>{option.title}</label>
+      <div>
+        <input
+          bind:group={deliveryOption}
+          name="delivery"
+          type="radio"
+          value={option.id}
+          id={option.id}
+          required />
+        <label for={option.id}>{option.title}</label>
+      </div>
     {/each}
   </div>
   {#if deliveryOptions.find(d => d.id == deliveryOption)}
