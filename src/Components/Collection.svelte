@@ -127,6 +127,7 @@
   .gallery {
     grid-area: gallery;
     display: flex;
+    justify-content: space-between;
     height: calc(100vh - 7.5rem - 5.7rem - 7.3rem);
   }
   .panel {
@@ -138,7 +139,9 @@
     flex-basis: 100%;
   }
   button.controls {
-    flex-basis: 15vw;
+    /* flex-basis: 15vw; */
+    min-width: 15%;
+    /* min-width: 15vw; */
     margin: 0;
     padding: 0;
     /* background-color: ivory; */
@@ -195,11 +198,12 @@
   }
 
   @media screen and (min-width: 600px) {
-    picture {
+    /* picture {
       flex-basis: 50vw;
-    }
+    } */
     button.controls {
-      flex-basis: 25vw;
+      /* flex-basis: 25vw; */
+      flex-grow: 1;
     }
     .panel {
       padding: 0.5rem 25vw;
@@ -209,12 +213,12 @@
     }
   }
   @media screen and (min-width: 768px) {
-    picture {
+    /* picture {
       flex-basis: 50%;
-    }
-    button.controls {
-      flex-basis: 25%;
-    }
+    } */
+    /* button.controls { */
+    /* flex-basis: 25%; */
+    /* } */
     .panel {
       padding: 0.5rem 25%;
     }
