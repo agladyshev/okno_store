@@ -21,7 +21,7 @@
 
 <style>
   picture {
-    flex-basis: 70vw;
+    /* flex-basis: 70vw; */
     display: flex;
     justify-content: center;
   }
