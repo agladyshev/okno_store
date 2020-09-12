@@ -145,25 +145,25 @@
               {#if optionName.title == 'Размер'}
                 <!-- {optionName.title.toLowerCase()}: -->
                 <span class="size">
-                  {product.variants[0].option_values.find((v) => v.option_name_id == optionName.id).title}
+                  {product.variants[0].option_values.find(v => v.option_name_id == optionName.id).title}
                 </span>
               {/if}
             </div>
           {/each}
         {/if}
-        {#if product.variants.find((v) => v.id == variantId).quantity > 1}
+        {#if product.variants.find(v => v.id == variantId).quantity > 1}
           <div class="option">
             <div class="quantity">
               <input
                 on:click={() => addOne(productId, variantId)}
                 type="image"
-                src="./uarr.png"
+                src="./icons/uarr.png"
                 alt="upward arrow" />
               <div>{quantity}</div>
               <input
                 on:click={() => removeOne(productId, variantId)}
                 type="image"
-                src="./darr.png"
+                src="./icons/darr.png"
                 alt="down arrow" />
             </div>
           </div>

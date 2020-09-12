@@ -232,13 +232,13 @@
   <div class="wrapper">
     <div class="counter">
       <a href="#/" class:disabled={collection.permalink == 'frontpage'}>
-        <CrossButton icon="barr.png" />
+        <CrossButton icon="icons/barr.png" />
       </a>
       <div>{productCounter + 1}/{collection.products.length}</div>
     </div>
     <div class="gallery">
       <button class="controls" on:click={getPrevious}>
-        <img src="/larr.png" alt="<" />
+        <img src="/icons/larr.png" alt="<" />
       </button>
       <!-- {#each [keys] as x (currentProduct)} -->
       <!-- {#if } -->
@@ -248,7 +248,7 @@
       <!-- {/if} -->
       <!-- {/each} -->
       <button class="controls" on:click={getNext}>
-        <img class="" src="/rarr.png" alt=">" />
+        <img class="" src="icons/rarr.png" alt=">" />
       </button>
     </div>
     <div class="panel">

@@ -435,7 +435,7 @@
         <input
           class="discount-button"
           type="image"
-          src="/search-grey.png"
+          src="/icons/search-grey.png"
           alt="magnifying glass icon"
           on:click|preventDefault={validateDiscount} />
       </div>

@@ -3,7 +3,7 @@
   import { onMount } from "svelte";
   let contacts = {};
   onMount(async () => {
-    getContacts().then((res) => {
+    getContacts().then(res => {
       contacts = res;
     });
   });
@@ -32,14 +32,19 @@
 
 <footer>
   <a href="tel:{contacts.phone}">
-    <img src="/phone.png" alt="phone icon" />Телефон</a>
+    <img src="icons/phone.png" alt="phone icon" />
+    Телефон
+  </a>
   <a href={contacts.address}>
-    <img src="/google-maps.png" alt="google maps icon" />Адрес
+    <img src="icons/google-maps.png" alt="google maps icon" />
+    Адрес
   </a>
   <a href="https://www.instagram.com/{contacts.instagram}/">
-    <img src="/instagram.png" alt="instagram icon" />Инстаграм
+    <img src="icons/instagram.png" alt="instagram icon" />
+    Инстаграм
   </a>
   <a href="https://www.facebook.com/{contacts.facebook}/">
-    <img src="/facebook-alt.png" alt="facebook icon" />Фейсбук
+    <img src="icons/facebook-alt.png" alt="facebook icon" />
+    Фейсбук
   </a>
 </footer>

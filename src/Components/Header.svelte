@@ -1,7 +1,7 @@
 <script>
   import { basket } from "../stores";
   let basketSize;
-  basket.subscribe((basket) => {
+  basket.subscribe(basket => {
     basketSize = Array.from(basket.values()).reduce((acc, { quantity }) => {
       return acc + quantity;
     }, 0);
@@ -77,7 +77,7 @@
     height: 1.9rem;
     width: 1.9rem;
     margin-right: 0.6rem;
-    background-image: url("/bag.png");
+    background-image: url("/icons/bag.png");
     background-size: contain;
     display: flex;
     justify-content: center;
@@ -98,7 +98,7 @@
 
 <header>
   <a href="/#" class="logo">
-    <img src="/search-grey.png" alt="magnifying glass icon" />
+    <img src="icons/search-grey.png" alt="magnifying glass icon" />
     <h1>окно</h1>
     <span />
   </a>
