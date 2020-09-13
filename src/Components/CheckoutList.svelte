@@ -132,7 +132,10 @@
         <source
           srcset={product.images[0].large_url}
           media="(max-width: 600px)" />
-        <img class="cover" src={product.images[0].original_url} alt="logo" />
+        <img
+          class="cover"
+          src={product.images[0].original_url}
+          alt={product.title} />
       </picture>
       <div class="info">
         <div class="title">{product.title.toLowerCase()}</div>
@@ -158,13 +161,13 @@
                 on:click={() => addOne(productId, variantId)}
                 type="image"
                 src="./icons/uarr.png"
-                alt="upward arrow" />
+                alt="добавить 1" />
               <div>{quantity}</div>
               <input
                 on:click={() => removeOne(productId, variantId)}
                 type="image"
                 src="./icons/darr.png"
-                alt="down arrow" />
+                alt="убрать 1" />
             </div>
           </div>
         {/if}

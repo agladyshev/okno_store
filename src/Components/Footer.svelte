@@ -32,19 +32,19 @@
 
 <footer>
   <a href="tel:{contacts.phone}">
-    <img src="icons/phone.png" alt="phone icon" />
+    <img src="icons/phone.png" alt="телефон" />
     Телефон
   </a>
   <a href={contacts.address}>
-    <img src="icons/google-maps.png" alt="google maps icon" />
+    <img src="icons/google-maps.png" alt="google maps" />
     Адрес
   </a>
   <a href="https://www.instagram.com/{contacts.instagram}/">
-    <img src="icons/instagram.png" alt="instagram icon" />
+    <img src="icons/instagram.png" alt="instagram" />
     Инстаграм
   </a>
   <a href="https://www.facebook.com/{contacts.facebook}/">
-    <img src="icons/facebook-alt.png" alt="facebook icon" />
+    <img src="icons/facebook-alt.png" alt="facebook" />
     Фейсбук
   </a>
 </footer>

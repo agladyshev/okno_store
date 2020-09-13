@@ -20,4 +20,6 @@
   }
 </style>
 
-<button on:click={handleClick}>&#10799;</button>
+<button aria-label="удалить товар" title="удалить" on:click={handleClick}>
+  &#10799;
+</button>

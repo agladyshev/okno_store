@@ -367,6 +367,7 @@
   </div>
   <div class="contact">
     <input
+      aria-label="номер телефона"
       type="tel"
       id="phone"
       name="phone"
@@ -436,7 +437,7 @@
           class="discount-button"
           type="image"
           src="/icons/search-grey.png"
-          alt="magnifying glass icon"
+          alt="лупа"
           on:click|preventDefault={validateDiscount} />
       </div>
     {/if}

@@ -238,7 +238,7 @@
     </div>
     <div class="gallery">
       <button class="controls" on:click={getPrevious}>
-        <img src="/icons/larr.png" alt="<" />
+        <img src="/icons/larr.png" alt="предыдущий товар" />
       </button>
       <!-- {#each [keys] as x (currentProduct)} -->
       <!-- {#if } -->
@@ -248,7 +248,7 @@
       <!-- {/if} -->
       <!-- {/each} -->
       <button class="controls" on:click={getNext}>
-        <img class="" src="icons/rarr.png" alt=">" />
+        <img class="" src="icons/rarr.png" alt="следующий товар" />
       </button>
     </div>
     <div class="panel">

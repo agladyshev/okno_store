@@ -70,6 +70,6 @@
       class:basket={inBasket}
       class="cover"
       src={currentProduct.images[pictureCounter].original_url}
-      alt="product image" />
+      alt={currentProduct.title} />
   </picture>
 {/if}
