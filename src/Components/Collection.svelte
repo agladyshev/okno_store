@@ -252,7 +252,7 @@
       </button>
     </div>
     <div class="panel">
-      <div class="info">
+      <div class="info" aria-live="assertive">
         <div class="title">{currentProduct.title.toLowerCase()}</div>
         <div class="price">
           {#if currentProduct.variants[0].old_price}

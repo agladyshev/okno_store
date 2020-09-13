@@ -48,6 +48,7 @@
 
 {#if currentProduct}
   <picture
+    aria-live="assertive"
     tabindex="0"
     on:click={getNextPicture}
     on:keydown={getNextPicture}
