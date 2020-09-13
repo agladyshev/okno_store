@@ -132,10 +132,7 @@
         <source
           srcset={product.images[0].large_url}
           media="(max-width: 600px)" />
-        <img
-          class="cover"
-          src={product.images[0].original_url}
-          alt={product.title} />
+        <img class="cover" src={product.images[0].original_url} alt="" />
       </picture>
       <div class="info">
         <div class="title">{product.title.toLowerCase()}</div>

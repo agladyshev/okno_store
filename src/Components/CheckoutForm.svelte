@@ -240,8 +240,10 @@
     padding: 0.5rem 0.5rem;
     border-radius: 1rem;
   }
-  form div {
+  form div,
+  fieldset {
     margin-bottom: 1rem;
+    flex-basis: 100%;
   }
 
   .message {
@@ -251,9 +253,6 @@
   .message span {
     background-color: #c8c8c8;
   }
-  form div {
-    flex-basis: 100%;
-  }
   form .contact {
     display: flex;
   }
@@ -262,6 +261,8 @@
     display: flex;
     flex-wrap: wrap;
     font-size: 0.8rem;
+    border-style: none;
+    padding: 0;
   }
 
   form .delivery div {
@@ -272,11 +273,13 @@
   form .payment {
     /* flex-basis: 100%; */
     display: flex;
+    border-style: none;
   }
   form .discount {
     display: flex;
     font-size: 0.8rem;
     height: 2rem;
+    padding: 0;
   }
   form .discount [type="text"] {
     -webkit-appearance: none;
@@ -361,6 +364,7 @@
       id="name"
       type="text"
       bind:value={name}
+      aria-label="ваше имя"
       required
       size="11"
       placeholder="имя" />
@@ -376,7 +380,7 @@
       size="11"
       required />
   </div>
-  <div class="delivery">
+  <fieldset class="delivery">
     {#each deliveryOptions as option}
       <div>
         <input
@@ -389,7 +393,7 @@
         <label for={option.id}>{option.title}</label>
       </div>
     {/each}
-  </div>
+  </fieldset>
   {#if deliveryOptions.find(d => d.id == deliveryOption)}
     {#if deliveryOptions.find(d => d.id == deliveryOption).type == 'DeliveryVariant::Fixed'}
       <div class="address">
@@ -410,7 +414,7 @@
       </div>
     {/if}
   {/if}
-  <!-- <div class="payment">
+  <!-- <fieldset class="payment">
     {#each paymentOptions as option}
       <input
         bind:group={paymentOption}
@@ -421,7 +425,7 @@
         required />
       <label for={option.id}>{option.title}</label>
     {/each}
-  </div> -->
+  </fieldset> -->
   <div class="flex">
     {#if discountsEnabled}
       <div class="discount">

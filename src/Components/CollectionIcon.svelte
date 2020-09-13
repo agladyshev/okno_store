@@ -69,7 +69,7 @@
             alt={title}
             class="highlight" />
         {:else}
-          <img src={cover.original_url || images.medium_url} alt={title} />
+          <img src={cover.original_url || images.medium_url} alt="" />
         {/if}
       </picture>
       <figcaption>{title.toLowerCase()}</figcaption>
