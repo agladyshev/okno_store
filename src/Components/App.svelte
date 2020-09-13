@@ -73,11 +73,11 @@
 
 <style>
   .wrapper {
-    min-height: 100vh;
+    min-height: 100%;
     max-width: 768px;
     margin: auto;
     display: grid;
-    grid-template-columns: auto;
+    grid-template-columns: 100%;
     grid-template-rows: 4rem auto 1fr 2rem;
     grid-template-areas:
       "header"
@@ -87,7 +87,7 @@
   }
   main {
     grid-area: main;
-    overflow-x: scroll;
+    /* overflow-x: scroll; */
     scrollbar-width: none;
   }
 </style>
