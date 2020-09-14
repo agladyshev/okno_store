@@ -178,7 +178,7 @@
   }
 
   .sale {
-    background-color: #c8c8c8;
+    background-color: var(--brandColor);
   }
 
   .info .option {

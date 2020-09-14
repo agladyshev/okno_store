@@ -22,7 +22,7 @@
   section.promo {
     min-height: 1.5rem;
     grid-area: promo;
-    background-color: #c8c8c8;
+    background-color: var(--brandColor);
     display: flex;
     align-items: center;
     justify-content: center;
