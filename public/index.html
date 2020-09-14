@@ -94,6 +94,8 @@
     <style>
       :root {
         --brandColor: hsl(0deg 0% 78%);
+        --brandFont: hsl(0deg 0% 20%);
+        --baseFont: hsl(0deg 0% 20%);
       }
       html {
         overflow-y: scroll;
@@ -119,7 +121,7 @@
 
       body {
         font-family: "Open Sans", sans-serif;
-        color: #333;
+        color: var(--baseFont);
         letter-spacing: 0.05rem;
         text-transform: lowercase;
         margin: 0;
@@ -144,28 +146,6 @@
         box-sizing: border-box;
         border: 1px solid #ccc;
         border-radius: 2px;
-      }
-
-      input:disabled {
-        color: #ccc;
-      }
-
-      input[type="range"] {
-        height: 0;
-      }
-
-      button {
-        color: #333;
-        background-color: #f4f4f4;
-        outline: none;
-      }
-
-      button:active {
-        background-color: #ddd;
-      }
-
-      button:focus {
-        border-color: #666;
       }
       /* open-sans-regular - latin-ext_cyrillic */
       @font-face {

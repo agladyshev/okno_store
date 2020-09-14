@@ -6,13 +6,13 @@
   let lastOrder;
   let secondsSinceLastOrder;
   let promo = "";
-  orders.subscribe((value) => {
+  orders.subscribe(value => {
     lastOrder = Array.from(value.keys()).slice(-1)[0];
     let lastOrderTime = value.get(lastOrder);
     secondsSinceLastOrder = (new Date() - new Date(lastOrderTime)) / 1000;
   });
   onMount(async () => {
-    getPromo().then((value) => {
+    getPromo().then(value => {
       promo = value.content.replace(/<[^>]*>?/gm, "");
     });
   });
@@ -23,6 +23,7 @@
     min-height: 1.5rem;
     grid-area: promo;
     background-color: var(--brandColor);
+    color: var(--brandFont);
     display: flex;
     align-items: center;
     justify-content: center;

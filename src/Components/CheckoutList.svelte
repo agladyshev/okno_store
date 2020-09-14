@@ -16,14 +16,14 @@
   ul li {
     flex-basis: 100vw;
     margin: 0 0 0.5rem 0;
-    padding: 0.5rem;
+    padding: 0.25rem;
+    margin: 0.25rem;
     /* border: solid #333 1px; */
     border-radius: 3px;
     list-style: none;
 
     /* box-shadow: 1px 1px 1px 1px #333; */
   }
-
   ul li.item {
     display: flex;
     align-items: center;
@@ -31,10 +31,8 @@
   }
 
   ul li.unavailable {
-    background-color: #fcc7c7;
-
+    box-shadow: 0 0px 16px #0005;
     opacity: 70%;
-
     border-radius: 10px;
   }
   span.unavailable-text {

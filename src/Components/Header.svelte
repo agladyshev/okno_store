@@ -86,7 +86,7 @@
 
   .counter .text {
     padding-top: 0.5rem;
-    color: #333;
+    color: var(--baseFont);
     font-weight: 800;
     font-size: 0.75rem;
   }

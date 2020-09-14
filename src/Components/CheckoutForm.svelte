@@ -216,7 +216,7 @@
   }
   ul li.total span {
     background-color: var(--brandColor);
-    color: #333;
+    color: var(--brandFont);
     /* padding: 0.2rem 1rem; */
     /* background-color: var(--brandColor); */
     border-radius: 2px;

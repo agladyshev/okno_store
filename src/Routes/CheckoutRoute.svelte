@@ -55,8 +55,8 @@
     margin: 0 0 0.5rem 0;
     text-align: center;
     font-size: 0.8rem;
-    background-color: #333;
-    color: ivory;
+    background-color: var(--brandFont);
+    color: var(--brandColor);
   }
 </style>
 

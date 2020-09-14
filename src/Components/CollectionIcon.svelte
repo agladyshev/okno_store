@@ -24,7 +24,7 @@
     padding: 0;
     min-width: 3.8rem;
     /* margin: 0 0.25rem 0 0.25rem; */
-    color: black;
+    color: var(--baseFont);
     text-decoration: none;
   }
 

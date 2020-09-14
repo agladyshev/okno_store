@@ -144,10 +144,7 @@
     /* min-width: 15vw; */
     margin: 0;
     padding: 0;
-    /* background-color: ivory; */
-    background-color: white;
     border: none;
-    color: #999;
     opacity: 20%;
   }
   button.controls:focus {
