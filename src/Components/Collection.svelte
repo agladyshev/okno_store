@@ -159,16 +159,13 @@
   .info {
     flex-grow: 1;
     font-size: 0.9rem;
-    letter-spacing: 0.05rem;
   }
   .info .title {
     font-size: 1rem;
-    letter-spacing: 0.05rem;
     padding-right: 0.1rem;
   }
   .info .price {
     font-size: 0.8rem;
-    letter-spacing: 0.05rem;
   }
 
   .info .price span {
