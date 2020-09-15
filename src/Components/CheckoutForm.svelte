@@ -327,7 +327,7 @@
     box-shadow: none;
   }
   input:invalid {
-    box-shadow: 0 0 3px var(--brandColor);
+    box-shadow: 0 0 3px var(--brandSecondaryColor);
   }
   .invisible {
     visibility: hidden;

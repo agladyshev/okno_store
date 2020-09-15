@@ -36,7 +36,7 @@
       4: { field: "created_at", reverse: false, variants: false },
       5: { field: "price", reverse: true, variants: true },
       6: { field: "price", reverse: false, variants: true },
-      7: { field: "position", reverse: false, variants: false }
+      7: { field: "position", reverse: false, variants: false },
     };
     let { field = "position", reverse = "false", variants = "false" } =
       sortLookUp[sort_type] || sortLookUp[7];
@@ -63,7 +63,7 @@
     }
   }
 
-  location.subscribe(l => {
+  location.subscribe((l) => {
     productCounter = 0;
   });
 
@@ -72,7 +72,7 @@
     sort_by(sort_type);
   }
   $: {
-    basket.subscribe(map => {
+    basket.subscribe((map) => {
       basketMap = map;
     });
   }
@@ -145,7 +145,7 @@
     margin: 0;
     padding: 0;
     border: none;
-    opacity: 20%;
+    background-color: var(--backgroundColor);
   }
   button.controls:focus {
     outline: none;
@@ -153,6 +153,7 @@
   }
   button.controls img {
     /* -webkit-appearance: none; */
+    opacity: 20%;
     max-height: 0.8rem;
   }
   .info {
@@ -268,10 +269,10 @@
             {/if}
             {#if optionName.title == 'Размер'}
               <span class="size">
-                {currentProduct.variants[0].option_values.find(v => v.option_name_id == optionName.id).title}
+                {currentProduct.variants[0].option_values.find((v) => v.option_name_id == optionName.id).title}
               </span>
             {:else}
-              {currentProduct.variants[0].option_values.find(v => v.option_name_id == optionName.id).title}
+              {currentProduct.variants[0].option_values.find((v) => v.option_name_id == optionName.id).title}
             {/if}
           </div>
         {/each}

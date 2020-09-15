@@ -24,7 +24,7 @@
     padding: 0;
     min-width: 3.8rem;
     /* margin: 0 0.25rem 0 0.25rem; */
-    color: var(--baseFont);
+    color: var(--brandFont);
     text-decoration: none;
   }
 
@@ -68,9 +68,7 @@
             src={cover.original_url || images.medium_url}
             alt={title}
             class="highlight" />
-        {:else}
-          <img src={cover.original_url || images.medium_url} alt="" />
-        {/if}
+        {:else}<img src={cover.original_url || images.medium_url} alt="" />{/if}
       </picture>
       <figcaption>{title.toLowerCase()}</figcaption>
     </figure>

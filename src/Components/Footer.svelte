@@ -3,7 +3,7 @@
   import { onMount } from "svelte";
   let contacts = {};
   onMount(async () => {
-    getContacts().then(res => {
+    getContacts().then((res) => {
       contacts = res;
     });
   });
@@ -11,7 +11,7 @@
 
 <style>
   footer {
-    background-color: white;
+    background-color: var(--backgroundColor);
     grid-area: footer;
     display: flex;
     justify-content: space-around;
@@ -32,19 +32,15 @@
 
 <footer>
   <a href="tel:{contacts.phone}">
-    <img src="icons/phone.png" alt="" />
-    Позвонить
+    <img src="icons/phone.png" alt="" /> Позвонить
   </a>
   <a href={contacts.address}>
-    <img src="icons/google-maps.png" alt="" />
-    Адрес
+    <img src="icons/google-maps.png" alt="" /> Адрес
   </a>
   <a href="https://www.instagram.com/{contacts.instagram}/">
-    <img src="icons/instagram.png" alt="" />
-    Инстаграм
+    <img src="icons/instagram.png" alt="" /> Инстаграм
   </a>
   <a href="https://www.facebook.com/{contacts.facebook}/">
-    <img src="icons/facebook-alt.png" alt="" />
-    Фейсбук
+    <img src="icons/facebook-alt.png" alt="" /> Фейсбук
   </a>
 </footer>
