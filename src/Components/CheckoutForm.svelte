@@ -4,7 +4,7 @@
     deliveryVariants,
     paymentGateways,
     productsRaw,
-    orders
+    orders,
   } from "../stores.js";
   import { push } from "svelte-spa-router";
   import Button from "./Button.svelte";
@@ -26,22 +26,23 @@
     discount: 0,
     type_id: 2,
     code: "",
-    min_price: 0
+    min_price: 0,
   };
 
   $: {
-    deliveryVariants.subscribe(values => {
+    deliveryVariants.subscribe((values) => {
       deliveryOptions = values;
     });
-    paymentGateways.subscribe(values => {
+    paymentGateways.subscribe((values) => {
       paymentOptions = values;
     });
-    checkDiscount().then(res => {
+    checkDiscount().then((res) => {
       discountsEnabled = res;
     });
   }
 
-  $: deliverySelected = deliveryOptions.find(d => d.id == deliveryOption) || {};
+  $: deliverySelected =
+    deliveryOptions.find((d) => d.id == deliveryOption) || {};
 
   $: deliveryPrice =
     deliverySelected.charge_up_to &&
@@ -50,9 +51,9 @@
       : Math.round(deliverySelected.price) || 0;
 
   $: {
-    basket.subscribe(map => {
+    basket.subscribe((map) => {
       productsMap = map;
-      products = Array.from(map.values()).filter(variant => {
+      products = Array.from(map.values()).filter((variant) => {
         variant.product = productById(variant.productId);
         if (variant.product) {
           return variant;
@@ -63,7 +64,7 @@
 
   $: totalSum = products.reduce((sum, entry) => {
     let { product, variantId, quantity } = entry;
-    let price = product.variants.find(v => (v.id = variantId)).price;
+    let price = product.variants.find((v) => (v.id = variantId)).price;
     return sum + Number(price) * quantity;
   }, 0);
 
@@ -72,14 +73,14 @@
       ? Math.floor(totalSum * (1 - discount.discount / 100))
       : Math.max(totalSum - discount.discount, 0);
 
-  const validatePhoneNumber = function() {
+  const validatePhoneNumber = function () {
     return /\+?[0-9]{11,20}/.test(phone);
   };
 
-  const validateDiscount = function() {
+  const validateDiscount = function () {
     if (discountCode) {
       checkDiscount({ code: discountCode.trim(), orderSum: totalSum }).then(
-        res => {
+        (res) => {
           (discount.discount = res.discount || 0),
             (discount.status = res.status),
             (discount.type_id = res.type_id || 2),
@@ -108,7 +109,7 @@
     }
   };
 
-  const constructOrderBody = function() {
+  const constructOrderBody = function () {
     // let orderLines = products.map(product => {
     // Rewrite for different variants and quantity
     // return {
@@ -118,17 +119,17 @@
     // });
     // let ids = products.map(product => product.id);
     return {
-      ids: products.map(p => {
+      ids: products.map((p) => {
         return {
           variant_id: p.variantId,
           quantity: p.quantity,
-          id: p.productId
+          id: p.productId,
         };
       }),
-      products: products.map(p => {
+      products: products.map((p) => {
         return {
           variant_id: p.variantId,
-          quantity: p.quantity
+          quantity: p.quantity,
         };
       }),
       name,
@@ -136,28 +137,28 @@
       address,
       deliveryOption,
       paymentOption: paymentOptions[0].id,
-      coupon: discount.status == "success" ? discount.code : ""
+      coupon: discount.status == "success" ? discount.code : "",
     };
   };
-  const handleMissingProducts = function(items) {
-    items.forEach(item => {
+  const handleMissingProducts = function (items) {
+    items.forEach((item) => {
       let p = productsMap.get(item.variant_id);
       p.is_hidden = true;
       productsMap.set(p.variantId, p);
     });
     return basket.set(new Map(productsMap));
   };
-  const handleOrderSuccess = function(number) {
+  const handleOrderSuccess = function (number) {
     // Delete products from available products, empty basket, store new order
-    productsRaw.update(store => {
+    productsRaw.update((store) => {
       // rewrite for different variants
-      return store.filter(item => !productsMap.has(item.variants[0].id));
+      return store.filter((item) => !productsMap.has(item.variants[0].id));
     });
     basket.set(new Map());
-    orders.update(o => o.set(number, new Date()));
+    orders.update((o) => o.set(number, new Date()));
   };
 
-  const handleSubmit = function(event) {
+  const handleSubmit = function (event) {
     if (!validatePhoneNumber()) {
       return (message = { type: "error", text: "Некорректный номер телефона" });
     }
@@ -172,11 +173,11 @@
         type: "error",
         text: `Минимальный заказ для доставки ${Math.round(
           deliverySelected.min_order_sum
-        )}р`
+        )}р`,
       });
     }
     return addOrder(constructOrderBody())
-      .then(result => {
+      .then((result) => {
         if (result.status == "missing_products") {
           return handleMissingProducts(result.products);
         }
@@ -187,7 +188,7 @@
         }
         alert(`Что-то сломалось, позвоните нам, мы оформим заказ`);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
@@ -326,7 +327,7 @@
   input:required {
     box-shadow: none;
   }
-  input:invalid {
+  input[type="text"]:invalid {
     box-shadow: 0 0 3px var(--brandSecondaryColor);
   }
   .invisible {
@@ -344,15 +345,11 @@
 <ul>
   {#if discountedSum < totalSum}
     <li class="total">
-      <span class="old">
-        <s>{totalSum + deliveryPrice}</s>
-      </span>
+      <span class="old"> <s>{totalSum + deliveryPrice}</s> </span>
       <span>{discountedSum + deliveryPrice}р</span>
     </li>
   {:else}
-    <li class="total">
-      <span>{totalSum + deliveryPrice}р</span>
-    </li>
+    <li class="total"><span>{totalSum + deliveryPrice}р</span></li>
   {/if}
 </ul>
 <form action="submit" on:submit|preventDefault={handleSubmit}>
@@ -394,8 +391,8 @@
       </div>
     {/each}
   </fieldset>
-  {#if deliveryOptions.find(d => d.id == deliveryOption)}
-    {#if deliveryOptions.find(d => d.id == deliveryOption).type == 'DeliveryVariant::Fixed'}
+  {#if deliveryOptions.find((d) => d.id == deliveryOption)}
+    {#if deliveryOptions.find((d) => d.id == deliveryOption).type == 'DeliveryVariant::Fixed'}
       <div class="address">
         <input
           id="address"
@@ -406,10 +403,10 @@
           placeholder="адрес доставки" />
       </div>
     {/if}
-    {#if deliveryOptions.find(d => d.id == deliveryOption).title == 'Самовывоз'}
+    {#if deliveryOptions.find((d) => d.id == deliveryOption).title == 'Самовывоз'}
       <div>
         {deliveryOptions
-          .find(d => d.id == deliveryOption)
+          .find((d) => d.id == deliveryOption)
           .description.replace(/<\/?[^>]+(>|$)/g, '')}
       </div>
     {/if}
