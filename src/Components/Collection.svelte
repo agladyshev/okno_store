@@ -97,6 +97,9 @@
 </script>
 
 <style>
+  :root {
+    --photoHeight: calc(100vh - 7.5rem - 5.7rem - 7.3rem);
+  }
   .wrapper {
     /* overflow: auto; */
     /* display: flex; */
@@ -130,12 +133,14 @@
   .gallery {
     grid-area: gallery;
     height: calc(100vh - 7.5rem - 5.7rem - 7.3rem);
+    max-width: 100%;
     display: grid;
     grid-template-areas: "button-left picture button-right";
     grid-template-columns:
-      minmax(3.5rem, 1fr) auto
-      minmax(3.5rem, 1fr);
+      minmax(50px, auto) min-content
+      minmax(50px, auto);
     grid-template-rows: auto;
+    justify-content: space-between;
   }
   .panel {
     grid-area: panel;
@@ -146,7 +151,8 @@
     flex-basis: 100%;
   }
   button.controls {
-    min-width: 15%;
+    /* min-width: 15%; */
+    min-width: 50px;
     margin: 0;
     padding: 0;
     border: none;

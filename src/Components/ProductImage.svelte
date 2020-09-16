@@ -14,7 +14,7 @@
 <style>
   picture {
     grid-area: picture;
-    /* flex-basis: 70vw; */
+    max-width: calc((100vh - 7.5rem - 5.7rem - 7.3rem) * 0.75);
     display: flex;
     justify-content: center;
   }
