@@ -134,13 +134,18 @@
     grid-area: gallery;
     height: calc(100vh - 7.5rem - 5.7rem - 7.3rem);
     max-width: 100%;
-    display: grid;
+    display: flex;
+    /* display: grid;
     grid-template-areas: "button-left picture button-right";
     grid-template-columns:
-      minmax(50px, auto) min-content
-      minmax(50px, auto);
-    grid-template-rows: auto;
+      minmax(auto, 1fr) minmax(1fr, max-content)
+      minmax(auto, 1fr); */
+    /* grid-template-rows: auto; */
     justify-content: space-between;
+  }
+  div.gallery-transition-wrapper {
+    flex-basis: calc((100vh - 7.5rem - 5.7rem - 7.3rem) * 0.75);
+    position: relative;
   }
   .panel {
     grid-area: panel;
@@ -160,18 +165,18 @@
   }
   button.controls:focus {
     outline: none;
-    box-shadow: 0 0px 16px 0px #0005;
+    box-shadow: 0 0px 16px #0005;
   }
   button.controls img {
     opacity: 20%;
     max-height: 0.8rem;
   }
-  button.controls:first-of-type {
+  /* button.controls:first-of-type {
     grid-area: button-left;
   }
   button.controls:last-of-type {
     grid-area: button-right;
-  }
+  } */
 
   .info {
     flex-grow: 1;
@@ -254,11 +259,15 @@
       </button>
       <!-- {#each [keys] as x (currentProduct)} -->
       <!-- {#if } -->
-      {#if products.length}
-        {#each [keys] as x (products[productCounter])}
-          <ProductImage currentProduct={products[productCounter]} {inBasket} />
-        {/each}
-      {/if}
+      <div class="gallery-transition-wrapper">
+        {#if products.length}
+          {#each [keys] as x (products[productCounter])}
+            <ProductImage
+              currentProduct={products[productCounter]}
+              {inBasket} />
+          {/each}
+        {/if}
+      </div>
       <!-- {/if} -->
       <!-- {/each} -->
       <button class="controls" on:click={getNext}>

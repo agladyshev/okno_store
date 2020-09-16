@@ -14,9 +14,17 @@
 <style>
   picture {
     grid-area: picture;
-    max-width: calc((100vh - 7.5rem - 5.7rem - 7.3rem) * 0.75);
-    display: flex;
-    justify-content: center;
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    text-align: center;
+    vertical-align: middle;
+    /* display: flex; */
+    /* justify-content: center; */
   }
   picture:focus {
     outline: none;
@@ -34,7 +42,7 @@
     object-fit: cover;
   }
   img.basket {
-    opacity: 70%;
+    filter: brightness(80%);
   }
 </style>
 
