@@ -1,5 +1,6 @@
 <script>
   export let currentProduct, inBasket;
+  import { fade } from "svelte/transition";
   let pictureCounter = 0;
   let images = currentProduct.images;
   $: currentProduct, (pictureCounter = 0), (images = currentProduct.images);
@@ -8,21 +9,12 @@
       ? pictureCounter++
       : (pictureCounter = 0);
   }
-  function fade(node, { delay = 0, duration = 600 }) {
-    const o = +getComputedStyle(node).opacity;
-
-    return {
-      delay,
-      duration,
-      css: t => `opacity: ${t * o}`
-    };
-  }
 </script>
 
 <style>
   picture {
+    grid-area: picture;
     /* flex-basis: 70vw; */
-    flex-basis: calc((100vh - 7.5rem - 5.7rem - 7.3rem) * 0.75);
     display: flex;
     justify-content: center;
   }
@@ -52,7 +44,7 @@
     tabindex="0"
     on:click={getNextPicture}
     on:keydown={getNextPicture}
-    in:fade>
+    transition:fade>
     <source
       srcset={images[pictureCounter].original_url}
       media="(min-width: 600px)" />

@@ -13,7 +13,7 @@
     let result = addOne(params.productId);
     if (result === null) {
       directFailure = true;
-      setTimeout(function() {
+      setTimeout(function () {
         directFailure = false;
       }, 4 * 1000);
     }
@@ -22,7 +22,7 @@
   let products;
 
   $: {
-    basket.subscribe(map => {
+    basket.subscribe((map) => {
       products = Array.from(map.values());
     });
   }
@@ -58,25 +58,30 @@
     background-color: var(--brandFont);
     color: var(--brandColor);
   }
+  main {
+    grid-area: main;
+    /* overflow-x: scroll; */
+    scrollbar-width: none;
+  }
 </style>
 
-{#if directFailure}
-  <div class="message" transition:fade>товар по ссылке уже кто-то купил</div>
-{/if}
-<div class="wrapper">
-  {#if products.length}
-    <CheckoutForm />
-  {:else}
-    <div class="empty">
-      {#if directFailure}
-        <div>товар по ссылке уже кто-то купил</div>
-      {/if}
-      В пакете пока ничего нет
-      <div class="button" />
-      <a href="#/">
-        <Button value="добавить" type="button" />
-      </a>
-    </div>
+<main transition:fade>
+  {#if directFailure}
+    <div class="message" transition:fade>товар по ссылке уже кто-то купил</div>
   {/if}
-
-</div>
+  <div class="wrapper">
+    {#if products.length}
+      <CheckoutForm />
+    {:else}
+      <div class="empty">
+        {#if directFailure}
+          <div>товар по ссылке уже кто-то купил</div>
+        {/if} В пакете пока ничего нет
+        <div class="button" />
+        <a href="#/">
+          <Button value="добавить" type="button" />
+        </a>
+      </div>
+    {/if}
+  </div>
+</main>

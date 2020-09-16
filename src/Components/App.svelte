@@ -1,8 +1,6 @@
 <script>
   import Router from "svelte-spa-router";
-  import { fade } from "svelte/transition";
   import routes from "../routes";
-
   import { onMount } from "svelte";
   import Header from "./Header.svelte";
   import Promo from "./Promo.svelte";
@@ -17,14 +15,14 @@
     deliveryVariants,
     paymentGateways,
     basket,
-    orders
+    orders,
   } from "../stores.js";
 
   import {
     getCollections,
     getProducts,
     getDelivery,
-    getPayment
+    getPayment,
   } from "../api.js";
 
   import { deleteSoldVariants } from "../storeHelpers.js";
@@ -33,18 +31,18 @@
 
   onMount(async () => {
     //Fetch inSales data and populate svelte stores
-    getCollections().then(value => {
+    getCollections().then((value) => {
       collectionsRaw.set(value);
     });
     getProducts()
-      .then(value => {
+      .then((value) => {
         productsRaw.set(value);
       })
       .then(() => deleteSoldVariants());
-    getDelivery().then(value => {
+    getDelivery().then((value) => {
       deliveryVariants.set(value);
     });
-    getPayment().then(value => {
+    getPayment().then((value) => {
       paymentGateways.set(value);
     });
   });
@@ -55,17 +53,17 @@
   localStorage.setItem("version", JSON.stringify(1.1));
 
   $: {
-    collectionsRaw.subscribe(c => {
+    collectionsRaw.subscribe((c) => {
       col = c;
     });
-    productsRaw.subscribe(p => {
+    productsRaw.subscribe((p) => {
       prod = p;
     });
     collections.set(populateCollections(col, prod));
-    basket.subscribe(basket => {
+    basket.subscribe((basket) => {
       localStorage.setItem("basket", JSON.stringify(Array.from(basket)));
     });
-    orders.subscribe(orders => {
+    orders.subscribe((orders) => {
       localStorage.setItem("orders", JSON.stringify(Array.from(orders)));
     });
   }
@@ -96,9 +94,7 @@
   <Header />
   <Promo />
   {#if col.length && prod.length}
-    <main transition:fade>
-      <Router {routes} />
-    </main>
+    <Router {routes} />
   {/if}
   <Footer />
 </div>

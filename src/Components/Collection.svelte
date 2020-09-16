@@ -29,6 +29,9 @@
   let sort_type;
   // Special variable for forced rerender
   let keys = [0];
+  // setInterval(() => {
+  //   keys++;
+  // }, 1000);
 
   function sort_by(sort_type) {
     const sortLookUp = {
@@ -126,9 +129,13 @@
 
   .gallery {
     grid-area: gallery;
-    display: flex;
-    justify-content: space-between;
     height: calc(100vh - 7.5rem - 5.7rem - 7.3rem);
+    display: grid;
+    grid-template-areas: "button-left picture button-right";
+    grid-template-columns:
+      minmax(3.5rem, 1fr) auto
+      minmax(3.5rem, 1fr);
+    grid-template-rows: auto;
   }
   .panel {
     grid-area: panel;
@@ -139,9 +146,7 @@
     flex-basis: 100%;
   }
   button.controls {
-    /* flex-basis: 15vw; */
     min-width: 15%;
-    /* min-width: 15vw; */
     margin: 0;
     padding: 0;
     border: none;
@@ -149,13 +154,19 @@
   }
   button.controls:focus {
     outline: none;
-    box-shadow: 0 0px 16px #0005;
+    box-shadow: 0 0px 16px 0px #0005;
   }
   button.controls img {
-    /* -webkit-appearance: none; */
     opacity: 20%;
     max-height: 0.8rem;
   }
+  button.controls:first-of-type {
+    grid-area: button-left;
+  }
+  button.controls:last-of-type {
+    grid-area: button-right;
+  }
+
   .info {
     flex-grow: 1;
     font-size: 0.9rem;
@@ -237,9 +248,11 @@
       </button>
       <!-- {#each [keys] as x (currentProduct)} -->
       <!-- {#if } -->
-      {#each [keys] as x (products[productCounter])}
-        <ProductImage currentProduct={products[productCounter]} {inBasket} />
-      {/each}
+      {#if products.length}
+        {#each [keys] as x (products[productCounter])}
+          <ProductImage currentProduct={products[productCounter]} {inBasket} />
+        {/each}
+      {/if}
       <!-- {/if} -->
       <!-- {/each} -->
       <button class="controls" on:click={getNext}>
