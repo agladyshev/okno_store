@@ -2,14 +2,6 @@
   export let params;
   import CollectionIcon from "./CollectionIcon.svelte";
   import { collections } from "../stores.js";
-  // Remove frontpage icon from collections panel
-  function isMainPage(value) {
-    if (value) {
-      return value.permalink != "frontpage";
-    }
-    return false;
-  }
-  $: col = $collections.filter(isMainPage);
 </script>
 
 <style>
@@ -28,7 +20,7 @@
 
 <nav>
   <ul>
-    {#each $collections as { id, title, products, permalink, image }}
+    {#each $collections.filter((c) => c.permalink != 'frontpage') as { id, title, products, permalink, image }}
       {#if products[0].images}
         <CollectionIcon
           highlight={permalink == params.permalink}
