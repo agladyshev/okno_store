@@ -11,6 +11,7 @@
   import CheckoutList from "./CheckoutList.svelte";
   import { addOrder, checkDiscount } from "../api.js";
   import { productById } from "../storeHelpers.js";
+  import { fade } from "svelte/transition";
   let products, productsMap, deliveryOptions, paymentOptions, discountsEnabled;
 
   let name = "",
@@ -392,7 +393,7 @@
   </fieldset>
   {#if deliveryOptions.find((d) => d.id == deliveryOption)}
     {#if deliveryOptions.find((d) => d.id == deliveryOption).type == 'DeliveryVariant::Fixed'}
-      <div class="address">
+      <div class="address" in:fade>
         <input
           id="address"
           type="text"
@@ -424,7 +425,7 @@
   </fieldset> -->
   <div class="flex">
     {#if discountsEnabled}
-      <div class="discount">
+      <div class="discount" in:fade>
         <input
           class="discount-input"
           type="text"
