@@ -55,7 +55,7 @@
 
 <main transition:fade>
   {#if directFailure}
-    <div class="message" transition:fade>товар по ссылке уже кто-то купил</div>
+    <div class="message" in:fade>товар по ссылке уже кто-то купил</div>
   {/if}
   <div class="wrapper">
     {#if products.length}

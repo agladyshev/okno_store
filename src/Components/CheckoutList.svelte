@@ -1,6 +1,7 @@
 <script>
   import DeleteButton from "./DeleteButton.svelte";
   import { addOne, removeOne } from "../storeHelpers.js";
+  import { flip } from "svelte/animate";
   export let products = [];
 </script>
 
@@ -9,21 +10,23 @@
     flex-basis: 100%;
     display: flex;
     flex-wrap: wrap;
+    align-items: flex-start;
     margin: 0 0.5rem;
     padding: 0;
   }
   ul li {
-    flex-basis: 100vw;
+    flex-basis: 100%;
     margin: 0 0 0.5rem 0;
     padding: 0.25rem;
-    margin: 0.25rem;
     border-radius: 3px;
     list-style: none;
-  }
-  ul li.item {
     display: flex;
     align-items: center;
     justify-content: space-between;
+  }
+
+  ul li:first-of-type {
+    margin-top: 1rem;
   }
 
   ul li.unavailable {
@@ -106,8 +109,8 @@
 </style>
 
 <ul>
-  {#each products as { product, productId, variantId, quantity, is_hidden }}
-    <li class:unavailable={is_hidden} class="item">
+  {#each products as { product, productId, variantId, quantity, is_hidden } (variantId)}
+    <li class:unavailable={is_hidden} animate:flip>
       <picture>
         <source
           srcset={product.images[0].thumb_url}
