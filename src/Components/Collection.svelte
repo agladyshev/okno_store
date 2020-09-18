@@ -28,7 +28,7 @@
   let original_url;
   let sort_type;
   // Special variable for forced rerender
-  let keys = [0];
+  let keys = new Uint32Array(1);
   // setInterval(() => {
   //   keys++;
   // }, 1000);
@@ -261,7 +261,7 @@
       <!-- {#if } -->
       <div class="gallery-transition-wrapper">
         {#if products.length}
-          {#each [keys] as x (products[productCounter])}
+          {#each [...keys] as x (window.crypto.getRandomValues(keys)[0])}
             <ProductImage
               currentProduct={products[productCounter]}
               {inBasket} />

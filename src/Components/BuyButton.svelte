@@ -1,9 +1,8 @@
 <script>
   export let product, inBasket;
-  import { basket } from "../stores.js";
   import Button from "./Button.svelte";
   import { addOne, removeOne } from "../storeHelpers.js";
-  $: maxQuantity = product.variants[0].quantity;
+  let maxQuantity = product.variants[0].quantity;
   $: value = inBasket == maxQuantity ? "удалить" : "хочу";
   function handleClick() {
     if (inBasket < maxQuantity) {

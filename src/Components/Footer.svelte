@@ -3,9 +3,7 @@
   import { onMount } from "svelte";
   let contacts = {};
   onMount(async () => {
-    getContacts().then((res) => {
-      contacts = res;
-    });
+    contacts = await getContacts();
   });
 </script>
 

@@ -6,7 +6,6 @@
 
 <style>
   ul {
-    /* flex-grow: 1; */
     flex-basis: 100%;
     display: flex;
     flex-wrap: wrap;
@@ -18,11 +17,8 @@
     margin: 0 0 0.5rem 0;
     padding: 0.25rem;
     margin: 0.25rem;
-    /* border: solid #333 1px; */
     border-radius: 3px;
     list-style: none;
-
-    /* box-shadow: 1px 1px 1px 1px #333; */
   }
   ul li.item {
     display: flex;
@@ -45,7 +41,6 @@
 
   .cover {
     width: 100%;
-    /* height: calc(5rem); */
   }
   img {
     object-fit: cover;
@@ -55,7 +50,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    /* flex-grow: 2; */
   }
 
   ul li .info .title {
@@ -97,11 +91,8 @@
     padding-left: 1px;
     width: 1.4rem;
     text-align: center;
-    /* padding-bottom: 0.3rem; */
   }
   .info .option div.quantity input {
-    /* height: 0.6rem; */
-    /* width: 0.6rem; */
     border: none;
     margin: 0;
     height: 1.4rem;
@@ -134,7 +125,6 @@
       </picture>
       <div class="info">
         <div class="title">{product.title.toLowerCase()}</div>
-
         {#if is_hidden}
           <span class="unavailable-text">уже купили</span>
         {:else if product.option_names.length}
@@ -143,13 +133,13 @@
               {#if optionName.title == 'Размер'}
                 <!-- {optionName.title.toLowerCase()}: -->
                 <span class="size">
-                  {product.variants[0].option_values.find(v => v.option_name_id == optionName.id).title}
+                  {product.variants[0].option_values.find((v) => v.option_name_id == optionName.id).title}
                 </span>
               {/if}
             </div>
           {/each}
         {/if}
-        {#if product.variants.find(v => v.id == variantId).quantity > 1}
+        {#if product.variants.find((v) => v.id == variantId).quantity > 1}
           <div class="option">
             <div class="quantity">
               <input

@@ -5,7 +5,6 @@
   import Header from "./Header.svelte";
   import Promo from "./Promo.svelte";
   import Footer from "./Footer.svelte";
-
   import Collection from "./Collection.svelte";
 
   import {
@@ -26,7 +25,6 @@
   } from "../api.js";
 
   import { deleteSoldVariants } from "../storeHelpers.js";
-
   import { populateCollections } from "../helpers.js";
 
   onMount(async () => {
@@ -47,25 +45,14 @@
     });
   });
 
-  let col = [],
-    prod = [];
-
   localStorage.setItem("version", JSON.stringify(1.1));
 
   $: {
-    collectionsRaw.subscribe((c) => {
-      col = c;
-    });
-    productsRaw.subscribe((p) => {
-      prod = p;
-    });
-    collections.set(populateCollections(col, prod));
-    basket.subscribe((basket) => {
-      localStorage.setItem("basket", JSON.stringify(Array.from(basket)));
-    });
-    orders.subscribe((orders) => {
-      localStorage.setItem("orders", JSON.stringify(Array.from(orders)));
-    });
+    collections.set(populateCollections($collectionsRaw, $productsRaw));
+  }
+  $: {
+    localStorage.setItem("basket", JSON.stringify(Array.from($basket)));
+    localStorage.setItem("orders", JSON.stringify(Array.from($orders)));
   }
 </script>
 
@@ -75,7 +62,7 @@
     max-width: 768px;
     margin: auto;
     display: grid;
-    grid-template-columns: 100%;
+    grid-template-columns: 1fr;
     grid-template-rows: 4rem auto 1fr 2rem;
     grid-template-areas:
       "header"
@@ -83,17 +70,12 @@
       "main"
       "footer";
   }
-  main {
-    grid-area: main;
-    /* overflow-x: scroll; */
-    scrollbar-width: none;
-  }
 </style>
 
 <div class="wrapper">
   <Header />
   <Promo />
-  {#if col.length && prod.length}
+  {#if $collectionsRaw.length && $productsRaw.length}
     <Router {routes} />
   {/if}
   <Footer />

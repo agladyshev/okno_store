@@ -1,6 +1,6 @@
 <script>
-  export let currentProduct, inBasket;
   import { fade } from "svelte/transition";
+  export let currentProduct, inBasket;
   let pictureCounter = 0;
   let images = currentProduct.images;
   $: currentProduct, (pictureCounter = 0), (images = currentProduct.images);
@@ -23,8 +23,6 @@
     bottom: 0;
     text-align: center;
     vertical-align: middle;
-    /* display: flex; */
-    /* justify-content: center; */
   }
   picture:focus {
     outline: none;

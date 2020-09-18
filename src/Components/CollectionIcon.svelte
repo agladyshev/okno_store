@@ -10,7 +10,6 @@
 <style>
   li {
     padding: 0.25rem 0 0.15rem 0;
-    /* margin: auto; */
     list-style: none;
   }
 
@@ -20,10 +19,8 @@
     flex-wrap: wrap;
     justify-content: center;
     align-content: center;
-    /* padding: 0 0.25rem 0 0.25rem; */
     padding: 0;
     min-width: 3.8rem;
-    /* margin: 0 0.25rem 0 0.25rem; */
     color: var(--brandFont);
     text-decoration: none;
   }
@@ -52,11 +49,6 @@
   .highlight {
     border: dotted black 2px;
   }
-  /* @media screen and (orientation: portrait) {
-    li {
-      margin: auto;
-    }
-  } */
 </style>
 
 <li>

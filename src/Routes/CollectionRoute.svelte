@@ -22,7 +22,7 @@
   }
 </style>
 
-<main transition:fade>
+<main>
   <CollectionsPanel {params} />
   <Collection {collection} />
 </main>
