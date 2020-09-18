@@ -4,20 +4,13 @@
   import Collection from "../Components/Collection.svelte";
   import { collections } from "../stores.js";
   import CollectionsPanel from "../Components/CollectionsPanel.svelte";
-  let permalink;
-  let collection = {};
-  $: {
-    permalink = params.permalink;
-    collections.subscribe((values) => {
-      collection = values.find((col) => col.permalink == permalink);
-    });
-  }
+  $: collection =
+    $collections.find((col) => col.permalink == params.permalink) || {};
 </script>
 
 <style>
   main {
     grid-area: main;
-    /* overflow-x: scroll; */
     scrollbar-width: none;
   }
 </style>

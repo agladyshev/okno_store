@@ -1,10 +1,10 @@
 <script>
+  export let params = {};
   import CheckoutForm from "../Components/CheckoutForm.svelte";
-  import { basket } from "../stores.js";
   import Button from "../Components/Button.svelte";
+  import { basket } from "../stores.js";
   import { addOne } from "../storeHelpers.js";
   import { fade } from "svelte/transition";
-  export let params;
 
   let directFailure = false;
 
@@ -18,14 +18,7 @@
       }, 4 * 1000);
     }
   }
-
-  let products;
-
-  $: {
-    basket.subscribe((map) => {
-      products = Array.from(map.values());
-    });
-  }
+  $: products = Array.from($basket.values());
 </script>
 
 <style>
@@ -33,7 +26,6 @@
     height: 98%;
     width: 100%;
     display: flex;
-    /* align-items: stretch; */
     flex-direction: row;
     flex-wrap: wrap;
   }
@@ -42,9 +34,6 @@
     text-align: center;
     font-size: 0.9rem;
     margin-top: 1rem;
-    /* display: flex; */
-    /* text-align: center; */
-    /* flex-direction: column; */
   }
 
   div.empty .button {
@@ -60,7 +49,6 @@
   }
   main {
     grid-area: main;
-    /* overflow-x: scroll; */
     scrollbar-width: none;
   }
 </style>
