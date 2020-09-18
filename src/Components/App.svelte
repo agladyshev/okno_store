@@ -62,7 +62,7 @@
     max-width: 768px;
     margin: auto;
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 100%;
     grid-template-rows: 4rem auto 1fr 2rem;
     grid-template-areas:
       "header"

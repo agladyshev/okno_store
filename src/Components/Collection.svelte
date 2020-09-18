@@ -1,10 +1,10 @@
 <script>
-  import CrossButton from "./CrossButton.svelte";
-  import BuyButton from "./BuyButton.svelte";
-  import { basket } from "../stores.js";
   import { location } from "svelte-spa-router";
-
+  import { basket } from "../stores.js";
+  import GoBackButton from "./GoBackButton.svelte";
+  import BuyButton from "./BuyButton.svelte";
   import ProductImage from "./ProductImage.svelte";
+  export let collection = {};
 
   function getNext() {
     productCounter == products.length - 1
@@ -17,17 +17,15 @@
       : productCounter--;
   }
 
-  export let collection = {};
-
   let products = [];
   let images = [];
   let currentProduct = {};
   let productCounter = 0;
-  let basketMap = new Map();
   let inBasket;
   let original_url;
   let sort_type;
-  // Special variable for forced rerender
+
+  // Special variable for forced rerender of image gallery
   let keys = new Uint32Array(1);
   // setInterval(() => {
   //   keys++;
@@ -66,6 +64,7 @@
     }
   }
 
+  // On route change, reset counter
   location.subscribe((l) => {
     productCounter = 0;
   });
@@ -73,11 +72,6 @@
   $: {
     ({ products = [], sort_type } = collection);
     sort_by(sort_type);
-  }
-  $: {
-    basket.subscribe((map) => {
-      basketMap = map;
-    });
   }
   $: if (products.length) {
     currentProduct = products[productCounter];
@@ -88,8 +82,8 @@
   }
 
   $: if (products.length) {
-    if (basketMap.get(currentProduct.variants[0].id)) {
-      inBasket = basketMap.get(currentProduct.variants[0].id).quantity;
+    if ($basket.get(currentProduct.variants[0].id)) {
+      inBasket = $basket.get(currentProduct.variants[0].id).quantity;
     } else {
       inBasket = 0;
     }
@@ -101,11 +95,6 @@
     --photoHeight: calc(100vh - 7.5rem - 5.7rem - 7.3rem);
   }
   .wrapper {
-    /* overflow: auto; */
-    /* display: flex; */
-    /* flex-wrap: wrap; */
-    /* flex-direction: column; */
-    /* align-items: stretch; */
     display: grid;
     grid-template-columns: auto;
     grid-template-rows: auto auto;
@@ -113,8 +102,6 @@
       "counter"
       "gallery"
       "panel";
-    /* margin-top: 0rem; */
-    /* height: calc(100vh - 7.5rem - 5.7rem); */
   }
   .counter {
     grid-area: counter;
@@ -135,12 +122,6 @@
     height: calc(100vh - 7.5rem - 5.7rem - 7.3rem);
     max-width: 100%;
     display: flex;
-    /* display: grid;
-    grid-template-areas: "button-left picture button-right";
-    grid-template-columns:
-      minmax(auto, 1fr) minmax(1fr, max-content)
-      minmax(auto, 1fr); */
-    /* grid-template-rows: auto; */
     justify-content: space-between;
   }
   div.gallery-transition-wrapper {
@@ -156,7 +137,6 @@
     flex-basis: 100%;
   }
   button.controls {
-    /* min-width: 15%; */
     min-width: 50px;
     margin: 0;
     padding: 0;
@@ -171,13 +151,6 @@
     opacity: 20%;
     max-height: 0.8rem;
   }
-  /* button.controls:first-of-type {
-    grid-area: button-left;
-  }
-  button.controls:last-of-type {
-    grid-area: button-right;
-  } */
-
   .info {
     flex-grow: 1;
     font-size: 0.9rem;
@@ -206,20 +179,8 @@
     font-weight: 800;
   }
 
-  .info .description {
-    font-size: 0.75rem;
-  }
-
-  .info .description p {
-    margin: 0;
-  }
-
   @media screen and (min-width: 600px) {
-    /* picture {
-      flex-basis: 50vw;
-    } */
     button.controls {
-      /* flex-basis: 25vw; */
       flex-grow: 1;
     }
     .panel {
@@ -230,12 +191,6 @@
     }
   }
   @media screen and (min-width: 768px) {
-    /* picture {
-      flex-basis: 50%;
-    } */
-    /* button.controls { */
-    /* flex-basis: 25%; */
-    /* } */
     .panel {
       padding: 0.5rem 25%;
     }
@@ -249,7 +204,7 @@
   <div class="wrapper">
     <div class="counter">
       <a href="#/" class:disabled={collection.permalink == 'frontpage'}>
-        <CrossButton icon="icons/barr.png" />
+        <GoBackButton icon="icons/barr.png" />
       </a>
       <div>{productCounter + 1}/{collection.products.length}</div>
     </div>
@@ -257,8 +212,6 @@
       <button class="controls" on:click={getPrevious}>
         <img src="/icons/larr.png" alt="предыдущий товар" />
       </button>
-      <!-- {#each [keys] as x (currentProduct)} -->
-      <!-- {#if } -->
       <div class="gallery-transition-wrapper">
         {#if products.length}
           {#each [...keys] as x (window.crypto.getRandomValues(keys)[0])}
@@ -268,8 +221,6 @@
           {/each}
         {/if}
       </div>
-      <!-- {/if} -->
-      <!-- {/each} -->
       <button class="controls" on:click={getNext}>
         <img class="" src="icons/rarr.png" alt="следующий товар" />
       </button>

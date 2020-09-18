@@ -1,9 +1,9 @@
 <script>
   import { fade } from "svelte/transition";
-  export let currentProduct, inBasket;
+  export let currentProduct = {},
+    inBasket = false;
   let pictureCounter = 0;
   let images = currentProduct.images;
-  $: currentProduct, (pictureCounter = 0), (images = currentProduct.images);
   function getNextPicture() {
     pictureCounter < images.length - 1
       ? pictureCounter++

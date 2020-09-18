@@ -3,14 +3,10 @@
   import { orders } from "../stores.js";
   import { getPromo } from "../api.js";
   import { onMount } from "svelte";
-  let lastOrder;
-  let secondsSinceLastOrder;
   let promo = "";
-  orders.subscribe((value) => {
-    lastOrder = Array.from(value.keys()).slice(-1)[0];
-    let lastOrderTime = value.get(lastOrder);
-    secondsSinceLastOrder = (new Date() - new Date(lastOrderTime)) / 1000;
-  });
+  $: lastOrder = Array.from($orders.keys()).slice(-1)[0];
+  $: lastOrderTime = $orders.get(lastOrder);
+  $: secondsSinceLastOrder = (new Date() - new Date(lastOrderTime)) / 1000;
   onMount(async () => {
     getPromo().then((value) => {
       promo = value.content.replace(/<[^>]*>?/gm, "");
@@ -39,7 +35,7 @@
 </style>
 
 <section class="promo">
-  {#if secondsSinceLastOrder < 10}
+  {#if secondsSinceLastOrder < 20}
     <span class="order">
       заказ №{lastOrder} принят - скоро мы свяжемся с тобой
     </span>
