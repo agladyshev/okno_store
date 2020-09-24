@@ -185,6 +185,8 @@
           handleOrderSuccess(result.number);
           alert(`Заказ №${result.number} оформлен. Скоро мы свяжемся с тобой`);
           return push("/");
+        } else {
+          console.log(result);
         }
         alert(`Что-то сломалось, позвоните нам, мы оформим заказ`);
       })

@@ -2,7 +2,6 @@ import { fetchDiscounts } from "../fetchers.js";
 
 export async function post(req, res, next) {
   let { code = "", orderSum = 0 } = req.body;
-  console.log(code);
   res.setHeader("Content-Type", "application/json");
   if (!code) {
     return fetchDiscounts()

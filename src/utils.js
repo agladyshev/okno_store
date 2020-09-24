@@ -29,6 +29,7 @@ export const findMissingProducts = function (ids) {
   return fetchProducts()
     .then((json) => json.filter(filterProducts))
     .then((available) => {
+      console.log(ids);
       // rewrite for different variants
       return ids.filter((p) => {
         return !available.find((item) => item.id == p.id);
