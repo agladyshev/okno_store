@@ -78,13 +78,13 @@
     images = currentProduct.images;
   }
 
-  // $: if (products.length) {
-  //   if ($basket.get(currentProduct.variants[0].id)) {
-  //     inBasket = $basket.get(currentProduct.variants[0].id).quantity;
-  //   } else {
-  //     inBasket = 0;
-  //   }
-  // }
+  $: if (products.length) {
+    if ($basket.get(currentProduct.variants[0].id)) {
+      inBasket = $basket.get(currentProduct.variants[0].id).quantity;
+    } else {
+      inBasket = 0;
+    }
+  }
 </script>
 
 <style>

@@ -22,7 +22,7 @@ export const getContacts = function () {
 };
 
 export const checkDiscount = function (body) {
-  return fetch("/checkDiscount", {
+  return fetch("/checkDiscount.json", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
@@ -30,7 +30,7 @@ export const checkDiscount = function (body) {
 };
 
 export const addOrder = function (body) {
-  return fetch("/addOrder", {
+  return fetch("/addOrder.json", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),

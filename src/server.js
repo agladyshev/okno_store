@@ -6,22 +6,9 @@ import compression from "compression";
 import helmet from "helmet";
 import * as sapper from "@sapper/server";
 
-import {
-  getCollections,
-  getProducts,
-  checkAvailability,
-  addOrder,
-  getPayment,
-  getDelivery,
-  getPromo,
-  checkDiscount,
-  getContacts,
-} from "./middleware.js";
-
 dotenv.config();
 const { NODE_ENV } = process.env;
 const dev = NODE_ENV === "development";
-const app = express();
 const port = process.env.PORT || 3000;
 const log = bunyan.createLogger({
   name: "main",
@@ -37,68 +24,64 @@ const log = bunyan.createLogger({
   ],
 });
 
-app.use(cors());
-
-app.use(
-  helmet({
-    contentSecurityPolicy: false,
+express()
+  .use(express.json())
+  .use(cors())
+  .use(
+    helmet({
+      contentSecurityPolicy: false,
+    })
+  )
+  .use(compression())
+  .use(function (err, req, res, next) {
+    log.error(err.stack);
+    res.status(500).send("Something broke!");
   })
-);
+  .use("/", express.static("static"))
+  .use(sapper.middleware())
+  .listen(port, () => console.log(`Listening`));
 
-app.use(compression());
+// app.get("/getCollections", getCollections, function (req, res, next) {
+//   res.json(res.collections);
+// });
 
-app.use(function (err, req, res, next) {
-  log.error(err.stack);
-  res.status(500).send("Something broke!");
-});
+// app.get("/getProducts", getProducts, function (req, res, next) {
+//   res.json(res.products);
+// });
 
-app.use("/", express.static("static"));
+// app.get("/getDelivery", getDelivery, function (req, res, next) {
+//   res.json(res.delivery);
+// });
 
-app.use(sapper.middleware());
+// app.get("/getPayment", getPayment, function (req, res, next) {
+//   res.json(res.payment);
+// });
 
-app.get("/getCollections", getCollections, function (req, res, next) {
-  res.json(res.collections);
-});
+// app.get("/getPromo", getPromo, function (req, res, next) {
+//   res.json(res.promo);
+// });
 
-app.get("/getProducts", getProducts, function (req, res, next) {
-  res.json(res.products);
-});
+// app.get("/getContacts", getContacts, function (req, res, next) {
+//   res.json(res.contacts);
+// });
 
-app.get("/getDelivery", getDelivery, function (req, res, next) {
-  res.json(res.delivery);
-});
+// app.post("/checkDiscount", express.json(), checkDiscount, function (
+//   req,
+//   res,
+//   next
+// ) {
+//   res.json(res.discount);
+// });
 
-app.get("/getPayment", getPayment, function (req, res, next) {
-  res.json(res.payment);
-});
-
-app.get("/getPromo", getPromo, function (req, res, next) {
-  res.json(res.promo);
-});
-
-app.get("/getContacts", getContacts, function (req, res, next) {
-  res.json(res.contacts);
-});
-
-app.post("/checkDiscount", express.json(), checkDiscount, function (
-  req,
-  res,
-  next
-) {
-  res.json(res.discount);
-});
-
-app.post("/addOrder", express.json(), checkAvailability, addOrder, function (
-  req,
-  res,
-  next
-) {
-  if ((!res.order.status && !res.order.number) || res.order.status == "error") {
-    log.error(res.order);
-    res.status(500).json(res.order);
-  } else {
-    res.json(res.order);
-  }
-});
-
-app.listen(port, () => console.log(`Listening`));
+// app.post("/addOrder", express.json(), checkAvailability, addOrder, function (
+//   req,
+//   res,
+//   next
+// ) {
+//   if ((!res.order.status && !res.order.number) || res.order.status == "error") {
+//     log.error(res.order);
+//     res.status(500).json(res.order);
+//   } else {
+//     res.json(res.order);
+//   }
+// });

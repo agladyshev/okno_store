@@ -1,5 +1,4 @@
 <script>
-  export let segment;
   import { onMount } from "svelte";
   import Header from "../components/Header.svelte";
   import Promo from "../components/Promo.svelte";
@@ -22,7 +21,7 @@
     getPayment,
   } from "../api.js";
 
-  // import { deleteSoldVariants } from "../storeHelpers.js";
+  import { deleteSoldVariants } from "../storeHelpers.js";
   import { populateCollections } from "../helpers.js";
 
   onMount(async () => {
@@ -30,10 +29,11 @@
     getCollections().then((value) => {
       collectionsRaw.set(value);
     });
-    getProducts().then((value) => {
-      productsRaw.set(value);
-    });
-    // .then(() => deleteSoldVariants());
+    getProducts()
+      .then((value) => {
+        productsRaw.set(value);
+      })
+      .then(() => deleteSoldVariants());
     getDelivery().then((value) => {
       deliveryVariants.set(value);
     });

@@ -36,8 +36,8 @@
     paymentGateways.subscribe((values) => {
       paymentOptions = values;
     });
-    checkDiscount().then((res) => {
-      discountsEnabled = res;
+    checkDiscount({ code: "" }).then((res) => {
+      discountsEnabled = res.discount;
     });
   }
 

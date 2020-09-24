@@ -6,9 +6,9 @@ export const collectionsRaw = writable([]);
 
 export const collections = writable({});
 
-export const basket = writable({});
+export const basket = writable(new Map());
 
-export const orders = writable({});
+export const orders = writable(new Map());
 
 export const deliveryVariants = writable([]);
 export const paymentGateways = writable([]);

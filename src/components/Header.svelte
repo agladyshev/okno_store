@@ -1,8 +1,8 @@
 <script>
   import { basket } from "../stores.js";
-  // $: basketSize = Array.from($basket.values()).reduce((acc, { quantity }) => {
-  //   return acc + quantity;
-  // }, 0);
+  $: basketSize = Array.from($basket.values()).reduce((acc, { quantity }) => {
+    return acc + quantity;
+  }, 0);
   let basketSize = 0;
 </script>
 
@@ -100,7 +100,7 @@
     <h1>окно</h1>
     <span />
   </a>
-  <a href="#/checkout">
+  <a href="/checkout">
     <div class="counter">
       {#if basketSize}
         <div class="text">{basketSize}</div>
