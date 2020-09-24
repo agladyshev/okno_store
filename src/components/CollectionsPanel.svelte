@@ -1,5 +1,5 @@
 <script>
-  export let params;
+  export let collection = "";
   import CollectionIcon from "./CollectionIcon.svelte";
   import { collections } from "../stores.js";
 </script>
@@ -23,7 +23,7 @@
     {#each $collections.filter((c) => c.permalink != 'frontpage') as { id, title, products, permalink, image }}
       {#if products[0].images}
         <CollectionIcon
-          highlight={permalink == params.permalink}
+          highlight={permalink == collection}
           {title}
           {permalink}
           cover={image}

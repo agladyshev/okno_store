@@ -1,6 +1,5 @@
 <script>
-  // import Router from "svelte-spa-router";
-  // import routes from "..";
+  export let segment;
   import { onMount } from "svelte";
   import Header from "../components/Header.svelte";
   import Promo from "../components/Promo.svelte";
@@ -74,8 +73,7 @@
   <Header />
   <Promo />
   {#if $collectionsRaw.length && $productsRaw.length}
-    <!-- <Router {routes} /> -->
-    <main />
+    <slot />
   {/if}
   <Footer />
 </div>

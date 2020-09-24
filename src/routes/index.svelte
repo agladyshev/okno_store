@@ -1,5 +1,4 @@
 <script>
-  export let params = {};
   import { fade } from "svelte/transition";
   import CollectionsPanel from "../components/CollectionsPanel.svelte";
   import Collection from "../components/Collection.svelte";
@@ -15,6 +14,6 @@
 </style>
 
 <main transition:fade>
-  <CollectionsPanel {params} />
+  <CollectionsPanel />
   <Collection collection={collectionMain} />
 </main>

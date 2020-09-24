@@ -66,7 +66,7 @@
           <div>товар по ссылке уже кто-то купил</div>
         {/if} В пакете пока ничего нет
         <div class="button" />
-        <a href="#/">
+        <a href="/">
           <Button value="добавить" type="button" />
         </a>
       </div>

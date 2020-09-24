@@ -64,10 +64,7 @@
     }
   }
 
-  // On route change, reset counter
-  location.subscribe((l) => {
-    productCounter = 0;
-  });
+  $: productCounter = collection ? 0 : 0;
 
   $: {
     ({ products = [], sort_type } = collection);
@@ -81,13 +78,13 @@
     images = currentProduct.images;
   }
 
-  $: if (products.length) {
-    if ($basket.get(currentProduct.variants[0].id)) {
-      inBasket = $basket.get(currentProduct.variants[0].id).quantity;
-    } else {
-      inBasket = 0;
-    }
-  }
+  // $: if (products.length) {
+  //   if ($basket.get(currentProduct.variants[0].id)) {
+  //     inBasket = $basket.get(currentProduct.variants[0].id).quantity;
+  //   } else {
+  //     inBasket = 0;
+  //   }
+  // }
 </script>
 
 <style>
@@ -203,7 +200,7 @@
 {#if products.length}
   <div class="wrapper">
     <div class="counter">
-      <a href="#/" class:disabled={collection.permalink == 'frontpage'}>
+      <a href="/" class:disabled={collection.permalink == 'frontpage'}>
         <GoBackButton icon="icons/barr.png" />
       </a>
       <div>{productCounter + 1}/{collection.products.length}</div>

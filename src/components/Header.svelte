@@ -95,7 +95,7 @@
 </style>
 
 <header>
-  <a href="/#" class="logo">
+  <a href="/" class="logo">
     <img src="icons/search-grey.png" alt="лупа" />
     <h1>окно</h1>
     <span />
