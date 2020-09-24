@@ -44,7 +44,7 @@
     -webkit-animation-timing-function: steps(2, end); */
   }
 
-  @media screen and (orientation: landscape) {
+  /* @media screen and (orientation: landscape) {
     header .logo span {
       animation-name: blink;
       animation-duration: 2.5s;
@@ -59,7 +59,7 @@
         border-right: 0;
       }
     }
-  }
+  } */
 
   /* @-webkit-keyframes webkit-blink {
     0% {
