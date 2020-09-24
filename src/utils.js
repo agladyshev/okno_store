@@ -20,9 +20,9 @@ export const filterCollections = function (collection) {
 
 export const addProductsPositions = function (collection) {
   // Get ordered list of products' ids for each collection
-  return fetchCollectionOrder(collection.id).then((products) =>
-    Object.assign(collection, { products })
-  );
+  return fetchCollectionOrder(collection.id).then((products) => {
+    return Object.assign(collection, { products });
+  });
 };
 
 export const findMissingProducts = function (ids) {

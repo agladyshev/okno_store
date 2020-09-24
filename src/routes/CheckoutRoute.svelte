@@ -1,7 +1,7 @@
 <script>
   export let params = {};
-  import CheckoutForm from "../Components/CheckoutForm.svelte";
-  import Button from "../Components/Button.svelte";
+  import CheckoutForm from "../components/CheckoutForm.svelte";
+  import Button from "../components/Button.svelte";
   import { basket } from "../stores.js";
   import { addOne } from "../storeHelpers.js";
   import { fade } from "svelte/transition";

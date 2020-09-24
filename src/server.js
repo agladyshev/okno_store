@@ -4,6 +4,7 @@ import cors from "cors";
 import bunyan from "bunyan";
 import compression from "compression";
 import helmet from "helmet";
+import * as sapper from "@sapper/server";
 
 import {
   getCollections,
@@ -18,6 +19,8 @@ import {
 } from "./middleware.js";
 
 dotenv.config();
+const { NODE_ENV } = process.env;
+const dev = NODE_ENV === "development";
 const app = express();
 const port = process.env.PORT || 3000;
 const log = bunyan.createLogger({
@@ -49,7 +52,9 @@ app.use(function (err, req, res, next) {
   res.status(500).send("Something broke!");
 });
 
-app.use("/", express.static("public"));
+app.use("/", express.static("static"));
+
+app.use(sapper.middleware());
 
 app.get("/getCollections", getCollections, function (req, res, next) {
   res.json(res.collections);
@@ -89,7 +94,6 @@ app.post("/addOrder", express.json(), checkAvailability, addOrder, function (
   next
 ) {
   if ((!res.order.status && !res.order.number) || res.order.status == "error") {
-    console.log(res.order);
     log.error(res.order);
     res.status(500).json(res.order);
   } else {

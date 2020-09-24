@@ -6,7 +6,6 @@
     productsRaw,
     orders,
   } from "../stores.js";
-  import { push } from "svelte-spa-router";
   import Button from "./Button.svelte";
   import CheckoutList from "./CheckoutList.svelte";
   import { addOrder, checkDiscount } from "../api.js";
@@ -272,11 +271,11 @@
     align-items: center;
   }
 
-  form .payment {
-    /* flex-basis: 100%; */
+  /* form .payment {
+    flex-basis: 100%;
     display: flex;
     border-style: none;
-  }
+  } */
   form .discount {
     display: flex;
     font-size: 0.8rem;

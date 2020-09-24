@@ -12,7 +12,7 @@ import {
   filterProducts,
   filterCollections,
   findMissingProducts,
-} from "./helpers.js";
+} from "./utils.js";
 
 export const getCollections = function (req, res, next) {
   fetchCollections()

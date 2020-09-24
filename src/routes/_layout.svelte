@@ -1,11 +1,10 @@
 <script>
-  import Router from "svelte-spa-router";
-  import routes from "../routes";
+  // import Router from "svelte-spa-router";
+  // import routes from "..";
   import { onMount } from "svelte";
-  import Header from "./Header.svelte";
-  import Promo from "./Promo.svelte";
-  import Footer from "./Footer.svelte";
-  import Collection from "./Collection.svelte";
+  import Header from "../components/Header.svelte";
+  import Promo from "../components/Promo.svelte";
+  import Footer from "../components/Footer.svelte";
 
   import {
     collectionsRaw,
@@ -24,7 +23,7 @@
     getPayment,
   } from "../api.js";
 
-  import { deleteSoldVariants } from "../storeHelpers.js";
+  // import { deleteSoldVariants } from "../storeHelpers.js";
   import { populateCollections } from "../helpers.js";
 
   onMount(async () => {
@@ -32,11 +31,10 @@
     getCollections().then((value) => {
       collectionsRaw.set(value);
     });
-    getProducts()
-      .then((value) => {
-        productsRaw.set(value);
-      })
-      .then(() => deleteSoldVariants());
+    getProducts().then((value) => {
+      productsRaw.set(value);
+    });
+    // .then(() => deleteSoldVariants());
     getDelivery().then((value) => {
       deliveryVariants.set(value);
     });
@@ -45,15 +43,15 @@
     });
   });
 
-  localStorage.setItem("version", JSON.stringify(1.1));
+  // localStorage.setItem("version", JSON.stringify(1.1));
 
   $: {
     collections.set(populateCollections($collectionsRaw, $productsRaw));
   }
-  $: {
-    localStorage.setItem("basket", JSON.stringify(Array.from($basket)));
-    localStorage.setItem("orders", JSON.stringify(Array.from($orders)));
-  }
+  // $: {
+  //   localStorage.setItem("basket", JSON.stringify(Array.from($basket)));
+  //   localStorage.setItem("orders", JSON.stringify(Array.from($orders)));
+  // }
 </script>
 
 <style>
@@ -76,7 +74,8 @@
   <Header />
   <Promo />
   {#if $collectionsRaw.length && $productsRaw.length}
-    <Router {routes} />
+    <!-- <Router {routes} /> -->
+    <main />
   {/if}
   <Footer />
 </div>

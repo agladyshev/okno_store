@@ -1,5 +1,5 @@
 <script>
-  import { location } from "svelte-spa-router";
+  // import { location } from "svelte-spa-router";
   import { basket } from "../stores.js";
   import GoBackButton from "./GoBackButton.svelte";
   import BuyButton from "./BuyButton.svelte";

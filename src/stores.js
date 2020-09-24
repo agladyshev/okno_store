@@ -6,16 +6,9 @@ export const collectionsRaw = writable([]);
 
 export const collections = writable({});
 
-export const basket = writable(
-  new Number(JSON.parse(localStorage.getItem("version"))) >= 1.1
-    ? new Map(JSON.parse(localStorage.getItem("basket")))
-    : new Map()
-  // new Map(JSON.parse(localStorage.getItem("basket")))
-);
+export const basket = writable({});
 
-export const orders = writable(
-  new Map(JSON.parse(localStorage.getItem("orders")))
-);
+export const orders = writable({});
 
 export const deliveryVariants = writable([]);
 export const paymentGateways = writable([]);

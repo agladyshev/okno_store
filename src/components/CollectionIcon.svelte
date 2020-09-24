@@ -1,5 +1,5 @@
 <script>
-  import { link } from "svelte-spa-router";
+  // import { link } from "svelte-spa-router";
   export let title,
     images,
     permalink,
@@ -52,7 +52,7 @@
 </style>
 
 <li>
-  <a href="/collection/{permalink}" use:link>
+  <a href="/collection/{permalink}">
     <figure>
       <picture>
         {#if highlight}

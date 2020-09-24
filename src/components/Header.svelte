@@ -1,8 +1,9 @@
 <script>
-  import { basket } from "../stores";
-  $: basketSize = Array.from($basket.values()).reduce((acc, { quantity }) => {
-    return acc + quantity;
-  }, 0);
+  import { basket } from "../stores.js";
+  // $: basketSize = Array.from($basket.values()).reduce((acc, { quantity }) => {
+  //   return acc + quantity;
+  // }, 0);
+  let basketSize = 0;
 </script>
 
 <style>
