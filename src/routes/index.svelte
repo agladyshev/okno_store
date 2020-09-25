@@ -1,19 +1,7 @@
 <script>
-  import { fade } from "svelte/transition";
-  import CollectionsPanel from "../components/CollectionsPanel.svelte";
-  import Collection from "../components/Collection.svelte";
+  import * as sapper from "@sapper/app";
   import { collections } from "../stores.js";
-  let collectionMain = $collections.find((el) => el.permalink == "frontpage");
+  let productSlug = $collections.find((col) => col.permalink == "frontpage")
+    .products[0].permalink;
+  sapper.goto(`/collection/frontpage/${productSlug}`);
 </script>
-
-<style>
-  main {
-    grid-area: main;
-    scrollbar-width: none;
-  }
-</style>
-
-<main transition:fade>
-  <CollectionsPanel />
-  <Collection collection={collectionMain} />
-</main>
