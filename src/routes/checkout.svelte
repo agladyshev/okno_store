@@ -5,7 +5,6 @@
   import { basket } from "../stores.js";
   import { addOne } from "../storeHelpers.js";
   import { fade } from "svelte/transition";
-
   let directFailure = false;
 
   if (params.productId) {
@@ -55,7 +54,7 @@
 
 <main transition:fade>
   {#if directFailure}
-    <div class="message" in:fade>товар по ссылке уже кто-то купил</div>
+    <div class="message">товар по ссылке уже кто-то купил</div>
   {/if}
   <div class="wrapper">
     {#if products.length}

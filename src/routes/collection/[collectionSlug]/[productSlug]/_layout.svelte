@@ -8,6 +8,7 @@
 
 <script>
   export let collectionSlug = "frontpage";
+  import { fade } from "svelte/transition";
   import CollectionsPanel from "../../../../components/CollectionsPanel.svelte";
 </script>
 
@@ -18,7 +19,7 @@
   }
 </style>
 
-<main>
+<main transition:fade>
   <CollectionsPanel collection={collectionSlug} />
   <slot />
 </main>
