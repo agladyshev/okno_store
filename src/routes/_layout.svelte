@@ -40,17 +40,17 @@
     getPayment().then((value) => {
       paymentGateways.set(value);
     });
+    localStorage.setItem("version", JSON.stringify(1.1));
   });
-
-  // localStorage.setItem("version", JSON.stringify(1.1));
 
   $: {
     collections.set(populateCollections($collectionsRaw, $productsRaw));
   }
-  // $: {
-  //   localStorage.setItem("basket", JSON.stringify(Array.from($basket)));
-  //   localStorage.setItem("orders", JSON.stringify(Array.from($orders)));
-  // }
+
+  $: if (typeof window !== "undefined") {
+    localStorage.setItem("basket", JSON.stringify(Array.from($basket)));
+    localStorage.setItem("orders", JSON.stringify(Array.from($orders)));
+  }
 </script>
 
 <style>
