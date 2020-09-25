@@ -1,6 +1,8 @@
 <script context="module">
   export async function preload({ params }) {
-    return { ...params };
+    // return { ...params };
+    let { collectionSlug } = params;
+    return { collectionSlug };
   }
 </script>
 
