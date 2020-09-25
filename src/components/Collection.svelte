@@ -5,6 +5,9 @@
   import BuyButton from "./BuyButton.svelte";
   import ProductImage from "./ProductImage.svelte";
   export let collection = {};
+  export let productSlug;
+
+  let productMap = new Map(collection.products.map((i) => [i.permalink, i]));
 
   function getNext() {
     productCounter == products.length - 1
@@ -27,51 +30,15 @@
 
   // Special variable for forced rerender of image gallery
   let keys = new Uint32Array(1);
-  // setInterval(() => {
-  //   keys++;
-  // }, 1000);
-
-  function sort_by(sort_type) {
-    const sortLookUp = {
-      3: { field: "created_at", reverse: true, variants: false },
-      4: { field: "created_at", reverse: false, variants: false },
-      5: { field: "price", reverse: true, variants: true },
-      6: { field: "price", reverse: false, variants: true },
-      7: { field: "position", reverse: false, variants: false },
-    };
-    let { field = "position", reverse = "false", variants = "false" } =
-      sortLookUp[sort_type] || sortLookUp[7];
-    if (!reverse) {
-      products.sort((a, b) => {
-        if (variants) {
-          return a.variants[0][field] - b.variants[0][field];
-        } else if (field == "created_at") {
-          return new Date(a[field]) - new Date(b[field]);
-        } else {
-          return a[field] - b[field];
-        }
-      });
-    } else {
-      products.sort((a, b) => {
-        if (variants) {
-          return b.variants[0][field] - a.variants[0][field];
-        } else if (field == "created_at") {
-          return new Date(b[field]) - new Date(a[field]);
-        } else {
-          return a[field] - b[field];
-        }
-      });
-    }
-  }
 
   $: productCounter = collection ? 0 : 0;
 
   $: {
     ({ products = [], sort_type } = collection);
-    sort_by(sort_type);
   }
   $: if (products.length) {
-    currentProduct = products[productCounter];
+    // currentProduct = products[productCounter];
+    currentProduct = productSlug ? productMap.get(productSlug) : products[0];
   }
 
   $: if (currentProduct) {
@@ -212,9 +179,7 @@
       <div class="gallery-transition-wrapper">
         {#if products.length}
           {#each [...keys] as x (window.crypto.getRandomValues(keys)[0])}
-            <ProductImage
-              currentProduct={products[productCounter]}
-              {inBasket} />
+            <ProductImage {currentProduct} {inBasket} />
           {/each}
         {/if}
       </div>
