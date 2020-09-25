@@ -8,19 +8,10 @@
   export let productSlug;
 
   let productMap = new Map(collection.products.map((i) => [i.permalink, i]));
+  let baseURL = `collection/${collection.permalink}/`;
+  let previousURL, nextURL;
 
-  function getNext() {
-    productCounter == products.length - 1
-      ? (productCounter = 0)
-      : productCounter++;
-  }
-  function getPrevious() {
-    productCounter == 0
-      ? (productCounter = products.length - 1)
-      : productCounter--;
-  }
-
-  let products = [];
+  let products = collection.products || [];
   let images = [];
   let currentProduct = {};
   let productCounter = 0;
@@ -31,13 +22,7 @@
   // Special variable for forced rerender of image gallery
   let keys = new Uint32Array(1);
 
-  $: productCounter = collection ? 0 : 0;
-
-  $: {
-    ({ products = [], sort_type } = collection);
-  }
   $: if (products.length) {
-    // currentProduct = products[productCounter];
     currentProduct = productSlug ? productMap.get(productSlug) : products[0];
   }
 
@@ -45,6 +30,23 @@
     images = currentProduct.images;
   }
 
+  $: if (currentProduct) {
+    productCounter = collection.products.findIndex(
+      (c) => c.id === currentProduct.id
+    );
+  }
+
+  $: if (productCounter == products.length - 1) {
+    nextURL = baseURL + products[0].permalink;
+  } else {
+    nextURL = baseURL + products[productCounter + 1].permalink;
+  }
+
+  $: if (productCounter == 0) {
+    previousURL = baseURL + products[products.length - 1].permalink;
+  } else {
+    previousURL = baseURL + products[productCounter - 1].permalink;
+  }
   $: if (products.length) {
     if ($basket.get(currentProduct.variants[0].id)) {
       inBasket = $basket.get(currentProduct.variants[0].id).quantity;
@@ -100,18 +102,21 @@
     align-items: center;
     flex-basis: 100%;
   }
-  button.controls {
+  a.controls {
     min-width: 50px;
     margin: 0;
     padding: 0;
     border: none;
     background-color: var(--backgroundColor);
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
-  button.controls:focus {
+  a.controls:focus {
     outline: none;
     box-shadow: 0 0px 16px #0005;
   }
-  button.controls img {
+  a.controls img {
     opacity: 20%;
     max-height: 0.8rem;
   }
@@ -144,7 +149,7 @@
   }
 
   @media screen and (min-width: 600px) {
-    button.controls {
+    a.controls {
       flex-grow: 1;
     }
     .panel {
@@ -173,9 +178,9 @@
       <div>{productCounter + 1}/{collection.products.length}</div>
     </div>
     <div class="gallery">
-      <button class="controls" on:click={getPrevious}>
+      <a class="controls" href={previousURL}>
         <img src="/icons/larr.png" alt="предыдущий товар" />
-      </button>
+      </a>
       <div class="gallery-transition-wrapper">
         {#if products.length}
           {#each [...keys] as x (window.crypto.getRandomValues(keys)[0])}
@@ -183,9 +188,9 @@
           {/each}
         {/if}
       </div>
-      <button class="controls" on:click={getNext}>
+      <a class="controls" href={nextURL}>
         <img class="" src="icons/rarr.png" alt="следующий товар" />
-      </button>
+      </a>
     </div>
     <div class="panel">
       <div class="info" aria-live="assertive">
