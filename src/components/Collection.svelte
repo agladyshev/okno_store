@@ -4,8 +4,15 @@
   import GoBackButton from "./GoBackButton.svelte";
   import BuyButton from "./BuyButton.svelte";
   import ProductImage from "./ProductImage.svelte";
+
   export let collection = {};
   export let productSlug;
+
+  import * as sapper from "@sapper/app";
+
+  let prefetchImage = function (url) {
+    sapper.prefetch(url).then((meta) => console.log(meta));
+  };
 
   let productMap = new Map(collection.products.map((i) => [i.permalink, i]));
   let baseURL = `collection/${collection.permalink}/`;
@@ -47,6 +54,11 @@
   } else {
     previousURL = baseURL + products[productCounter - 1].permalink;
   }
+
+  $: if (nextURL) {
+    prefetchImage(nextURL);
+  }
+
   $: if (products.length) {
     if ($basket.get(currentProduct.variants[0].id)) {
       inBasket = $basket.get(currentProduct.variants[0].id).quantity;
