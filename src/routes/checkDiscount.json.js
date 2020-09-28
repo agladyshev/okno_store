@@ -1,9 +1,15 @@
 import { fetchDiscounts } from "../fetchers.js";
+import inSalesCache from "../cache.js";
 
 export async function post(req, res, next) {
   let { code = "", orderSum = 0 } = req.body;
+
   res.setHeader("Content-Type", "application/json");
   if (!code) {
+    let cached = inSalesCache.get("discount");
+    if (cached) {
+      return res.end(JSON.stringify(cached));
+    }
     return fetchDiscounts()
       .then((discounts) => {
         // res.discount = false;
@@ -15,11 +21,26 @@ export async function post(req, res, next) {
               ((Date.now() - Date.parse(discount.expired_at)) / 3600000 <= 24 ||
                 !discount.expired_at)
             ) {
+              inSalesCache.set(
+                "discount",
+                { discount: true },
+                process.env.CACHE_DISCOUNT || 300
+              );
               res.end(JSON.stringify({ discount: true }));
             }
           });
+          inSalesCache.set(
+            "discount",
+            { discount: false },
+            process.env.CACHE_DISCOUNT || 300
+          );
           res.end(JSON.stringify({ discount: false }));
         } else {
+          inSalesCache.set(
+            "discount",
+            { discount: false },
+            process.env.CACHE_DISCOUNT || 300
+          );
           res.end(JSON.stringify({ discount: false }));
         }
       })

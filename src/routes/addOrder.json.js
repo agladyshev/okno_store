@@ -4,6 +4,8 @@ import { fetchDelivery, fetchPayment, postOrder } from "../fetchers.js";
 
 import { findMissingProducts } from "../utils.js";
 
+import inSalesCache from "../cache.js";
+
 // app.post("/addOrder", express.json(), checkAvailability, addOrder, function (
 //   req,
 //   res,
@@ -18,6 +20,8 @@ import { findMissingProducts } from "../utils.js";
 // });
 
 export async function post(req, res, next) {
+  inSalesCache.del("collections");
+  inSalesCache.del("products");
   res.setHeader("Content-Type", "application/json");
   let {
     products,
