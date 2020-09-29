@@ -5,66 +5,20 @@
   import BuyButton from "./BuyButton.svelte";
   import ProductImage from "./ProductImage.svelte";
 
-  export let collection = {};
-  export let productSlug;
-
-  import * as sapper from "@sapper/app";
-
-  let prefetchImage = function (url) {
-    sapper.prefetch(url).then((meta) => console.log(meta));
-  };
-
-  let productMap = new Map(collection.products.map((i) => [i.permalink, i]));
-  let baseURL = `collection/${collection.permalink}/`;
-  let previousURL, nextURL;
-
-  let products = collection.products || [];
-  let images = [];
-  let currentProduct = {};
-  let productCounter = 0;
+  export let currentProduct = {};
+  export let productCounter;
+  export let collectionSlug;
+  export let collectionLength;
+  export let previousURL, nextURL;
   let inBasket;
-  let original_url;
-  let sort_type;
 
   // Special variable for forced rerender of image gallery
   let keys = new Uint32Array(1);
 
-  $: if (products.length) {
-    currentProduct = productSlug ? productMap.get(productSlug) : products[0];
-  }
-
-  $: if (currentProduct) {
-    images = currentProduct.images;
-  }
-
-  $: if (currentProduct) {
-    productCounter = collection.products.findIndex(
-      (c) => c.id === currentProduct.id
-    );
-  }
-
-  $: if (productCounter == products.length - 1) {
-    nextURL = baseURL + products[0].permalink;
+  $: if ($basket.get(currentProduct.variants[0].id)) {
+    inBasket = $basket.get(currentProduct.variants[0].id).quantity;
   } else {
-    nextURL = baseURL + products[productCounter + 1].permalink;
-  }
-
-  $: if (productCounter == 0) {
-    previousURL = baseURL + products[products.length - 1].permalink;
-  } else {
-    previousURL = baseURL + products[productCounter - 1].permalink;
-  }
-
-  $: if (nextURL) {
-    prefetchImage(nextURL);
-  }
-
-  $: if (products.length) {
-    if ($basket.get(currentProduct.variants[0].id)) {
-      inBasket = $basket.get(currentProduct.variants[0].id).quantity;
-    } else {
-      inBasket = 0;
-    }
+    inBasket = 0;
   }
 </script>
 
@@ -181,20 +135,20 @@
   }
 </style>
 
-{#if products.length}
+{#if currentProduct}
   <div class="wrapper">
     <div class="counter">
-      <a href="/" class:disabled={collection.permalink == 'frontpage'}>
+      <a href="/" class:disabled={collectionSlug == 'frontpage'}>
         <GoBackButton icon="icons/barr.png" />
       </a>
-      <div>{productCounter + 1}/{collection.products.length}</div>
+      <div>{productCounter + 1}/{collectionLength}</div>
     </div>
     <div class="gallery">
       <a class="controls" href={previousURL}>
         <img src="/icons/larr.png" alt="предыдущий товар" />
       </a>
       <div class="gallery-transition-wrapper">
-        {#if products.length}
+        {#if currentProduct}
           {#each [...keys] as x (window.crypto.getRandomValues(keys)[0])}
             <ProductImage {currentProduct} {inBasket} />
           {/each}
