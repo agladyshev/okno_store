@@ -5,6 +5,7 @@
     permalink,
     highlight,
     cover = {};
+  let src = cover.original_url || images.medium_url;
 </script>
 
 <style>
@@ -54,14 +55,7 @@
 <li>
   <a href="/collection/{permalink}">
     <figure>
-      <picture>
-        {#if highlight}
-          <img
-            src={cover.original_url || images.medium_url}
-            alt={title}
-            class="highlight" />
-        {:else}<img src={cover.original_url || images.medium_url} alt="" />{/if}
-      </picture>
+      <picture> <img {src} alt={title} class:highlight /> </picture>
       <figcaption>{title.toLowerCase()}</figcaption>
     </figure>
   </a>
