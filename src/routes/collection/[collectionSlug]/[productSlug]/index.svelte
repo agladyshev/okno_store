@@ -11,9 +11,12 @@
   import { collections } from "../../../../stores.js";
   import * as sapper from "@sapper/app";
 
-  let prefetchImage = function (url) {
-    sapper.prefetch(url);
-  };
+  // let prefetchImage = function (product) {
+  //   console.log(nextProduct.images[0].original_url);
+  //   let img = new Image();
+  //   img.src = nextProduct.images[0].original_url;
+  // };
+
   let collection =
     $collections.find((col) => col.permalink == collectionSlug) || {};
 
@@ -21,6 +24,7 @@
   let baseURL = `collection/${collection.permalink}/`;
   let previousURL, nextURL;
   let currentProduct;
+  let previousProduct, nextProduct;
 
   let productCounter = 0;
 
@@ -37,20 +41,23 @@
   }
 
   $: if (productCounter == products.length - 1) {
-    nextURL = baseURL + products[0].permalink;
+    nextProduct = products[0];
   } else {
-    nextURL = baseURL + products[productCounter + 1].permalink;
+    nextProduct = products[productCounter + 1];
   }
 
   $: if (productCounter == 0) {
-    previousURL = baseURL + products[products.length - 1].permalink;
+    previousProduct = products[products.length - 1];
   } else {
-    previousURL = baseURL + products[productCounter - 1].permalink;
+    previousProduct = products[productCounter - 1];
   }
 
-  $: if (nextURL) {
-    prefetchImage(nextURL);
-  }
+  $: nextURL = baseURL + nextProduct.permalink;
+  $: previousURL = baseURL + previousProduct.permalink;
+
+  // $: if (nextProduct) {
+  //   prefetchImage(nextProduct);
+  // }
 </script>
 
 <Product
