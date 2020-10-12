@@ -12,6 +12,7 @@
   import { productById } from "../storeHelpers.js";
   import { fade } from "svelte/transition";
   let products, productsMap, deliveryOptions, paymentOptions, discountsEnabled;
+  import { goto } from "@sapper/app";
 
   let name = "",
     phone = "",
@@ -184,7 +185,7 @@
         if (result.number) {
           handleOrderSuccess(result.number);
           alert(`Заказ №${result.number} оформлен. Скоро мы свяжемся с тобой`);
-          return push("/");
+          return goto("/");
         } else {
           console.log(result);
         }
